@@ -1,0 +1,177 @@
+import type { PropertyContent } from "@/src/content/property";
+import { FAQSection } from "@/src/components/FAQSection";
+import { GallerySection } from "@/src/components/GallerySection";
+import { Header } from "@/src/components/Header";
+import {
+  CropsSection,
+  FinalCTASection,
+  Footer,
+  HeroSection,
+  LocationSection,
+  NegotiationSection,
+  OverviewSection,
+  OwnerContactSection,
+  ProductivePotentialSection,
+  PropertyDetailsSection,
+  SupportHouseSection,
+} from "@/src/components/StaticSections";
+import { VideoSection } from "@/src/components/VideoSection";
+import { WhatsAppButton } from "@/src/components/WhatsAppButton";
+
+interface PropertyLandingPageProps {
+  content: PropertyContent;
+  whatsappHref: string | null;
+}
+
+export function PropertyLandingPage({
+  content,
+  whatsappHref,
+}: PropertyLandingPageProps) {
+  const statusContent = content.statusContent[content.status];
+  const visibleCrops = content.crops.items.some((item) => item.visible);
+  const visiblePotential = content.productivePotential.items.some((item) => item.visible);
+  const visibleGallery = content.gallery.items.some((item) => item.visible);
+  const visibleVideos = content.videos.items.some((item) => item.visible);
+  const visibleFaq = content.faq.items.some((item) => item.visible);
+  const visibleSectionIds = new Set<string>();
+
+  if (content.sections.overview) visibleSectionIds.add(content.overview.id);
+  if (content.sections.crops && visibleCrops) visibleSectionIds.add(content.crops.id);
+  if (content.sections.productivePotential && visiblePotential) {
+    visibleSectionIds.add(content.productivePotential.id);
+  }
+  if (content.sections.propertyDetails) visibleSectionIds.add(content.propertyDetails.id);
+  if (content.sections.gallery && visibleGallery) visibleSectionIds.add(content.gallery.id);
+  if (content.sections.videos && visibleVideos) visibleSectionIds.add(content.videos.id);
+  if (content.sections.supportHouse) visibleSectionIds.add(content.supportHouse.id);
+  if (content.sections.location) visibleSectionIds.add(content.location.id);
+  if (content.sections.pricing || content.sections.documentation) {
+    visibleSectionIds.add(content.negotiation.id);
+  }
+  if (content.sections.contact) visibleSectionIds.add(content.contact.id);
+  if (content.sections.faq && visibleFaq) visibleSectionIds.add(content.faq.id);
+  if (content.sections.finalCta) visibleSectionIds.add(content.finalCta.id);
+
+  const headerContent = {
+    ...content.header,
+    navigation: content.header.navigation.filter((item) =>
+      visibleSectionIds.has(item.href.replace(/^#/, "")),
+    ),
+  };
+
+  const contactButton = (label: string, variant: "primary" | "secondary" = "primary") => (
+    <WhatsAppButton
+      href={whatsappHref}
+      label={label}
+      status={content.status}
+      statusContent={statusContent}
+      unavailableLabel={content.contact.unavailableButtonLabel}
+      variant={variant}
+    />
+  );
+
+  return (
+    <div id="inicio">
+      <a className="skip-link" href="#conteudo-principal">
+        Ir para o conteúdo principal
+      </a>
+      <Header
+        propertyName={content.propertyName}
+        content={headerContent}
+        status={content.status}
+        statusContent={statusContent}
+        whatsappHref={whatsappHref}
+        unavailableContactLabel={content.contact.unavailableButtonLabel}
+      />
+
+      <main id="conteudo-principal">
+        <HeroSection
+          content={content.hero}
+          status={content.status}
+          statusContent={statusContent}
+          contactAction={contactButton(content.hero.primaryActionLabel)}
+        />
+
+        {content.sections.overview ? (
+          <OverviewSection
+            overview={content.overview}
+            highlights={content.highlights}
+            showHighlights={content.sections.highlights}
+          />
+        ) : null}
+
+        {content.sections.crops && visibleCrops ? (
+          <CropsSection content={content.crops} />
+        ) : null}
+
+        {content.sections.productivePotential && visiblePotential ? (
+          <ProductivePotentialSection content={content.productivePotential} />
+        ) : null}
+
+        {content.sections.propertyDetails ? (
+          <PropertyDetailsSection content={content.propertyDetails} area={content.area} />
+        ) : null}
+
+        {content.sections.gallery && visibleGallery ? (
+          <GallerySection content={content.gallery} />
+        ) : null}
+
+        {content.sections.videos && visibleVideos ? (
+          <VideoSection content={content.videos} />
+        ) : null}
+
+        {content.sections.supportHouse ? (
+          <SupportHouseSection content={content.supportHouse} />
+        ) : null}
+
+        {content.sections.location ? (
+          <LocationSection content={content.location} />
+        ) : null}
+
+        {content.sections.pricing || content.sections.documentation ? (
+          <NegotiationSection
+            content={content.negotiation}
+            showPricing={content.sections.pricing}
+            showDocumentation={content.sections.documentation}
+          />
+        ) : null}
+
+        {content.sections.contact ? (
+          <OwnerContactSection
+            content={content.contact}
+            statusContent={statusContent}
+            contactAction={contactButton(content.contact.buttonLabel)}
+          />
+        ) : null}
+
+        {content.sections.faq && visibleFaq ? <FAQSection content={content.faq} /> : null}
+
+        {content.sections.finalCta ? (
+          <FinalCTASection
+            content={content.finalCta}
+            statusContent={statusContent}
+            contactAction={contactButton(content.finalCta.buttonLabel, "secondary")}
+          />
+        ) : null}
+      </main>
+
+      <Footer
+        propertyName={content.propertyName}
+        content={content.footer}
+        location={content.location}
+        whatsappHref={whatsappHref}
+        status={content.status}
+        contactUnavailableLabel={content.contact.unavailableButtonLabel}
+      />
+
+      <WhatsAppButton
+        href={whatsappHref}
+        label={content.contact.floatingButtonLabel}
+        status={content.status}
+        statusContent={statusContent}
+        unavailableLabel={content.contact.unavailableButtonLabel}
+        variant="floating"
+      />
+    </div>
+  );
+}
