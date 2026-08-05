@@ -84,7 +84,7 @@ export function FAQSection({
                   <button
                     aria-controls={panelId}
                     aria-expanded={isOpen}
-                    className="flex min-h-16 w-full items-center justify-between gap-5 px-5 py-5 text-left text-base font-semibold leading-6 text-[#21372a] outline-none motion-safe:transition hover:bg-[#f8f6f0] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#b8793e] sm:px-6 sm:text-lg"
+                    className="flex min-h-16 w-full items-center justify-between gap-5 px-5 py-5 text-left text-base font-semibold leading-6 text-[#0d293c] outline-none motion-safe:transition hover:bg-[#f8f6f0] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#f47f20] sm:px-6 sm:text-lg"
                     id={buttonId}
                     onClick={() =>
                       setOpenItemId((currentItemId) =>
@@ -103,7 +103,7 @@ export function FAQSection({
                     <ChevronDown
                       aria-hidden="true"
                       className={[
-                        "size-5 shrink-0 text-[#8f5d30] motion-safe:transition-transform",
+                        "size-5 shrink-0 text-[#e66f12] motion-safe:transition-transform",
                         isOpen ? "rotate-180" : "",
                       ]
                         .filter(Boolean)

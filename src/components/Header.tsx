@@ -132,10 +132,10 @@ export function Header({
   }
 
   return (
-    <header className="sticky top-0 z-40 border-b border-[#173f2b]/10 bg-[#f5f1e8]/95 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-white/10 bg-[#0d293c]/97 text-white backdrop-blur">
       <div className="mx-auto flex min-h-18 max-w-7xl items-center gap-4 px-4 sm:px-6 lg:px-8">
         <div className="flex min-w-0 flex-1 items-center gap-3 xl:flex-none">
-          <span className="truncate text-base font-semibold tracking-[-0.01em] text-[#173f2b] sm:text-lg">
+          <span className="truncate text-base font-semibold tracking-[-0.01em] text-white sm:text-lg">
             {propertyName}
           </span>
           {status !== "available" ? (
@@ -154,7 +154,7 @@ export function Header({
         >
           {content.navigation.map((item) => (
             <a
-              className="rounded-sm text-sm font-medium text-[#3f473f] outline-none motion-safe:transition hover:text-[#173f2b] focus-visible:ring-2 focus-visible:ring-[#b8793e] focus-visible:ring-offset-2"
+              className="rounded-sm text-sm font-medium text-white/75 outline-none motion-safe:transition hover:text-white focus-visible:ring-2 focus-visible:ring-[#ff9a4d] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d293c]"
               href={item.href}
               key={item.href}
             >
@@ -180,7 +180,7 @@ export function Header({
           aria-label={
             isMenuOpen ? content.closeMenuLabel : content.openMenuLabel
           }
-          className="inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-[#173f2b]/15 bg-white text-[#173f2b] outline-none motion-safe:transition hover:bg-[#edf0e9] focus-visible:ring-2 focus-visible:ring-[#b8793e] focus-visible:ring-offset-2 xl:hidden"
+          className="inline-flex size-11 shrink-0 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white outline-none motion-safe:transition hover:bg-white/15 focus-visible:ring-2 focus-visible:ring-[#ff9a4d] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d293c] xl:hidden"
           onClick={() => setIsMenuOpen((current) => !current)}
           onKeyDown={handleMenuButtonKeyDown}
           ref={menuButtonRef}
@@ -194,7 +194,7 @@ export function Header({
         </button>
 
         <div
-          className="absolute inset-x-0 top-full border-b border-[#173f2b]/10 bg-[#f5f1e8] px-4 py-5 shadow-[0_18px_38px_rgba(23,63,43,0.12)] sm:px-6 xl:hidden"
+          className="absolute inset-x-0 top-full border-b border-white/10 bg-[#0d293c] px-4 py-5 shadow-[0_18px_38px_rgba(13,41,60,0.28)] sm:px-6 xl:hidden"
           hidden={!isMenuOpen}
           id={menuId}
           ref={mobileMenuRef}
@@ -205,7 +205,7 @@ export function Header({
           >
             {content.navigation.map((item) => (
               <a
-                className="rounded-xl px-4 py-3 text-base font-semibold text-[#25362c] outline-none motion-safe:transition hover:bg-white focus-visible:ring-2 focus-visible:ring-[#b8793e]"
+                className="rounded-xl px-4 py-3 text-base font-semibold text-white/85 outline-none motion-safe:transition hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-[#ff9a4d]"
                 href={item.href}
                 key={item.href}
                 onClick={closeMenu}
@@ -214,7 +214,7 @@ export function Header({
               </a>
             ))}
           </nav>
-          <div className="mx-auto mt-4 max-w-7xl border-t border-[#173f2b]/10 pt-4">
+          <div className="mx-auto mt-4 max-w-7xl border-t border-white/10 pt-4">
             <WhatsAppButton
               className="w-full"
               href={whatsappHref}

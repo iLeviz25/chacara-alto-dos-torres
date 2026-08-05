@@ -7,6 +7,7 @@ import {
   FinalCTASection,
   Footer,
   HeroSection,
+  InfrastructureSection,
   LocationSection,
   NegotiationSection,
   OverviewSection,
@@ -30,6 +31,7 @@ export function PropertyLandingPage({
   const statusContent = content.statusContent[content.status];
   const visibleCrops = content.crops.items.some((item) => item.visible);
   const visiblePotential = content.productivePotential.items.some((item) => item.visible);
+  const visibleInfrastructure = content.infrastructure.items.some((item) => item.visible);
   const visibleGallery = content.gallery.items.some((item) => item.visible);
   const visibleVideos = content.videos.items.some((item) => item.visible);
   const visibleFaq = content.faq.items.some((item) => item.visible);
@@ -39,6 +41,9 @@ export function PropertyLandingPage({
   if (content.sections.crops && visibleCrops) visibleSectionIds.add(content.crops.id);
   if (content.sections.productivePotential && visiblePotential) {
     visibleSectionIds.add(content.productivePotential.id);
+  }
+  if (content.sections.infrastructure && visibleInfrastructure) {
+    visibleSectionIds.add(content.infrastructure.id);
   }
   if (content.sections.propertyDetails) visibleSectionIds.add(content.propertyDetails.id);
   if (content.sections.gallery && visibleGallery) visibleSectionIds.add(content.gallery.id);
@@ -104,6 +109,14 @@ export function PropertyLandingPage({
           <CropsSection content={content.crops} />
         ) : null}
 
+        {content.sections.supportHouse ? (
+          <SupportHouseSection content={content.supportHouse} />
+        ) : null}
+
+        {content.sections.infrastructure && visibleInfrastructure ? (
+          <InfrastructureSection content={content.infrastructure} />
+        ) : null}
+
         {content.sections.productivePotential && visiblePotential ? (
           <ProductivePotentialSection content={content.productivePotential} />
         ) : null}
@@ -118,10 +131,6 @@ export function PropertyLandingPage({
 
         {content.sections.videos && visibleVideos ? (
           <VideoSection content={content.videos} />
-        ) : null}
-
-        {content.sections.supportHouse ? (
-          <SupportHouseSection content={content.supportHouse} />
         ) : null}
 
         {content.sections.location ? (
@@ -156,6 +165,7 @@ export function PropertyLandingPage({
       </main>
 
       <Footer
+        brandLogo={content.brand.logo}
         propertyName={content.propertyName}
         content={content.footer}
         location={content.location}

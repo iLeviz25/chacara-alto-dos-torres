@@ -1,300 +1,188 @@
-# Guia de edição do anúncio
+# Guia de edição — Chácara Alto dos Torres
 
-Este guia explica como atualizar o anúncio sem precisar mexer nos componentes do site.
+Este guia explica como atualizar o anúncio sem alterar os componentes do site.
 
-Quase todas as informações ficam em um único arquivo:
+Quase todo o conteúdo fica em:
 
 `src/content/property.ts`
 
-As fotos ficam nesta pasta:
+As imagens ficam em:
 
-`public/images/property/`
+`public/images/`
 
 ## Antes de editar
 
-1. Abra o arquivo `src/content/property.ts`.
-2. Altere somente o conteúdo necessário. Textos ficam entre aspas.
-3. Não apague vírgulas, chaves `{ }` ou colchetes `[ ]` sem seguir um exemplo já existente no arquivo.
-4. Para opções de ligar e desligar, use `true` ou `false`, sem aspas:
-   - `true` significa exibir.
-   - `false` significa ocultar.
-5. Salve o arquivo depois da alteração.
+1. Faça uma alteração por vez.
+2. Textos devem permanecer entre aspas.
+3. Use `true` para exibir e `false` para ocultar.
+4. Use `null` ou uma string vazia nos dados ainda não confirmados.
+5. Não apague chaves, vírgulas ou colchetes sem seguir um item existente.
+6. Não publique medidas, preço, documentos ou condições de acesso sem confirmação.
 
-Se estiver em dúvida, faça uma alteração por vez. Assim, fica mais fácil localizar e corrigir qualquer erro.
+## Nome, textos e seções
 
-## Alterar o título e os textos
+O nome oficial está em `propertyName`.
 
-No arquivo `src/content/property.ts`, procure por `hero`.
+Os textos da primeira tela ficam em `hero`. A visão geral fica em `overview`, a casa em `supportHouse`, a infraestrutura em `infrastructure`, os cultivos em `crops` e as perguntas em `faq`.
 
-- `hero.eyebrow`: pequeno texto que aparece acima do título.
-- `hero.title`: título principal da primeira tela.
-- `hero.subtitle`: subtítulo logo abaixo do título.
-- `hero.detailsNotice`: aviso discreto sobre informações que ainda estão sendo levantadas.
+O bloco `sections` permite ligar ou desligar cada parte da página. A seção de vídeos também fica oculta automaticamente quando não há nenhum vídeo visível.
 
-Os resumos gerais ficam em `shortDescription` e `fullDescription`, perto do início do conteúdo.
+## Logo
 
-Os outros textos estão organizados pelo nome de cada parte do site. Por exemplo, os textos da visão geral ficam em `overview`, os textos da construção de apoio ficam em `supportHouse` e as perguntas frequentes ficam em `faq`.
+O logo oficial está em:
 
-Para mudar um texto, altere apenas o conteúdo entre aspas. Exemplo:
+`public/images/brand/logo-chacara-alto-dos-torres.png`
 
-```ts
-title: "Novo título da propriedade",
-```
+O caminho e o texto alternativo ficam em `brand.logo`. Preserve a proporção quadrada e não corte, redesenhe ou comprima o logo.
 
-Não coloque informações ainda não confirmadas. Evite afirmar metragem, produtividade, documentação, renda ou condições de acesso sem verificar os dados.
+## Área
 
-## Informar cidade e estado
-
-Procure por `location` e preencha:
+A área confirmada está cadastrada assim:
 
 ```ts
-city: "Nome da cidade",
-state: "UF",
-```
-
-Também é possível preencher `region` e `community` quando essas informações forem confirmadas.
-
-Por segurança, não publique o endereço exato nem coordenadas precisas. A localização completa pode ser informada diretamente aos interessados.
-
-## Informar a área
-
-Procure por `area` e altere:
-
-- `total`: área total da propriedade.
-- `unit`: unidade usada, como `hectares` ou `alqueires`, dentro de cada item.
-- `planted`: área plantada, quando confirmada.
-- `free`: área livre, quando confirmada.
-
-Cada medida usa este formato:
-
-```ts
-total: {
-  label: "Área total",
-  value: "12",
-  unit: "hectares",
-  showWhenUnknown: true,
+area: {
+  total: {
+    value: "6",
+    unit: "tarefas",
+  },
 },
+areaEquivalent: "",
 ```
 
-Use o exemplo apenas como formato: substitua `12` pela medida realmente confirmada. Não estime a metragem. Enquanto o dado não estiver confirmado, mantenha `value: null`.
+Não converta as 6 tarefas. Quando uma equivalência oficial for confirmada, preencha apenas `areaEquivalent`. Enquanto estiver vazio, ela não será exibida.
 
-## Informar ou ocultar o valor
+## WhatsApp
 
-Procure por `negotiation` e, dentro dele, por `price`.
-
-Para mostrar um preço confirmado:
-
-```ts
-amount: 850000,
-showPrice: true,
-showAsOnRequest: false,
-```
-
-No exemplo acima, `850000` corresponde a R$ 850.000,00. Digite apenas os números, sem `R$`, pontos ou vírgulas.
-
-Para exibir “Valor sob consulta” sem publicar o preço:
-
-```ts
-showPrice: false,
-showAsOnRequest: true,
-```
-
-Para ocultar toda a parte de valor e negociação, deixe `pricing: false` dentro de `sections`.
-
-Só informe um valor depois que ele estiver confirmado pelo proprietário.
-
-## Exibir ou ocultar seções
-
-Procure por `sections`. Cada linha controla uma parte do site. Exemplo:
-
-```ts
-sections: {
-  gallery: true,
-  videos: false,
-  documentation: false,
-  pricing: false,
-},
-```
-
-Troque `true` por `false` para ocultar uma seção. Troque `false` por `true` para exibi-la.
-
-Quando uma lista, como a galeria ou os vídeos, não tiver nenhum item visível, o site oculta essa seção automaticamente, mesmo que o controle esteja como `true`. A seção oculta não deixa espaço vazio na página.
-
-## Alterar o número do WhatsApp
-
-Procure por `contact`, depois por `whatsapp`, e altere:
+O contato fica em `contact.whatsapp`:
 
 ```ts
 countryCode: "55",
-number: "11999999999",
+number: "74988700524",
+message: "Olá! Vi o site da Chácara Alto dos Torres e gostaria de receber mais informações.",
 ```
 
-- `countryCode`: código do país. Para o Brasil, use `55`.
-- `number`: DDD e número do celular.
+Use somente algarismos no código do país e no número. O endereço produzido deve começar com:
 
-Digite somente números, sem `+`, espaços, parênteses ou traços. Confira o número antes de publicar e teste pelo menos um botão do WhatsApp no celular.
+`https://wa.me/5574988700524`
 
-## Modificar a mensagem automática do WhatsApp
+Teste o botão em um celular depois de qualquer alteração.
 
-No mesmo bloco `contact.whatsapp`, procure por `message`:
+## Pomar e cultivos
 
-```ts
-message: "Olá! Vi o site da propriedade rural e gostaria de receber mais informações.",
-```
+Os três destaques grandes ficam em `crops.items`. Quantidade, estágio de produção e colheita devem continuar como `null` até serem confirmados.
 
-Escreva a mensagem normalmente, com acentos e pontuação. O site prepara o texto para o link automaticamente; não é necessário substituir espaços por códigos como `%20`.
+A lista compacta de frutíferas e culturas fica em `crops.cultures`. Para incluir um item, adicione um novo texto à lista. Para removê-lo, apague somente a linha correspondente e ajuste a vírgula quando necessário.
 
-## Substituir a foto principal
+## Casa e espaços de convivência
 
-A forma mais simples é manter o nome `hero.webp`:
+Os textos e destaques ficam em `supportHouse`. Os dados futuros da casa estão em `supportHouse.details`:
 
-1. Prepare a nova foto no formato WebP.
-2. Nomeie o arquivo como `hero.webp`.
-3. Coloque-o em `public/images/property/`.
-4. Confirme a substituição do arquivo antigo.
-5. No bloco `hero.mainImage`, atualize o texto `alt` para descrever a foto real.
-6. Altere `isPlaceholder: true` para `isPlaceholder: false`.
+- `rooms`: total de cômodos.
+- `bedrooms`: quantidade de quartos.
+- `bathrooms`: quantidade de banheiros.
+- `kitchen`: informações da cozinha.
+- `livingRoom`: informações da sala.
+- `condition`: estado de conservação.
+- `furnitureIncluded`: mobília incluída.
+- `needsRenovation`: necessidade de reforma.
 
-Se preferir outro nome, copie a imagem para a mesma pasta e altere `src` em `hero.mainImage`. O caminho deve começar com `/images/property/`. Exemplo:
+Não deduza quartos, banheiros, conservação, mobília ou reforma a partir de fotos.
 
-```ts
-src: "/images/property/vista-principal.webp",
-alt: "Vista geral da propriedade e das áreas cultivadas",
-```
+## Água e infraestrutura
 
-Use uma foto horizontal, nítida e verdadeira da propriedade. Não use imagens de banco de imagens nem fotos de outras propriedades.
+Os cards ficam em `infrastructure.items`. Altere capacidades ou descrições somente quando houver informação confirmada. Não descreva a água como potável e não inclua poço, nascente, rio ou irrigação sem comprovação.
 
-## Adicionar fotos à galeria
+## Localização
 
-1. Coloque a nova foto em `public/images/property/`.
-2. Use um nome simples e sem acentos, como `cafe-02.webp`.
-3. No arquivo `src/content/property.ts`, procure por `gallery.items`.
-4. Copie um item existente, cole-o dentro da lista e altere seus dados.
+A informação confirmada fica em `location.approximateLocation`.
 
-Exemplo:
+Os campos de cidade, estado, comunidade, distâncias, estrada, coordenadas e mapa permanecem preparados no mesmo bloco. Campos vazios não aparecem na página.
+
+Por segurança, não publique o endereço exato. Mantenha `showExactAddress: false`.
+
+## Galeria e fotografias reais
+
+As fotos da propriedade devem ser copiadas para `public/images/property/`, preferencialmente em WebP.
+
+Cada foto é cadastrada em `gallery.items` com:
 
 ```ts
 {
-  id: "cafe-02",
-  src: "/images/property/cafe-02.webp",
-  alt: "Fileiras da plantação de café vistas de perto",
-  caption: "Plantação de café",
+  id: "varanda-01",
+  src: "/images/property/varanda-01.webp",
+  alt: "Varanda em L da Chácara Alto dos Torres",
+  caption: "Varanda em L",
   isPlaceholder: false,
-  category: "cafe",
-  order: 4,
+  category: "veranda",
+  order: 2,
   visible: true,
 },
 ```
 
-O texto `alt` deve explicar brevemente o que aparece na imagem. Em `category`, use uma categoria já existente na galeria, como vista geral, café, abacaxi, outras culturas, construção de apoio, água ou acesso. Copiar um item da mesma categoria é a opção mais segura.
+Categorias disponíveis:
 
-Não repita o mesmo número de `order` em duas fotos visíveis.
+- `overview`: vista geral.
+- `house`: casa.
+- `veranda`: varanda.
+- `country-kitchen`: espaço caipira.
+- `orchard-crops`: pomar e cultivos.
+- `water-infrastructure`: água e infraestrutura.
+- `landscape`: paisagem.
+- `access`: acesso.
 
-## Alterar a ordem das fotos
+Use um `id` único, uma ordem sem repetição e um texto alternativo que descreva a fotografia real. Ao substituir uma imagem temporária, altere `isPlaceholder` para `false`.
 
-Em `gallery.items`, cada foto possui um número em `order`. Os menores números aparecem primeiro.
+## Vídeos
 
-Exemplo:
+A página aceita links do YouTube, Vimeo, publicações públicas do Instagram e arquivos MP4 locais.
 
-- `order: 1` aparece antes de `order: 2`.
-- Para tornar uma foto a primeira da galeria, use `order: 1` nela e renumere as demais.
-
-Use uma sequência simples, como 1, 2, 3 e 4. Para ocultar uma foto sem apagar seus dados, altere `visible` para `false`.
-
-## Adicionar um vídeo
-
-O site aceita links do YouTube ou Vimeo. Não é necessário enviar o arquivo de vídeo para o projeto.
-
-1. Procure por `sections` e altere `videos` para `true`.
-2. Procure por `videos.items`.
-3. Adicione um item dentro de `videos.items` seguindo este formato:
+Exemplo de vídeo principal horizontal:
 
 ```ts
 {
-  id: "visita-01",
-  title: "Visita pela propriedade",
-  description: "Vídeo com uma visão geral da área e dos cultivos.",
+  id: "apresentacao",
+  title: "Conheça a Chácara Alto dos Torres",
+  description: "Visão geral da propriedade.",
   url: "https://www.youtube.com/watch?v=CODIGO_DO_VIDEO",
   coverImage: null,
+  role: "main",
+  format: "horizontal",
   visible: true,
 },
 ```
 
-4. Troque o link e os textos pelos dados verdadeiros do vídeo.
-5. Se quiser usar uma imagem de capa, coloque-a em `public/images/property/` e copie o formato de uma imagem já cadastrada no arquivo, usando `isPlaceholder: false`.
+Para um vídeo curto vertical, use `role: "short"` e `format: "vertical"`.
 
-Use o link público normal do vídeo e confira se ele permite incorporação. Se a lista não tiver nenhum vídeo visível, a seção continuará oculta automaticamente.
+Para MP4 local, copie o arquivo para `public/videos/` e use um caminho como `/videos/visita.mp4`.
 
-## Adicionar uma plantação
+Depois de cadastrar ao menos um vídeo real, altere `sections.videos` para `true`. Os vídeos não iniciam automaticamente.
 
-1. Coloque uma foto da plantação em `public/images/property/`, quando houver.
-2. Procure por `crops.items`.
-3. Copie o bloco de uma plantação existente.
-4. Cole a cópia dentro da lista, antes do colchete de fechamento `]`.
-5. Altere nome, descrição, imagem e demais informações confirmadas.
-6. Deixe `visible: true` para mostrar o item.
+## Preço, documentação e negociação
 
-Cada plantação precisa de um `id` único e de todos os campos do item copiado. Ao usar uma foto real, altere `isPlaceholder` para `false`.
-
-Não mostre campos sem informação confirmada. Quantidade, unidade, estágio da produção e previsão de colheita podem permanecer sem preenchimento até o levantamento ser concluído.
-
-## Remover uma plantação
-
-A forma mais segura é ocultá-la sem apagar seus dados:
-
-1. Procure a plantação dentro de `crops.items`.
-2. Altere `visible: true` para `visible: false`.
-3. Salve o arquivo.
-
-Ela deixará de aparecer no site, mas poderá ser reativada depois. Se quiser apagar definitivamente, remova todo o bloco daquela plantação, da chave de abertura `{` até a chave de fechamento `}`, incluindo a vírgula que separa esse item dos demais.
-
-## Marcar a propriedade como vendida
-
-Perto do início dos dados da propriedade, procure por `status` e altere para:
+As seções permanecem desativadas enquanto os dados não estiverem confirmados:
 
 ```ts
-status: "sold",
+pricing: false,
+documentation: false,
 ```
 
-Os valores possíveis são:
+Não invente preço, documentos ou condições. Quando houver confirmação, preencha os campos em `negotiation` antes de ativar as seções.
+
+## Disponível, reservada ou vendida
+
+Altere `status` para uma destas opções:
 
 - `available`: disponível.
 - `reserved`: reservada.
 - `sold`: vendida.
 
-Com `sold`, o site informa discretamente que a propriedade foi vendida e substitui os principais botões de contato por uma mensagem adequada. Para voltar a oferecer o imóvel, altere o status para `available`.
-
-## Publicar as alterações pela Vercel
-
-Quando o repositório estiver conectado à Vercel, cada alteração enviada para a branch de produção — normalmente `main` — inicia uma nova publicação automaticamente.
-
-### Se você usa o GitHub Desktop
-
-1. Salve os arquivos alterados.
-2. Abra o projeto no GitHub Desktop.
-3. Confira a lista de arquivos em **Changes**.
-4. Escreva um resumo curto, como `Atualiza fotos e informações da propriedade`.
-5. Clique em **Commit to main**.
-6. Clique em **Push origin**.
-7. Abra o painel da Vercel e entre no projeto.
-8. Acesse **Deployments** e aguarde o novo envio aparecer como **Ready**.
-9. Clique em **Visit** para abrir o site publicado e conferir a alteração.
-
-### Se você editou pelo site do GitHub
-
-1. Clique em **Commit changes** ao terminar a edição.
-2. Confirme o envio para a branch de produção.
-3. Abra **Deployments** no painel da Vercel.
-4. Aguarde o status **Ready** e abra o site para conferir.
-
-Se a publicação aparecer como **Error**, abra o item com erro e compartilhe a mensagem exibida com a pessoa responsável pelo site. Não altere outros arquivos apenas para tentar esconder o erro.
+Nos estados reservada e vendida, os principais botões de contato são substituídos pela mensagem correspondente.
 
 ## Conferência antes de publicar
 
-- Confira título, textos, cidade, estado, área e valor.
-- Verifique se nenhuma informação provisória foi apresentada como confirmada.
-- Confira se as seções desejadas estão ligadas ou desligadas.
-- Abra todas as fotos e verifique suas descrições.
-- Teste o link do WhatsApp e a mensagem automática.
-- Confira o site no celular e no computador.
-- Se a propriedade foi vendida, confirme se o status está como `sold`.
+- Revise nome, acentos e informações confirmadas.
+- Confirme que nenhuma imagem temporária está identificada como real.
+- Teste a navegação, a galeria, o menu móvel e o FAQ.
+- Teste todos os botões de WhatsApp.
+- Confira o site no celular, tablet e computador.
+- Execute as verificações de tipos, lint, testes e build.

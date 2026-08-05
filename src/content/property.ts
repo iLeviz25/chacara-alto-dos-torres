@@ -6,22 +6,32 @@ export type HighlightIcon =
   | "house"
   | "rows"
   | "leaf"
-  | "route";
+  | "route"
+  | "armchair"
+  | "cooking-pot"
+  | "droplets"
+  | "cloud-rain"
+  | "zap";
 
 export type GalleryCategory =
   | "overview"
-  | "coffee"
-  | "pineapple"
-  | "other-crops"
-  | "support-house"
-  | "water"
+  | "house"
+  | "veranda"
+  | "country-kitchen"
+  | "orchard-crops"
+  | "water-infrastructure"
+  | "landscape"
   | "access";
+
+export type VideoFormat = "horizontal" | "vertical";
+export type VideoRole = "main" | "short";
 
 export interface SectionVisibility {
   overview: boolean;
   highlights: boolean;
   crops: boolean;
   productivePotential: boolean;
+  infrastructure: boolean;
   gallery: boolean;
   videos: boolean;
   propertyDetails: boolean;
@@ -39,6 +49,7 @@ export interface ContentImage {
   alt: string;
   caption?: string;
   isPlaceholder: boolean;
+  fit?: "cover" | "contain";
 }
 
 export interface NavigationItem {
@@ -121,17 +132,22 @@ export interface PropertyVideo {
   description: string;
   url: string;
   coverImage: ContentImage | null;
+  role: VideoRole;
+  format: VideoFormat;
   visible: boolean;
 }
 
 export interface SupportHouseDetails {
   approximateSize: string | null;
   rooms: string | null;
-  bathroom: boolean | null;
-  kitchen: boolean | null;
+  bedrooms: string | null;
+  bathrooms: string | null;
+  kitchen: string | null;
+  livingRoom: string | null;
   energy: string | null;
   water: string | null;
   condition: string | null;
+  furnitureIncluded: string | null;
   needsRenovation: boolean | null;
   notes: string | null;
 }
@@ -179,6 +195,9 @@ export interface PropertyContent {
   statusContent: Record<PropertyStatus, StatusContent>;
   shortDescription: string;
   fullDescription: string;
+  brand: {
+    logo: ContentImage;
+  };
   sections: SectionVisibility;
   header: {
     navigationLabel: string;
@@ -241,6 +260,8 @@ export interface PropertyContent {
     title: string;
     introduction: string;
     items: CropItem[];
+    culturesTitle: string;
+    cultures: string[];
     fieldLabels: {
       quantity: string;
       productionStage: string;
@@ -255,11 +276,19 @@ export interface PropertyContent {
     items: PotentialItem[];
     disclaimer: string;
   };
+  infrastructure: {
+    id: string;
+    eyebrow: string;
+    title: string;
+    description: string;
+    items: HighlightItem[];
+  };
   area: {
     total: AreaField;
     planted: AreaField;
     free: AreaField;
   };
+  areaEquivalent: string;
   propertyDetails: {
     id: string;
     eyebrow: string;
@@ -296,6 +325,7 @@ export interface PropertyContent {
     eyebrow: string;
     title: string;
     paragraphs: string[];
+    features: HighlightItem[];
     details: SupportHouseDetails;
     labels: Record<keyof SupportHouseDetails, string>;
     photos: ContentImage[];
@@ -398,15 +428,23 @@ export interface PropertyContent {
   };
 }
 
-const provisionalSeoDescription =
-  "Propriedade rural com plantações de café, abacaxi e outras culturas, além de construção simples de apoio. Entre em contato para solicitar mais informações.";
+const seoDescription =
+  "Conheça a Chácara Alto dos Torres, na Serra de Uibaí: 6 tarefas, pomar produtivo, casa com 5 cômodos, varanda em L, espaço caipira, energia elétrica e 25 mil litros de armazenamento de água.";
+
+const brandLogo: ContentImage = {
+  src: "/images/brand/logo-chacara-alto-dos-torres.png",
+  alt: "Logo da Chácara Alto dos Torres",
+  isPlaceholder: false,
+  fit: "contain",
+};
 
 /**
  * Conteúdo único da landing page.
- * Use `null` para dados ainda não confirmados; a interface não deve mostrar campos vazios.
+ * Use `null` ou uma string vazia para dados ainda não confirmados; a interface
+ * não deve mostrar campos vazios.
  */
 export const property: PropertyContent = {
-  propertyName: "Propriedade Rural",
+  propertyName: "Chácara Alto dos Torres",
   status: "available",
   statusContent: {
     available: {
@@ -416,26 +454,30 @@ export const property: PropertyContent = {
     },
     reserved: {
       label: "Reservada",
-      message: "Esta propriedade está reservada no momento.",
-      contactReplacement: "Esta propriedade está reservada no momento.",
+      message: "Esta chácara está reservada no momento.",
+      contactReplacement: "Esta chácara está reservada no momento.",
     },
     sold: {
       label: "Vendida",
-      message: "Esta propriedade foi vendida.",
-      contactReplacement: "Esta propriedade foi vendida.",
+      message: "Esta chácara foi vendida.",
+      contactReplacement: "Esta chácara foi vendida.",
     },
   },
   shortDescription:
-    "Terra rural produtiva com lavouras implantadas e construção simples de apoio.",
+    "Chácara produtiva com estrutura para descanso, lazer e agricultura familiar.",
   fullDescription:
-    "A propriedade reúne terra, lavouras já implantadas e uma estrutura simples de apoio. É uma oportunidade para quem deseja continuar a produção existente, ampliar os cultivos ou desenvolver um novo projeto rural de acordo com as características da área e as autorizações aplicáveis. Atualmente, o imóvel possui plantações de café, abacaxi e outras culturas. Os dados técnicos estão sendo organizados e serão adicionados após o levantamento completo.",
+    "A Chácara Alto dos Torres é uma propriedade acolhedora na Serra de Uibaí, com 6 tarefas, casa de 5 cômodos, varanda em L, espaço caipira com fogão a lenha, pomar produtivo, cultivos, captação de água da chuva, duas cisternas e energia elétrica funcionando.",
 
-  // Desative uma seção aqui sem precisar alterar os componentes.
+  brand: {
+    logo: brandLogo,
+  },
+
   sections: {
     overview: true,
     highlights: true,
     crops: true,
     productivePotential: true,
+    infrastructure: true,
     gallery: true,
     videos: false,
     propertyDetails: true,
@@ -453,38 +495,39 @@ export const property: PropertyContent = {
     openMenuLabel: "Abrir menu",
     closeMenuLabel: "Fechar menu",
     navigation: [
-      { label: "Visão geral", href: "#visao-geral" },
-      { label: "Plantações", href: "#plantacoes" },
-      { label: "Características", href: "#caracteristicas" },
+      { label: "A chácara", href: "#visao-geral" },
+      { label: "Pomar e cultivos", href: "#pomar-e-cultivos" },
+      { label: "Casa", href: "#casa-e-convivencia" },
+      { label: "Infraestrutura", href: "#agua-e-infraestrutura" },
       { label: "Galeria", href: "#galeria" },
       { label: "Localização", href: "#localizacao" },
-      { label: "Contato", href: "#contato" },
     ],
     contactLabel: "Falar com o proprietário",
   },
 
   seo: {
-    title: "Propriedade rural produtiva à venda",
-    description: provisionalSeoDescription,
+    title: "Chácara Alto dos Torres | Chácara à venda na Serra de Uibaí",
+    description: seoDescription,
     keywords: [
-      "propriedade rural à venda",
-      "terra produtiva",
-      "plantação de café",
-      "plantação de abacaxi",
-      "venda direta com proprietário",
+      "Chácara Alto dos Torres",
+      "chácara à venda na Serra de Uibaí",
+      "chácara em Uibaí",
+      "chácara produtiva",
+      "pomar produtivo",
+      "agricultura familiar",
     ],
     canonicalUrl: null,
     favicon: "/favicon.png",
     openGraph: {
-      title: "Propriedade rural produtiva à venda",
-      description: provisionalSeoDescription,
+      title: "Chácara Alto dos Torres | Serra de Uibaí",
+      description: seoDescription,
       image: "/og.png",
-      imageAlt: "Ilustração editorial de uma propriedade rural produtiva à venda",
+      imageAlt: "Identidade visual da Chácara Alto dos Torres na Serra de Uibaí",
     },
     twitter: {
       card: "summary_large_image",
-      title: "Propriedade rural produtiva à venda",
-      description: provisionalSeoDescription,
+      title: "Chácara Alto dos Torres | Serra de Uibaí",
+      description: seoDescription,
       image: "/og.png",
     },
     robots: {
@@ -493,81 +536,87 @@ export const property: PropertyContent = {
     },
     structuredData: {
       enabled: true,
-      propertyType: "Propriedade rural produtiva",
+      propertyType: "Chácara produtiva",
       includeExactAddress: false,
     },
   },
 
   hero: {
-    eyebrow: "Propriedade rural produtiva à venda",
-    title: "Terra produtiva, lavouras implantadas e espaço para novos projetos",
+    eyebrow: "Chácara à venda na Serra de Uibaí",
+    title: "Natureza, clima de serra e um espaço pronto para aproveitar",
     subtitle:
-      "Propriedade rural à venda com plantações de café, abacaxi e outras culturas, além de uma construção simples de apoio.",
-    mainImage: {
-      src: "/images/property/hero.webp",
-      alt: "Foto principal temporária da propriedade rural",
-      caption: "Foto principal da propriedade — imagem temporária",
-      isPlaceholder: true,
-    },
+      "A Chácara Alto dos Torres reúne 6 tarefas, pomar produtivo, casa com 5 cômodos, varanda em L, espaço caipira com fogão a lenha e estrutura para lazer, descanso ou produção agrícola familiar.",
+    mainImage: brandLogo,
     quickFacts: [
-      "Área total a confirmar",
-      "Localização a confirmar",
-      "Café e abacaxi plantados",
-      "Venda direta com o proprietário",
+      "6 tarefas",
+      "Casa com 5 cômodos",
+      "Pomar produtivo",
+      "25 mil litros de água",
+      "Energia elétrica",
     ],
-    primaryActionLabel: "Solicitar informações pelo WhatsApp",
-    secondaryActionLabel: "Conhecer a propriedade",
+    primaryActionLabel: "Falar com o proprietário",
+    secondaryActionLabel: "Conhecer a chácara",
     secondaryActionTarget: "#visao-geral",
-    detailsNotice:
-      "Informações detalhadas, medidas e condições de venda serão atualizadas após a conclusão do levantamento da propriedade.",
+    detailsNotice: "",
   },
 
   overview: {
     id: "visao-geral",
-    eyebrow: "Visão geral",
-    title: "Uma área rural com vocação para produzir",
+    eyebrow: "A Chácara Alto dos Torres",
+    title: "Um refúgio na Serra de Uibaí",
     paragraphs: [
-      "A propriedade reúne terra, lavouras já implantadas e uma estrutura simples de apoio. É uma oportunidade para quem deseja continuar a produção existente, ampliar os cultivos ou desenvolver um novo projeto rural de acordo com as características da área e as autorizações aplicáveis.",
-      "Atualmente, o imóvel possui plantações de café, abacaxi e outras culturas. As informações sobre área cultivada, quantidade de plantas, estágio da produção e previsão de colheita serão adicionadas após o levantamento completo.",
+      "A Chácara Alto dos Torres é uma propriedade acolhedora para quem busca tranquilidade, contato com a natureza e clima de serra. Com área informada de 6 tarefas, a chácara possui estrutura para aproveitar os fins de semana, reunir a família ou dar continuidade às atividades agrícolas.",
+      "O imóvel conta com casa de 5 cômodos, varanda em L, espaço caipira com fogão a lenha, energia elétrica, sistema de captação de água da chuva e um pomar com diversas culturas já implantadas.",
     ],
   },
 
   highlights: {
     items: [
       {
-        title: "Lavouras existentes",
-        description: "Café, abacaxi e outras culturas já presentes na propriedade.",
-        icon: "sprout",
-        visible: true,
-      },
-      {
-        title: "Área rural produtiva",
-        description: "Terra rural voltada principalmente para produção agrícola.",
+        title: "Área da propriedade",
+        description: "6 tarefas de área rural, com espaços cultivados e áreas para aproveitamento.",
         icon: "land-plot",
         visible: true,
       },
       {
-        title: "Construção de apoio",
-        description: "Estrutura pequena, simples e funcional para apoio e repouso.",
+        title: "Casa",
+        description: "Casa com 5 cômodos e estrutura funcional para permanência na propriedade.",
         icon: "house",
         visible: true,
       },
       {
-        title: "Possibilidade de novos cultivos",
-        description:
-          "Área com potencial para projetos rurais compatíveis com suas características e com as autorizações aplicáveis.",
-        icon: "rows",
+        title: "Varanda em L",
+        description: "Varanda ampla e arejada, adequada para descanso, convivência e contemplação da paisagem.",
+        icon: "armchair",
+        visible: true,
+      },
+      {
+        title: "Espaço caipira",
+        description: "Ambiente dedicado com fogão a lenha, ideal para refeições e momentos de convivência.",
+        icon: "cooking-pot",
+        visible: true,
+      },
+      {
+        title: "Água",
+        description: "Sistema de captação de água da chuva e duas cisternas, totalizando 25.000 litros de armazenamento.",
+        icon: "droplets",
+        visible: true,
+      },
+      {
+        title: "Energia",
+        description: "Instalação de energia elétrica pronta e funcionando.",
+        icon: "zap",
         visible: true,
       },
     ],
   },
 
   crops: {
-    id: "plantacoes",
-    eyebrow: "Plantações",
-    title: "Cultivos já presentes na propriedade",
+    id: "pomar-e-cultivos",
+    eyebrow: "Pomar e cultivos",
+    title: "Pomar, cultivos e sabores da propriedade",
     introduction:
-      "Além da terra, o comprador receberá as plantações existentes na propriedade, conforme as condições que serão detalhadas na negociação.",
+      "A chácara possui diversas frutíferas e culturas já implantadas, ampliando as possibilidades de consumo próprio, continuidade dos cuidados e produção agrícola familiar.",
     fieldLabels: {
       quantity: "Quantidade",
       productionStage: "Estágio da produção",
@@ -578,11 +627,11 @@ export const property: PropertyContent = {
         id: "cafe",
         name: "Café",
         description:
-          "A propriedade possui plantação de café. A quantidade de pés, a variedade, o estágio produtivo e os dados das últimas colheitas estão sendo levantados.",
+          "A propriedade conta com cultivo de café, integrado às demais atividades e plantações da chácara.",
         image: {
           src: "/images/property/cafe-01.webp",
-          alt: "Imagem temporária destinada à plantação de café",
-          caption: "Plantação de café — imagem temporária",
+          alt: "Imagem temporária destinada ao cultivo de café da chácara",
+          caption: "Café — imagem temporária",
           isPlaceholder: true,
         },
         quantity: null,
@@ -594,12 +643,11 @@ export const property: PropertyContent = {
       {
         id: "abacaxi",
         name: "Abacaxi",
-        description:
-          "Há também cultivo de abacaxi na área. A extensão plantada, a variedade e a previsão de produção serão informadas após a confirmação dos dados.",
+        description: "O cultivo de abacaxi também faz parte da área produtiva da propriedade.",
         image: {
           src: "/images/property/abacaxi-01.webp",
-          alt: "Imagem temporária destinada à plantação de abacaxi",
-          caption: "Plantação de abacaxi — imagem temporária",
+          alt: "Imagem temporária destinada ao cultivo de abacaxi da chácara",
+          caption: "Abacaxi — imagem temporária",
           isPlaceholder: true,
         },
         quantity: null,
@@ -609,14 +657,14 @@ export const property: PropertyContent = {
         visible: true,
       },
       {
-        id: "outras-culturas",
-        name: "Outras culturas",
+        id: "pomar-diversificado",
+        name: "Pomar diversificado",
         description:
-          "Outras frutas, plantas e culturas existentes serão identificadas e adicionadas ao anúncio.",
+          "O pomar reúne uma ampla variedade de frutas, proporcionando diversidade e diferentes períodos de produção ao longo do ano.",
         image: {
           src: "/images/property/outras-culturas-01.webp",
-          alt: "Imagem temporária destinada a outras culturas da propriedade",
-          caption: "Outras culturas — imagem temporária",
+          alt: "Imagem temporária destinada ao pomar diversificado da chácara",
+          caption: "Pomar diversificado — imagem temporária",
           isPlaceholder: true,
         },
         quantity: null,
@@ -625,49 +673,107 @@ export const property: PropertyContent = {
         harvestInfo: null,
         visible: true,
       },
+    ],
+    culturesTitle: "Culturas e frutíferas presentes",
+    cultures: [
+      "Abacaxi",
+      "Abacate",
+      "Amora",
+      "Seriguela",
+      "Pitanga",
+      "Tangerina",
+      "Acerola",
+      "Manga",
+      "Limão",
+      "Café",
+      "Maracujá",
+      "Caju",
+      "Jaca",
+      "Pitaya",
+      "Pinha",
+      "Banana",
     ],
   },
 
   productivePotential: {
-    id: "potencial-produtivo",
-    eyebrow: "Potencial produtivo",
-    title: "Uma propriedade com diferentes possibilidades de aproveitamento",
+    id: "possibilidades-de-uso",
+    eyebrow: "Possibilidades de uso",
+    title: "Um espaço para aproveitar de diferentes maneiras",
     description:
-      "A área pode interessar a compradores que desejam continuar os cultivos existentes, ampliar a produção, iniciar novas plantações ou planejar outros usos rurais compatíveis com a documentação e as regras aplicáveis ao imóvel.",
+      "A estrutura existente reúne ambientes de convivência, natureza e cultivos para diferentes formas de uso da chácara.",
     items: [
       {
-        title: "Continuidade da produção",
+        title: "Lazer e descanso",
         description:
-          "Possibilidade de aproveitar as plantações já existentes e dar continuidade aos cuidados e ciclos produtivos.",
-        icon: "sprout",
-        visible: true,
-      },
-      {
-        title: "Expansão de cultivos",
-        description:
-          "Áreas disponíveis e características do terreno serão apresentadas para ajudar o interessado a avaliar novos plantios.",
-        icon: "rows",
-        visible: true,
-      },
-      {
-        title: "Projeto rural próprio",
-        description:
-          "O comprador poderá estudar novas formas de aproveitamento da propriedade, respeitando a documentação, as características da terra e as autorizações necessárias.",
+          "Um ambiente tranquilo para aproveitar fins de semana, feriados e momentos de descanso em contato com a natureza.",
         icon: "leaf",
+        visible: true,
+      },
+      {
+        title: "Convivência em família",
+        description:
+          "A casa, a varanda e o espaço caipira oferecem locais para refeições, conversas e encontros familiares.",
+        icon: "armchair",
+        visible: true,
+      },
+      {
+        title: "Produção agrícola familiar",
+        description:
+          "O pomar, o café, o abacaxi e as demais culturas permitem dar continuidade aos cuidados e às atividades existentes.",
+        icon: "sprout",
         visible: true,
       },
     ],
     disclaimer:
-      "As possibilidades de uso dependem das características da área, da documentação e das autorizações aplicáveis.",
+      "Qualquer novo projeto, construção ou atividade deverá considerar a documentação do imóvel e as autorizações aplicáveis.",
   },
 
-  // Informe medidas somente depois de confirmá-las.
+  infrastructure: {
+    id: "agua-e-infraestrutura",
+    eyebrow: "Recursos da propriedade",
+    title: "Água e infraestrutura",
+    description:
+      "A propriedade possui recursos importantes para o uso cotidiano e para as atividades realizadas na chácara.",
+    items: [
+      {
+        title: "Captação de água da chuva",
+        description: "Sistema preparado para captar e armazenar água da chuva.",
+        icon: "cloud-rain",
+        visible: true,
+      },
+      {
+        title: "Cisterna de 15.000 litros",
+        description: "Reservatório com capacidade informada de 15 mil litros.",
+        icon: "droplets",
+        visible: true,
+      },
+      {
+        title: "Cisterna de 10.000 litros",
+        description: "Segundo reservatório com capacidade informada de 10 mil litros.",
+        icon: "droplets",
+        visible: true,
+      },
+      {
+        title: "25.000 litros no total",
+        description: "Capacidade total informada de armazenamento de água: 25 mil litros.",
+        icon: "droplets",
+        visible: true,
+      },
+      {
+        title: "Energia elétrica",
+        description: "Instalação de energia elétrica pronta e funcionando.",
+        icon: "zap",
+        visible: true,
+      },
+    ],
+  },
+
   area: {
     total: {
-      label: "Área total",
-      value: null,
-      unit: null,
-      showWhenUnknown: true,
+      label: "Área informada",
+      value: "6",
+      unit: "tarefas",
+      showWhenUnknown: false,
     },
     planted: {
       label: "Área plantada",
@@ -682,84 +788,43 @@ export const property: PropertyContent = {
       showWhenUnknown: false,
     },
   },
+  areaEquivalent: "",
 
   propertyDetails: {
-    id: "caracteristicas",
-    eyebrow: "Características",
-    title: "Conheça as características da propriedade",
-    unknownValueLabel: "Informação em levantamento",
+    id: "informacoes-confirmadas",
+    eyebrow: "Informações confirmadas",
+    title: "Características da Chácara Alto dos Torres",
+    unknownValueLabel: "Informação não disponível",
     items: [
       { key: "terrain", label: "Relevo", value: null, showWhenUnknown: false, visible: true },
       { key: "soil", label: "Solo", value: null, showWhenUnknown: false, visible: true },
+      { key: "fences", label: "Cercas e divisas", value: null, showWhenUnknown: false, visible: true },
       {
-        key: "fences",
-        label: "Cercas e divisas",
-        value: null,
-        showWhenUnknown: false,
-        visible: true,
-      },
-      { key: "water", label: "Água", value: null, showWhenUnknown: true, visible: true },
-      { key: "energy", label: "Energia", value: null, showWhenUnknown: true, visible: true },
-      {
-        key: "internet",
-        label: "Internet e sinal",
-        value: null,
+        key: "water",
+        label: "Água",
+        value: "Captação de água da chuva e duas cisternas, com 25.000 litros no total",
         showWhenUnknown: false,
         visible: true,
       },
       {
-        key: "carAccess",
-        label: "Acesso de carros",
-        value: null,
-        showWhenUnknown: true,
-        visible: true,
-      },
-      {
-        key: "truckAccess",
-        label: "Acesso de caminhões",
-        value: null,
+        key: "energy",
+        label: "Energia",
+        value: "Instalação de energia elétrica pronta e funcionando",
         showWhenUnknown: false,
         visible: true,
       },
-      {
-        key: "distanceToCity",
-        label: "Distância até a cidade",
-        value: null,
-        showWhenUnknown: false,
-        visible: true,
-      },
-      {
-        key: "distanceToPavement",
-        label: "Distância até o asfalto",
-        value: null,
-        showWhenUnknown: false,
-        visible: true,
-      },
-      {
-        key: "internalRoads",
-        label: "Estradas internas",
-        value: null,
-        showWhenUnknown: false,
-        visible: true,
-      },
-      {
-        key: "vegetation",
-        label: "Vegetação",
-        value: null,
-        showWhenUnknown: false,
-        visible: true,
-      },
-      {
-        key: "preservationAreas",
-        label: "Áreas de preservação",
-        value: null,
-        showWhenUnknown: false,
-        visible: true,
-      },
+      { key: "internet", label: "Internet e sinal", value: null, showWhenUnknown: false, visible: true },
+      { key: "carAccess", label: "Acesso de carros", value: null, showWhenUnknown: false, visible: true },
+      { key: "truckAccess", label: "Acesso de caminhões", value: null, showWhenUnknown: false, visible: true },
+      { key: "distanceToCity", label: "Distância até a cidade", value: null, showWhenUnknown: false, visible: true },
+      { key: "distanceToPavement", label: "Distância até o asfalto", value: null, showWhenUnknown: false, visible: true },
+      { key: "internalRoads", label: "Estradas internas", value: null, showWhenUnknown: false, visible: true },
+      { key: "vegetation", label: "Vegetação", value: null, showWhenUnknown: false, visible: true },
+      { key: "preservationAreas", label: "Áreas de preservação", value: null, showWhenUnknown: false, visible: true },
       {
         key: "other",
-        label: "Outras informações",
-        value: null,
+        label: "Casa e convivência",
+        value: "Casa com 5 cômodos, varanda em L e espaço caipira com fogão a lenha",
         showWhenUnknown: false,
         visible: true,
       },
@@ -769,26 +834,26 @@ export const property: PropertyContent = {
   gallery: {
     id: "galeria",
     eyebrow: "Galeria",
-    title: "Veja a propriedade em detalhes",
+    title: "Conheça os espaços da chácara",
     description:
-      "As imagens reais da área, das plantações, do acesso e das estruturas serão adicionadas nesta galeria.",
+      "As fotografias reais da casa, da varanda, do espaço caipira, do pomar, da infraestrutura e da paisagem serão adicionadas em uma próxima etapa.",
     categories: [
       { id: "all", label: "Todas" },
       { id: "overview", label: "Vista geral" },
-      { id: "coffee", label: "Café" },
-      { id: "pineapple", label: "Abacaxi" },
-      { id: "other-crops", label: "Outras culturas" },
-      { id: "support-house", label: "Construção de apoio" },
-      { id: "water", label: "Água" },
+      { id: "house", label: "Casa" },
+      { id: "veranda", label: "Varanda" },
+      { id: "country-kitchen", label: "Espaço caipira" },
+      { id: "orchard-crops", label: "Pomar e cultivos" },
+      { id: "water-infrastructure", label: "Água e infraestrutura" },
+      { id: "landscape", label: "Paisagem" },
       { id: "access", label: "Acesso" },
     ],
-    // Altere `order` para reorganizar as fotos.
     items: [
       {
         id: "vista-geral-01",
         src: "/images/property/vista-geral-01.webp",
-        alt: "Imagem temporária destinada à vista geral da propriedade",
-        caption: "Vista geral da área — imagem temporária",
+        alt: "Imagem temporária destinada à vista geral da chácara",
+        caption: "Vista geral — imagem temporária",
         isPlaceholder: true,
         category: "overview",
         order: 1,
@@ -797,58 +862,58 @@ export const property: PropertyContent = {
       {
         id: "cafe-01",
         src: "/images/property/cafe-01.webp",
-        alt: "Imagem temporária destinada à plantação de café",
-        caption: "Plantação de café — imagem temporária",
+        alt: "Imagem temporária destinada ao cultivo de café",
+        caption: "Café — imagem temporária",
         isPlaceholder: true,
-        category: "coffee",
+        category: "orchard-crops",
         order: 2,
         visible: true,
       },
       {
         id: "abacaxi-01",
         src: "/images/property/abacaxi-01.webp",
-        alt: "Imagem temporária destinada à plantação de abacaxi",
-        caption: "Plantação de abacaxi — imagem temporária",
+        alt: "Imagem temporária destinada ao cultivo de abacaxi",
+        caption: "Abacaxi — imagem temporária",
         isPlaceholder: true,
-        category: "pineapple",
+        category: "orchard-crops",
         order: 3,
         visible: true,
       },
       {
-        id: "outras-culturas-01",
+        id: "pomar-01",
         src: "/images/property/outras-culturas-01.webp",
-        alt: "Imagem temporária destinada a outras culturas da propriedade",
-        caption: "Outras culturas — imagem temporária",
+        alt: "Imagem temporária destinada ao pomar e às demais culturas",
+        caption: "Pomar e cultivos — imagem temporária",
         isPlaceholder: true,
-        category: "other-crops",
+        category: "orchard-crops",
         order: 4,
         visible: true,
       },
       {
-        id: "construcao-apoio-01",
+        id: "casa-01",
         src: "/images/property/construcao-apoio-01.webp",
-        alt: "Imagem temporária destinada à construção simples de apoio",
-        caption: "Construção de apoio — imagem temporária",
+        alt: "Imagem temporária destinada à casa e aos espaços de convivência",
+        caption: "Casa e convivência — imagem temporária",
         isPlaceholder: true,
-        category: "support-house",
+        category: "house",
         order: 5,
         visible: true,
       },
       {
         id: "agua-01",
         src: "/images/property/agua-01.webp",
-        alt: "Imagem temporária destinada às informações sobre água",
-        caption: "Água — imagem temporária",
+        alt: "Imagem temporária destinada à água e à infraestrutura",
+        caption: "Água e infraestrutura — imagem temporária",
         isPlaceholder: true,
-        category: "water",
+        category: "water-infrastructure",
         order: 6,
         visible: true,
       },
       {
         id: "acesso-01",
         src: "/images/property/acesso-01.webp",
-        alt: "Imagem temporária destinada à estrada de acesso",
-        caption: "Estrada de acesso — imagem temporária",
+        alt: "Imagem temporária destinada ao acesso da chácara",
+        caption: "Acesso — imagem temporária",
         isPlaceholder: true,
         category: "access",
         order: 7,
@@ -865,69 +930,93 @@ export const property: PropertyContent = {
     },
   },
 
-  // A seção permanece oculta enquanto esta lista estiver vazia.
+  // A seção permanece oculta enquanto não houver um vídeo real visível.
   videos: {
     id: "videos",
     eyebrow: "Vídeos",
-    title: "Conheça a propriedade em vídeo",
+    title: "Conheça a Chácara Alto dos Torres em vídeo",
     description:
-      "Os vídeos reais da propriedade poderão ser adicionados aqui por meio de links do YouTube ou Vimeo.",
-    playLabel: "Reproduzir vídeo",
+      "Um vídeo principal e vídeos curtos poderão apresentar a casa, o pomar, a infraestrutura e a paisagem da chácara.",
+    playLabel: "Carregar vídeo",
     items: [],
   },
 
   supportHouse: {
-    id: "construcao-de-apoio",
-    eyebrow: "Construção de apoio",
-    title: "Estrutura simples de apoio",
+    id: "casa-e-convivencia",
+    eyebrow: "Casa e convivência",
+    title: "Casa e espaços de convivência",
     paragraphs: [
-      "A propriedade conta com uma construção pequena e simples, utilizada como apoio, repouso ou permanência durante os trabalhos realizados na área.",
-      "Informações sobre tamanho, cômodos, água, energia e estado de conservação serão adicionadas após a vistoria e o levantamento completo.",
+      "A Chácara Alto dos Torres possui uma casa com 5 cômodos bem distribuídos, oferecendo uma estrutura funcional para permanência, descanso e uso durante os fins de semana.",
+    ],
+    features: [
+      {
+        title: "Cinco cômodos",
+        description: "Ambientes distribuídos para atender às necessidades de permanência e uso da propriedade.",
+        icon: "house",
+        visible: true,
+      },
+      {
+        title: "Varanda em L",
+        description: "Uma área ampla e arejada para redes, descanso, conversas em família e contemplação da paisagem.",
+        icon: "armchair",
+        visible: true,
+      },
+      {
+        title: "Espaço caipira com fogão a lenha",
+        description: "Cômodo dedicado com fogão a lenha, ideal para preparar refeições com o sabor tradicional do interior.",
+        icon: "cooking-pot",
+        visible: true,
+      },
     ],
     details: {
       approximateSize: null,
-      rooms: null,
-      bathroom: null,
+      rooms: "5 cômodos",
+      bedrooms: null,
+      bathrooms: null,
       kitchen: null,
-      energy: null,
+      livingRoom: null,
+      energy: "Instalada e funcionando",
       water: null,
       condition: null,
+      furnitureIncluded: null,
       needsRenovation: null,
       notes: null,
     },
     labels: {
       approximateSize: "Tamanho aproximado",
       rooms: "Número de cômodos",
-      bathroom: "Banheiro",
+      bedrooms: "Quantidade de quartos",
+      bathrooms: "Banheiros",
       kitchen: "Cozinha",
+      livingRoom: "Sala",
       energy: "Energia",
       water: "Água",
       condition: "Estado de conservação",
+      furnitureIncluded: "Mobília incluída",
       needsRenovation: "Necessidade de reforma",
       notes: "Observações",
     },
     photos: [
       {
         src: "/images/property/construcao-apoio-01.webp",
-        alt: "Imagem temporária destinada à construção simples de apoio",
-        caption: "Construção de apoio — imagem temporária",
+        alt: "Imagem temporária destinada à casa da Chácara Alto dos Torres",
+        caption: "Casa — imagem temporária",
         isPlaceholder: true,
       },
     ],
   },
 
-  // Não informe o endereço exato por padrão.
   location: {
     id: "localizacao",
     eyebrow: "Localização",
-    title: "Localização e acesso",
+    title: "Na Serra de Uibaí",
     introduction:
-      "A propriedade está situada em área rural. A região, as distâncias e as condições detalhadas do acesso serão informadas após a confirmação dos dados.",
+      "A Chácara Alto dos Torres está localizada na Serra de Uibaí, em um ambiente marcado pela tranquilidade, pela natureza e pelo clima de serra.",
     city: null,
     state: null,
     region: null,
     community: null,
-    approximateLocation: null,
+    approximateLocation: "Serra de Uibaí",
     distanceToCenter: null,
     estimatedTravelTime: null,
     pavedRoadDistance: null,
@@ -941,7 +1030,7 @@ export const property: PropertyContent = {
     mapUrl: null,
     showMap: false,
     showExactAddress: false,
-    note: "A localização completa poderá ser fornecida aos interessados durante o atendimento.",
+    note: "A localização completa poderá ser compartilhada durante o atendimento.",
     labels: {
       city: "Cidade",
       state: "Estado",
@@ -949,20 +1038,19 @@ export const property: PropertyContent = {
       community: "Comunidade",
       distanceToCenter: "Distância até o centro",
       estimatedTravelTime: "Tempo estimado de deslocamento",
-      pavedRoadDistance: "Distância em estrada asfaltada",
-      dirtRoadDistance: "Distância em estrada de terra",
-      accessCondition: "Condição do acesso",
+      pavedRoadDistance: "Trecho asfaltado",
+      dirtRoadDistance: "Trecho de terra",
+      accessCondition: "Condição da estrada",
       entranceType: "Tipo de entrada",
     },
   },
 
-  // Mantenha preço e documentação ocultos até a confirmação dos dados.
   negotiation: {
     id: "negociacao",
     eyebrow: "Negociação",
     title: "Informações para negociação",
     description:
-      "Os detalhes sobre valor, documentação e condições de negociação serão apresentados de forma transparente aos interessados.",
+      "O valor, a documentação e as condições de negociação serão apresentados após a confirmação dos dados.",
     price: {
       amount: null,
       currency: "BRL",
@@ -997,77 +1085,78 @@ export const property: PropertyContent = {
 
   contact: {
     id: "contato",
-    eyebrow: "Venda direta",
+    eyebrow: "Contato direto",
     title: "Converse diretamente com o proprietário",
     description:
-      "A negociação será realizada diretamente com o responsável pela propriedade. Entre em contato para tirar dúvidas, solicitar informações complementares ou combinar uma visita.",
-    ownerName: null,
+      "Entre em contato para solicitar mais informações, conhecer as condições de venda ou combinar uma visita à Chácara Alto dos Torres.",
+    ownerName: "Proprietário",
     bestContactTime: null,
     directContactLabel: "Contato direto com o proprietário",
     ownerLabel: "Responsável",
     bestContactTimeLabel: "Melhor horário para contato",
-    buttonLabel: "Falar pelo WhatsApp",
+    buttonLabel: "Falar com o proprietário",
     floatingButtonLabel: "Falar com o proprietário pelo WhatsApp",
-    unavailableButtonLabel: "Contato indisponível enquanto o número não for informado",
+    unavailableButtonLabel: "Contato indisponível",
     whatsapp: {
-      // Preencha código do país e número somente com algarismos.
-      countryCode: "",
-      number: "",
+      countryCode: "55",
+      number: "74988700524",
       message:
-        "Olá! Vi o site da propriedade rural e gostaria de receber mais informações.",
+        "Olá! Vi o site da Chácara Alto dos Torres e gostaria de receber mais informações.",
     },
   },
 
   faq: {
     id: "perguntas-frequentes",
     eyebrow: "Perguntas frequentes",
-    title: "Dúvidas sobre a propriedade",
+    title: "Dúvidas sobre a Chácara Alto dos Torres",
     items: [
       {
         id: "tamanho-da-propriedade",
         question: "Qual é o tamanho da propriedade?",
-        answer: "A área total está sendo confirmada e será adicionada ao anúncio.",
+        answer: "A área informada é de 6 tarefas. A equivalência em hectares ou metros quadrados poderá ser adicionada após confirmação.",
         order: 1,
         visible: true,
       },
       {
-        id: "itens-incluidos",
-        question: "O que está incluído na venda?",
-        answer:
-          "A propriedade, as estruturas existentes e as plantações presentes serão incluídas conforme as condições definidas na negociação.",
+        id: "cultivos",
+        question: "O que existe plantado na chácara?",
+        answer: "A propriedade possui café, abacaxi e diversas frutíferas, incluindo manga, banana, acerola, caju, pitaya, tangerina e outras culturas.",
         order: 2,
         visible: true,
       },
       {
-        id: "producao-da-plantacao",
-        question: "A plantação está produzindo?",
-        answer:
-          "Os dados sobre estágio produtivo, quantidade de plantas e colheitas estão sendo levantados.",
+        id: "casa",
+        question: "A chácara possui casa?",
+        answer: "Sim. A propriedade possui uma casa com 5 cômodos, varanda em L e espaço caipira com fogão a lenha.",
         order: 3,
         visible: true,
       },
       {
-        id: "acesso",
-        question: "Como é o acesso?",
-        answer:
-          "As distâncias, o tipo de estrada e as condições de acesso serão informados após a confirmação das informações.",
+        id: "agua-armazenada",
+        question: "Existe água armazenada?",
+        answer: "Sim. A propriedade conta com captação de água da chuva e duas cisternas, com capacidades informadas de 15.000 e 10.000 litros.",
         order: 4,
         visible: true,
       },
       {
-        id: "documentacao",
-        question: "A propriedade possui documentação?",
-        answer:
-          "A situação documental será apresentada assim que todos os documentos forem conferidos.",
+        id: "energia-eletrica",
+        question: "Possui energia elétrica?",
+        answer: "Sim. A instalação de energia elétrica está pronta e funcionando.",
         order: 5,
         visible: true,
       },
       {
-        id: "agendar-visita",
-        question: "Posso agendar uma visita?",
-        answer:
-          "Sim. Entre em contato pelo WhatsApp para conversar com o responsável e verificar a disponibilidade.",
+        id: "visita",
+        question: "Posso visitar a propriedade?",
+        answer: "Entre em contato pelo WhatsApp para conversar diretamente com o responsável e verificar a disponibilidade para visita.",
         order: 6,
+        visible: true,
+      },
+      {
+        id: "localizacao",
+        question: "Onde fica a propriedade?",
+        answer: "A Chácara Alto dos Torres está localizada na Serra de Uibaí. A localização completa poderá ser compartilhada durante o atendimento.",
+        order: 7,
         visible: true,
       },
     ],
@@ -1075,25 +1164,25 @@ export const property: PropertyContent = {
 
   finalCta: {
     id: "mais-informacoes",
-    title: "Quer receber mais informações sobre a propriedade?",
+    title: "Venha conhecer a Chácara Alto dos Torres",
     description:
-      "Fale diretamente com o responsável para conhecer os detalhes, solicitar fotos adicionais e verificar a possibilidade de agendar uma visita.",
-    buttonLabel: "Conversar pelo WhatsApp",
-    directSaleLabel: "Venda direta com o proprietário.",
+      "Converse diretamente com o proprietário para solicitar mais informações, conhecer as condições de venda ou combinar uma visita.",
+    buttonLabel: "Solicitar informações pelo WhatsApp",
+    directSaleLabel: "Contato direto com o proprietário.",
     backgroundImage: {
       src: "/images/property/vista-geral-01.webp",
-      alt: "Imagem temporária de uma vista geral da propriedade rural",
-      caption: "Vista geral da propriedade — imagem temporária",
+      alt: "Imagem temporária destinada à paisagem da Chácara Alto dos Torres",
+      caption: "Paisagem da chácara — imagem temporária",
       isPlaceholder: true,
     },
   },
 
   footer: {
-    propertyTypeLabel: "Propriedade rural à venda",
+    propertyTypeLabel: "Chácara produtiva para lazer, descanso e agricultura familiar",
     whatsappLabel: "Falar pelo WhatsApp",
-    locationFallback: "Localização a confirmar",
+    locationFallback: "Serra de Uibaí",
     updateNotice:
-      "As informações deste anúncio podem ser atualizadas após a confirmação dos dados da propriedade.",
+      "Fotos, vídeos, valor, documentação e detalhes da localização serão atualizados quando confirmados.",
     backToTopLabel: "Voltar ao início",
   },
 };

@@ -1,14 +1,14 @@
-export type VideoProvider = "youtube" | "vimeo";
+export type VideoProvider = "youtube" | "vimeo" | "instagram" | "mp4";
 
-export interface SafeVideoEmbed {
+export interface SafeVideoSource {
   provider: VideoProvider;
-  videoId: string;
-  embedUrl: string;
+  sourceUrl: string;
   title: string;
 }
 
 const YOUTUBE_ID_PATTERN = /^[A-Za-z0-9_-]{11}$/;
 const VIMEO_ID_PATTERN = /^\d{6,12}$/;
+const INSTAGRAM_CODE_PATTERN = /^[A-Za-z0-9_-]{5,30}$/;
 
 function parseUrl(value: string): URL | null {
   try {
@@ -52,27 +52,45 @@ function extractVimeoId(url: URL): string | null {
   }
 
   const segments = url.pathname.split("/").filter(Boolean);
-  const candidate = [...segments].reverse().find((segment) => VIMEO_ID_PATTERN.test(segment));
+  return [...segments].reverse().find((segment) => VIMEO_ID_PATTERN.test(segment)) ?? null;
+}
 
-  return candidate ?? null;
+function getInstagramEmbed(url: URL): string | null {
+  const hostname = url.hostname.toLowerCase().replace(/^www\./, "");
+  if (hostname !== "instagram.com") return null;
+
+  const [kind, code] = url.pathname.split("/").filter(Boolean);
+  if (!["p", "reel", "tv"].includes(kind ?? "") || !code) return null;
+  if (!INSTAGRAM_CODE_PATTERN.test(code)) return null;
+
+  return `https://www.instagram.com/${kind}/${code}/embed/captioned/`;
+}
+
+function getLocalMp4(value: string): string | null {
+  const normalized = value.trim();
+  if (!normalized.startsWith("/") || normalized.startsWith("//")) return null;
+  if (normalized.includes("..") || normalized.includes("\\")) return null;
+  return /\.mp4(?:[?#].*)?$/i.test(normalized) ? normalized : null;
 }
 
 /**
- * Aceita somente URLs conhecidas e recria o endereço de incorporação sem parâmetros externos.
+ * Aceita somente fontes conhecidas e recria URLs externas sem parâmetros
+ * fornecidos pelo usuário. Arquivos MP4 devem estar na pasta `public`.
  */
-export function getSafeVideoEmbed(value: string, title: string): SafeVideoEmbed | null {
-  const url = parseUrl(value);
-
-  if (!url) {
-    return null;
+export function getSafeVideoSource(value: string, title: string): SafeVideoSource | null {
+  const localMp4 = getLocalMp4(value);
+  if (localMp4) {
+    return { provider: "mp4", sourceUrl: localMp4, title };
   }
+
+  const url = parseUrl(value);
+  if (!url) return null;
 
   const youtubeId = extractYouTubeId(url);
   if (youtubeId) {
     return {
       provider: "youtube",
-      videoId: youtubeId,
-      embedUrl: `https://www.youtube-nocookie.com/embed/${youtubeId}`,
+      sourceUrl: `https://www.youtube-nocookie.com/embed/${youtubeId}`,
       title,
     };
   }
@@ -81,10 +99,14 @@ export function getSafeVideoEmbed(value: string, title: string): SafeVideoEmbed 
   if (vimeoId) {
     return {
       provider: "vimeo",
-      videoId: vimeoId,
-      embedUrl: `https://player.vimeo.com/video/${vimeoId}`,
+      sourceUrl: `https://player.vimeo.com/video/${vimeoId}`,
       title,
     };
+  }
+
+  const instagramEmbed = getInstagramEmbed(url);
+  if (instagramEmbed) {
+    return { provider: "instagram", sourceUrl: instagramEmbed, title };
   }
 
   return null;

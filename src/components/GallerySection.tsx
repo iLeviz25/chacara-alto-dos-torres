@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { ChevronLeft, ChevronRight, Expand, X } from "lucide-react";
 import {
   useCallback,
@@ -15,6 +14,7 @@ import type {
   PropertyContent,
 } from "@/src/content/property";
 import { SectionHeading } from "@/src/components/SectionHeading";
+import { SiteImage } from "@/src/components/SiteImage";
 
 export interface GallerySectionProps {
   content: PropertyContent["gallery"];
@@ -37,13 +37,8 @@ export function GallerySection({
   );
 
   const availableCategories = useMemo(
-    () =>
-      content.categories.filter(
-        (category) =>
-          category.id === "all" ||
-          sortedItems.some((item) => item.category === category.id),
-      ),
-    [content.categories, sortedItems],
+    () => content.categories,
+    [content.categories],
   );
 
   const defaultCategory =
@@ -222,9 +217,9 @@ export function GallerySection({
                 <button
                   aria-pressed={isActive}
                   className={[
-                    "min-h-11 rounded-full border px-4 py-2 text-sm font-semibold outline-none motion-safe:transition focus-visible:ring-2 focus-visible:ring-[#b8793e] focus-visible:ring-offset-2",
+                    "min-h-11 rounded-full border px-4 py-2 text-sm font-semibold outline-none motion-safe:transition focus-visible:ring-2 focus-visible:ring-[#f47f20] focus-visible:ring-offset-2",
                     isActive
-                      ? "border-[#173f2b] bg-[#173f2b] text-white"
+                      ? "border-[#0d293c] bg-[#0d293c] text-white"
                       : "border-[#173f2b]/15 bg-[#f5f1e8] text-[#364239] hover:border-[#173f2b]/35 hover:bg-white",
                   ].join(" ")}
                   key={category.id}
@@ -247,7 +242,7 @@ export function GallerySection({
               <button
                 aria-label={content.controls.openImageLabel + ": " + item.alt}
                 className={[
-                  "group relative min-h-48 overflow-hidden rounded-2xl bg-[#e8e2d6] text-left shadow-sm outline-none motion-safe:transition hover:-translate-y-0.5 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-[#b8793e] focus-visible:ring-offset-2",
+                  "group relative min-h-48 overflow-hidden rounded-2xl bg-[#e8e2d6] text-left shadow-sm outline-none motion-safe:transition hover:-translate-y-0.5 hover:shadow-lg focus-visible:ring-2 focus-visible:ring-[#f47f20] focus-visible:ring-offset-2",
                   index === 0
                     ? "sm:col-span-2 lg:row-span-2 lg:min-h-[30rem]"
                     : "aspect-[4/3]",
@@ -256,7 +251,7 @@ export function GallerySection({
                 onClick={() => openModal(item)}
                 type="button"
               >
-                <Image
+                <SiteImage
                   alt={item.alt}
                   className="object-cover motion-safe:transition-transform motion-safe:duration-500 group-hover:scale-[1.025]"
                   fill
@@ -269,7 +264,7 @@ export function GallerySection({
                 />
                 <span
                   aria-hidden="true"
-                  className="absolute right-3 top-3 inline-flex size-10 items-center justify-center rounded-full bg-white/90 text-[#173f2b] shadow-sm backdrop-blur"
+                  className="absolute right-3 top-3 inline-flex size-10 items-center justify-center rounded-full bg-white/90 text-[#0d293c] shadow-sm backdrop-blur"
                 >
                   <Expand className="size-4" />
                 </span>
@@ -319,7 +314,7 @@ export function GallerySection({
 
             <figure className="relative flex min-h-0 flex-1 flex-col overflow-hidden rounded-2xl bg-black">
               <div className="relative min-h-0 flex-1">
-                <Image
+                <SiteImage
                   alt={selectedItem.alt}
                   className="object-contain"
                   fill

@@ -7,7 +7,7 @@ const outputDirectory = join(process.cwd(), "public", "images", "property");
 const assets = [
   {
     file: "hero.webp",
-    label: "Foto principal da propriedade",
+    label: "Foto principal da chácara",
     detail: "Substitua pela imagem real da área",
     motif: "fields",
     width: 1800,
@@ -15,43 +15,43 @@ const assets = [
   },
   {
     file: "vista-geral-01.webp",
-    label: "Vista geral da área",
+    label: "Vista geral da chácara",
     detail: "Imagem temporária",
     motif: "horizon",
   },
   {
     file: "cafe-01.webp",
-    label: "Plantação de café",
+    label: "Cultivo de café",
     detail: "Imagem temporária",
     motif: "coffee",
   },
   {
     file: "abacaxi-01.webp",
-    label: "Plantação de abacaxi",
+    label: "Cultivo de abacaxi",
     detail: "Imagem temporária",
     motif: "pineapple",
   },
   {
     file: "outras-culturas-01.webp",
-    label: "Outras culturas",
+    label: "Pomar diversificado",
     detail: "Imagem temporária",
     motif: "seeds",
   },
   {
     file: "construcao-apoio-01.webp",
-    label: "Construção simples de apoio",
+    label: "Casa e espaços de convivência",
     detail: "Imagem temporária",
     motif: "support",
   },
   {
     file: "acesso-01.webp",
-    label: "Estrada de acesso",
+    label: "Acesso à chácara",
     detail: "Imagem temporária",
     motif: "road",
   },
   {
     file: "agua-01.webp",
-    label: "Informações sobre água",
+    label: "Água e infraestrutura",
     detail: "Imagem temporária",
     motif: "water",
   },
@@ -141,9 +141,9 @@ for (const asset of assets) {
 
 const favicon = `
   <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
-    <rect width="128" height="128" rx="28" fill="#173f2b"/>
+    <rect width="128" height="128" rx="28" fill="#0d293c"/>
     <path d="M12 102 C42 74 55 90 77 63 C94 43 106 48 124 27" fill="none" stroke="#9dac7c" stroke-width="20"/>
-    <path d="M18 112 C45 86 61 101 84 74 C100 55 111 58 127 42" fill="none" stroke="#b8793e" stroke-width="8"/>
+    <path d="M18 112 C45 86 61 101 84 74 C100 55 111 58 127 42" fill="none" stroke="#f47f20" stroke-width="8"/>
     <path d="M28 66 C41 34 67 24 98 23 C84 46 65 61 28 66Z" fill="#f5f1e8"/>
   </svg>`;
 

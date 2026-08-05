@@ -1,6 +1,6 @@
-# Propriedade rural produtiva
+# Chácara Alto dos Torres
 
-Landing page responsiva para apresentar uma única propriedade rural produtiva e direcionar interessados ao contato com o proprietário.
+Landing page responsiva da Chácara Alto dos Torres, na Serra de Uibaí, com informações sobre lazer, convivência, cultivos e infraestrutura, além de contato direto com o proprietário.
 
 ## Começar
 
@@ -25,4 +25,4 @@ O conteúdo editável está centralizado em `src/content/property.ts`. Consulte 
 
 - O projeto inclui a configuração necessária para publicação pela Vercel.
 - A estrutura também é compatível com a hospedagem privada do OpenAI Sites.
-- Antes da publicação oficial, preencha os dados provisórios e a URL canônica no arquivo de conteúdo.
+- Antes da publicação oficial, adicione as fotos e os vídeos reais e confirme preço, documentação, localização detalhada e URL canônica.
