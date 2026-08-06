@@ -291,15 +291,26 @@ export function CropsSection({ content }: CropsSectionProps) {
 
             return (
               <article key={crop.id} className="card-surface overflow-hidden bg-white">
-                <figure className="relative aspect-[4/3] overflow-hidden bg-[#e9e2d4]">
-                  <SiteImage
-                    src={crop.image.src}
-                    alt={crop.image.alt}
-                    fill
-                    sizes="(max-width: 1023px) 100vw, 33vw"
-                    className="object-cover transition-transform duration-500 hover:scale-[1.02]"
-                  />
-                </figure>
+                {crop.image ? (
+                  <figure className="relative aspect-[4/3] overflow-hidden bg-[#e9e2d4]">
+                    <SiteImage
+                      src={crop.image.src}
+                      alt={crop.image.alt}
+                      fill
+                      sizes="(max-width: 1023px) 100vw, 33vw"
+                      className="object-cover transition-transform duration-500 hover:scale-[1.02]"
+                    />
+                  </figure>
+                ) : (
+                  <div
+                    aria-hidden="true"
+                    className="grid aspect-[4/3] place-items-center bg-[#e7eadf] text-[#315f40]"
+                  >
+                    <span className="grid size-20 place-items-center rounded-full border border-[#315f40]/15 bg-white/55">
+                      <Wheat size={36} strokeWidth={1.5} />
+                    </span>
+                  </div>
+                )}
                 <div className="p-6 md:p-7">
                   <div className="mb-4 flex items-center gap-3">
                     <span className="grid size-10 place-items-center rounded-full bg-[#fff0e4] text-[#e66f12]">

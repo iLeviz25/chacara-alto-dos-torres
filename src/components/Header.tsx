@@ -150,11 +150,11 @@ export function Header({
 
         <nav
           aria-label={content.navigationLabel}
-          className="ml-auto hidden items-center gap-5 xl:flex"
+          className="ml-auto hidden items-center gap-1 xl:flex"
         >
           {content.navigation.map((item) => (
             <a
-              className="rounded-sm text-sm font-medium text-white/75 outline-none motion-safe:transition hover:text-white focus-visible:ring-2 focus-visible:ring-[#ff9a4d] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d293c]"
+              className="inline-flex min-h-11 items-center rounded-lg px-2.5 py-2 text-[0.95rem] font-semibold text-white/78 outline-none motion-safe:transition hover:bg-white/[0.07] hover:text-white focus-visible:ring-2 focus-visible:ring-[#ff9a4d] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0d293c]"
               href={item.href}
               key={item.href}
             >
@@ -205,7 +205,7 @@ export function Header({
           >
             {content.navigation.map((item) => (
               <a
-                className="rounded-xl px-4 py-3 text-base font-semibold text-white/85 outline-none motion-safe:transition hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-[#ff9a4d]"
+                className="flex min-h-12 items-center rounded-xl px-4 py-3 text-base font-semibold text-white/85 outline-none motion-safe:transition hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-[#ff9a4d]"
                 href={item.href}
                 key={item.href}
                 onClick={closeMenu}

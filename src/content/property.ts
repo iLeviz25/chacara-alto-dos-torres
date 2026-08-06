@@ -68,7 +68,7 @@ export interface CropItem {
   id: string;
   name: string;
   description: string;
-  image: ContentImage;
+  image: ContentImage | null;
   quantity: string | null;
   unit: string | null;
   productionStage: string | null;
@@ -429,7 +429,7 @@ export interface PropertyContent {
 }
 
 const seoDescription =
-  "Conheça a Chácara Alto dos Torres, na Serra de Uibaí: 6 tarefas, pomar produtivo, casa com 5 cômodos, varanda em L, espaço caipira, energia elétrica e 25 mil litros de armazenamento de água.";
+  "Conheça a Chácara Alto dos Torres, na Serra de Uibaí: 6 tarefas, pomar produtivo, casa com 5 cômodos, varanda em L, espaço caipira, energia elétrica e duas cisternas com capacidade total de 25 mil litros de armazenamento.";
 
 const brandLogo: ContentImage = {
   src: "/images/brand/logo-chacara-alto-dos-torres.png",
@@ -543,7 +543,7 @@ export const property: PropertyContent = {
 
   hero: {
     eyebrow: "Chácara à venda na Serra de Uibaí",
-    title: "Natureza, clima de serra e um espaço pronto para aproveitar",
+    title: "Natureza, produção e tranquilidade na Serra de Uibaí",
     subtitle:
       "A Chácara Alto dos Torres reúne 6 tarefas, pomar produtivo, casa com 5 cômodos, varanda em L, espaço caipira com fogão a lenha e estrutura para lazer, descanso ou produção agrícola familiar.",
     mainImage: {
@@ -557,7 +557,7 @@ export const property: PropertyContent = {
       "6 tarefas",
       "Casa com 5 cômodos",
       "Pomar produtivo",
-      "25 mil litros de água",
+      "25 mil litros de armazenamento",
       "Energia elétrica",
     ],
     primaryActionLabel: "Falar com o proprietário",
@@ -634,12 +634,7 @@ export const property: PropertyContent = {
         name: "Café",
         description:
           "A propriedade conta com cultivo de café, integrado às demais atividades e plantações da chácara.",
-        image: {
-          src: "/images/property/real/cafe-01.webp",
-          alt: "Cafeeiro com frutos vermelhos na Chácara Alto dos Torres",
-          caption: "Cultivo de café na chácara",
-          isPlaceholder: false,
-        },
+        image: null,
         quantity: null,
         unit: null,
         productionStage: null,
@@ -760,8 +755,9 @@ export const property: PropertyContent = {
         visible: true,
       },
       {
-        title: "25.000 litros no total",
-        description: "Capacidade total informada de armazenamento de água: 25 mil litros.",
+        title: "25.000 litros de armazenamento",
+        description:
+          "As duas cisternas totalizam a capacidade informada de 25 mil litros de armazenamento.",
         icon: "droplets",
         visible: true,
       },
@@ -808,7 +804,8 @@ export const property: PropertyContent = {
       {
         key: "water",
         label: "Água",
-        value: "Captação de água da chuva e duas cisternas, com 25.000 litros no total",
+        value:
+          "Captação de água da chuva e duas cisternas, com capacidade total de 25.000 litros de armazenamento",
         showWhenUnknown: false,
         visible: true,
       },
@@ -868,8 +865,8 @@ export const property: PropertyContent = {
       {
         id: "vista-geral-02",
         src: "/images/property/real/vista-geral-02.webp",
-        alt: "Vista ampla do terreno da chácara e da paisagem da Serra de Uibaí",
-        caption: "Vista ampla da propriedade",
+        alt: "Vista da região observada a partir da Chácara Alto dos Torres",
+        caption: "Vista da região a partir da propriedade",
         isPlaceholder: false,
         category: "overview",
         order: 2,
@@ -906,10 +903,10 @@ export const property: PropertyContent = {
         visible: true,
       },
       {
-        id: "cafe-01",
-        src: "/images/property/real/cafe-01.webp",
-        alt: "Cafeeiro com frutos vermelhos na Chácara Alto dos Torres",
-        caption: "Cultivo de café",
+        id: "frutifera-pomar-01",
+        src: "/images/property/real/frutifera-pomar-01.webp",
+        alt: "Frutífera com frutos vermelhos no pomar da Chácara Alto dos Torres",
+        caption: "Frutífera do pomar",
         isPlaceholder: false,
         category: "orchard-crops",
         order: 6,
@@ -978,8 +975,8 @@ export const property: PropertyContent = {
       {
         id: "paisagem-cerca-01",
         src: "/images/property/real/paisagem-cerca-01.webp",
-        alt: "Cerca da propriedade com a paisagem da serra ao fundo",
-        caption: "Paisagem junto à cerca da propriedade",
+        alt: "Cerca vista a partir da chácara, com a paisagem da região ao fundo",
+        caption: "Paisagem nos arredores da chácara",
         isPlaceholder: false,
         category: "landscape",
         order: 13,
@@ -989,7 +986,7 @@ export const property: PropertyContent = {
         id: "paisagem-plantio-01",
         src: "/images/property/real/paisagem-plantio-01.webp",
         alt: "Vista da área rural e de uma faixa cultivada na paisagem da serra",
-        caption: "Área rural e cultivo vistos da chácara",
+        caption: "Paisagem nos arredores da chácara",
         isPlaceholder: false,
         category: "landscape",
         order: 14,
@@ -999,7 +996,7 @@ export const property: PropertyContent = {
         id: "acesso-01",
         src: "/images/property/real/acesso-01.webp",
         alt: "Estrada de terra na serra com vista para a área urbana ao longe",
-        caption: "Estrada de acesso na região da chácara",
+        caption: "Estrada de acesso à região",
         isPlaceholder: false,
         category: "access",
         order: 15,
@@ -1220,7 +1217,7 @@ export const property: PropertyContent = {
       {
         id: "agua-armazenada",
         question: "Existe água armazenada?",
-        answer: "Sim. A propriedade conta com captação de água da chuva e duas cisternas, com capacidades informadas de 15.000 e 10.000 litros.",
+        answer: "Sim. A propriedade conta com captação de água da chuva e duas cisternas, com capacidades informadas de 15.000 e 10.000 litros, totalizando 25.000 litros de armazenamento.",
         order: 4,
         visible: true,
       },
@@ -1257,8 +1254,8 @@ export const property: PropertyContent = {
     directSaleLabel: "Contato direto com o proprietário.",
     backgroundImage: {
       src: "/images/property/real/vista-geral-02.webp",
-      alt: "Vista ampla da Chácara Alto dos Torres e da paisagem da Serra de Uibaí",
-      caption: "Vista ampla da propriedade",
+      alt: "Vista da região observada a partir da Chácara Alto dos Torres",
+      caption: "Vista da região a partir da propriedade",
       isPlaceholder: false,
     },
   },

@@ -30,10 +30,11 @@ test("renderiza a Chácara Alto dos Torres com os dados confirmados", async () =
   const html = await response.text();
   assert.match(html, /<html[^>]*lang="pt-BR"/i);
   assert.match(html, /<title>Chácara Alto dos Torres \| Chácara à venda na Serra de Uibaí<\/title>/i);
-  assert.match(html, /Natureza, clima de serra e um espaço pronto para aproveitar/);
+  assert.match(html, /Natureza, produção e tranquilidade na Serra de Uibaí/);
+  assert.match(html, /25 mil litros de armazenamento/);
   assert.match(html, /Pomar, cultivos e sabores da propriedade/);
   assert.match(html, /Casa e espaços de convivência/);
-  assert.match(html, /25\.000 litros no total/);
+  assert.match(html, /25\.000 litros de armazenamento/);
   assert.match(html, /Converse diretamente com o proprietário/);
   assert.match(html, /application\/ld\+json/);
   assert.match(html, /https:\/\/wa\.me\/5574988700524\?text=/);
@@ -41,6 +42,10 @@ test("renderiza a Chácara Alto dos Torres com os dados confirmados", async () =
   assert.match(html, /\/images\/property\/real\/vista-geral-01\.webp/);
   assert.match(html, /Vista aérea da Chácara Alto dos Torres/);
   assert.match(html, /Cisterna da propriedade/);
+  assert.match(html, /Frutífera do pomar/);
+  assert.match(html, /Vista da região a partir da propriedade/);
+  assert.match(html, /Estrada de acesso à região/);
+  assert.doesNotMatch(html, /\/images\/property\/real\/cafe-01\.webp|Cultivo de café/);
 
   assert.doesNotMatch(
     html,
