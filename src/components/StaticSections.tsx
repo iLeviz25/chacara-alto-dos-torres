@@ -32,9 +32,11 @@ import {
 import type {
   HighlightIcon,
   PropertyContent,
+  PropertyVideo,
   PropertyStatus,
   StatusContent,
 } from "@/src/content/property";
+import { PropertyVideoPlayer } from "@/src/components/PropertyVideoPlayer";
 import { SiteImage } from "@/src/components/SiteImage";
 
 const iconByName: Record<HighlightIcon, LucideIcon> = {
@@ -111,6 +113,7 @@ function PlaceholderBadge() {
 
 interface HeroSectionProps {
   content: PropertyContent["hero"];
+  mainVideo: PropertyVideo | null;
   status: PropertyStatus;
   statusContent: StatusContent;
   contactAction: ReactNode;
@@ -118,6 +121,7 @@ interface HeroSectionProps {
 
 export function HeroSection({
   content,
+  mainVideo,
   status,
   statusContent,
   contactAction,
@@ -128,7 +132,7 @@ export function HeroSection({
         className="pointer-events-none absolute -right-40 top-10 h-96 w-96 rounded-full bg-[#f47f20]/10 blur-3xl"
         aria-hidden="true"
       />
-      <div className="site-container relative grid items-center gap-10 lg:grid-cols-[1.02fr_0.98fr] lg:gap-14">
+      <div className="site-container relative grid items-center gap-10 lg:grid-cols-[minmax(0,1.12fr)_minmax(18rem,0.88fr)] lg:gap-14">
         <div>
           <div className="mb-5 flex flex-wrap items-center gap-3">
             <span className="inline-flex rounded-full border border-[#0d293c]/15 bg-white/75 px-3 py-1 text-xs font-extrabold tracking-[0.1em] text-[#0d293c] uppercase">
@@ -169,29 +173,39 @@ export function HeroSection({
           ) : null}
         </div>
 
-        <div>
-          <figure className="image-frame aspect-[4/3] bg-[#0d293c]">
-            <SiteImage
-              src={content.mainImage.src}
-              alt={content.mainImage.alt}
-              fill
+        <div className="flex flex-col items-center lg:justify-self-center">
+          {mainVideo ? (
+            <PropertyVideoPlayer
+              className="w-full max-w-[19rem] border border-[#0d293c]/10 shadow-[0_24px_70px_rgba(13,41,60,0.2)] sm:max-w-[21rem] lg:max-w-[22rem]"
+              playLabel={content.videoPlayLabel}
               priority
-              sizes="(max-width: 1023px) 100vw, 48vw"
-              className={
-                content.mainImage.fit === "contain"
-                  ? "object-contain p-4 sm:p-7"
-                  : "object-cover"
-              }
+              sizes="(max-width: 639px) 304px, (max-width: 1023px) 336px, 352px"
+              video={mainVideo}
             />
-            {content.mainImage.caption ? (
-              <figcaption className="absolute inset-x-4 bottom-4 rounded-xl bg-[#10301f]/86 px-4 py-3 text-sm font-semibold text-white backdrop-blur-md">
-                {content.mainImage.caption}
-              </figcaption>
-            ) : null}
-          </figure>
+          ) : (
+            <figure className="image-frame aspect-[4/3] w-full max-w-xl bg-[#0d293c]">
+              <SiteImage
+                alt={content.mainImage.alt}
+                className={
+                  content.mainImage.fit === "contain"
+                    ? "object-contain p-4 sm:p-7"
+                    : "object-cover"
+                }
+                fill
+                priority
+                sizes="(max-width: 1023px) 100vw, 40vw"
+                src={content.mainImage.src}
+              />
+              {content.mainImage.caption ? (
+                <figcaption className="absolute inset-x-4 bottom-4 rounded-xl bg-[#10301f]/86 px-4 py-3 text-sm font-semibold text-white backdrop-blur-md">
+                  {content.mainImage.caption}
+                </figcaption>
+              ) : null}
+            </figure>
+          )}
 
           {content.quickFacts.length > 0 ? (
-            <ul className="relative z-10 mx-3 -mt-5 grid gap-px overflow-hidden rounded-2xl border border-[#173f2b]/10 bg-[#173f2b]/10 shadow-[0_18px_50px_rgba(23,63,43,0.13)] sm:grid-cols-2 lg:mx-6">
+            <ul className="relative z-10 mt-5 grid w-full max-w-[36rem] gap-px overflow-hidden rounded-2xl border border-[#173f2b]/10 bg-[#173f2b]/10 shadow-[0_18px_50px_rgba(23,63,43,0.13)] sm:grid-cols-2">
               {content.quickFacts.map((fact) => (
                 <li
                   key={fact}
@@ -597,54 +611,69 @@ export function LocationSection({ content }: LocationSectionProps) {
 
   return (
     <section id={content.id} className="section-space bg-white">
-      <div className="site-container grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-        <div>
-          <SectionHeading
-            eyebrow={content.eyebrow}
-            title={content.title}
-            description={content.introduction}
-          />
-          <p className="mt-6 flex max-w-2xl items-start gap-3 rounded-2xl border border-[#a96531]/18 bg-[#f5f1e8] p-5 text-sm leading-6 text-[#665b4f]">
-            <MapPinned aria-hidden="true" className="mt-0.5 shrink-0 text-[#a96531]" size={21} />
-            {content.note}
-          </p>
-        </div>
+      <div className="site-container">
+        <SectionHeading
+          eyebrow={content.eyebrow}
+          title={content.title}
+          description={content.introduction}
+        />
+        <p className="mt-6 flex max-w-3xl items-start gap-3 rounded-2xl border border-[#a96531]/18 bg-[#f5f1e8] p-5 text-sm leading-6 text-[#665b4f]">
+          <MapPinned aria-hidden="true" className="mt-0.5 shrink-0 text-[#a96531]" size={21} />
+          {content.note}
+        </p>
 
-        <div className="relative overflow-hidden rounded-3xl bg-[#0d293c] p-7 text-white shadow-[0_24px_70px_rgba(13,41,60,0.18)] md:p-9">
-          <div className="absolute -bottom-20 -right-16 size-64 rounded-full border-[45px] border-white/5" />
-          <span className="grid size-14 place-items-center rounded-2xl bg-white/10 text-[#ff9a4d]">
-            <Route aria-hidden="true" size={28} />
-          </span>
-          {content.approximateLocation ? (
-            <p className="mt-6 font-serif text-3xl font-semibold">{content.approximateLocation}</p>
-          ) : (
-            <p className="mt-6 font-serif text-3xl font-semibold">{content.title}</p>
-          )}
-          {fields.length > 0 ? (
-            <dl className="relative mt-7 grid gap-4 sm:grid-cols-2">
-              {fields.map(([label, value]) => (
-                <div key={label} className="border-t border-white/15 pt-4">
-                  <dt className="text-xs font-bold tracking-[0.08em] text-white/55 uppercase">
-                    {label}
-                  </dt>
-                  <dd className="mt-1 font-semibold text-white/90">{value}</dd>
-                </div>
-              ))}
-            </dl>
-          ) : (
-            <p className="relative mt-4 max-w-md text-white/65">{content.introduction}</p>
-          )}
-          {content.showMap && content.mapUrl ? (
-            <a
-              className="button-secondary relative mt-7 !border-white/25 !bg-white/10 !text-white hover:!bg-white/15"
-              href={content.mapUrl}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <MapPinned aria-hidden="true" size={18} />
-              {content.title}
-            </a>
-          ) : null}
+        <div className="mt-10 grid items-stretch gap-7 lg:grid-cols-[1.12fr_0.88fr] lg:gap-10">
+          <figure className="image-frame aspect-[4/3] min-h-0 bg-[#0d293c]">
+            <SiteImage
+              alt={content.image.alt}
+              className={content.image.fit === "contain" ? "object-contain" : "object-cover"}
+              fill
+              sizes="(max-width: 1023px) 100vw, 56vw"
+              src={content.image.src}
+            />
+            {content.image.caption ? (
+              <figcaption className="absolute inset-x-4 bottom-4 rounded-xl bg-[#0d293c]/88 px-4 py-3 text-sm font-semibold text-white backdrop-blur-md">
+                {content.image.caption}
+              </figcaption>
+            ) : null}
+          </figure>
+
+          <div className="relative overflow-hidden rounded-3xl bg-[#0d293c] p-7 text-white shadow-[0_24px_70px_rgba(13,41,60,0.18)] md:p-9">
+            <div className="absolute -bottom-20 -right-16 size-64 rounded-full border-[45px] border-white/5" />
+            <span className="grid size-14 place-items-center rounded-2xl bg-white/10 text-[#ff9a4d]">
+              <Route aria-hidden="true" size={28} />
+            </span>
+            {content.approximateLocation ? (
+              <p className="mt-6 font-serif text-3xl font-semibold">{content.approximateLocation}</p>
+            ) : (
+              <p className="mt-6 font-serif text-3xl font-semibold">{content.title}</p>
+            )}
+            {fields.length > 0 ? (
+              <dl className="relative mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+                {fields.map(([label, value]) => (
+                  <div key={label} className="border-t border-white/15 pt-4">
+                    <dt className="text-xs font-bold tracking-[0.08em] text-white/55 uppercase">
+                      {label}
+                    </dt>
+                    <dd className="mt-1 font-semibold text-white/90">{value}</dd>
+                  </div>
+                ))}
+              </dl>
+            ) : (
+              <p className="relative mt-4 max-w-md text-white/65">{content.introduction}</p>
+            )}
+            {content.showMap && content.mapUrl ? (
+              <a
+                className="button-secondary relative mt-7 !border-white/25 !bg-white/10 !text-white hover:!bg-white/15"
+                href={content.mapUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <MapPinned aria-hidden="true" size={18} />
+                {content.title}
+              </a>
+            ) : null}
+          </div>
         </div>
       </div>
     </section>

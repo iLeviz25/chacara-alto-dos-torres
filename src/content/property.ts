@@ -241,6 +241,7 @@ export interface PropertyContent {
     title: string;
     subtitle: string;
     mainImage: ContentImage;
+    videoPlayLabel: string;
     quickFacts: string[];
     primaryActionLabel: string;
     secondaryActionLabel: string;
@@ -337,6 +338,7 @@ export interface PropertyContent {
     eyebrow: string;
     title: string;
     introduction: string;
+    image: ContentImage;
     city: string | null;
     state: string | null;
     region: string | null;
@@ -431,7 +433,7 @@ export interface PropertyContent {
 }
 
 const seoDescription =
-  "Conheça a Chácara Alto dos Torres, na Serra de Uibaí: 6 tarefas, pomar produtivo, casa com 5 cômodos, varanda em L, espaço caipira, energia elétrica e duas cisternas com capacidade total de 25 mil litros de armazenamento.";
+  "Conheça a Chácara Alto dos Torres, na Serra de Uibaí: área total de 6 tarefas, pomar produtivo, casa com 5 cômodos, varanda em L, espaço caipira, energia elétrica e duas cisternas com capacidade total de 25 mil litros de armazenamento.";
 
 const brandLogo: ContentImage = {
   src: "/images/brand/logo-chacara-alto-dos-torres.png",
@@ -468,7 +470,7 @@ export const property: PropertyContent = {
   shortDescription:
     "Chácara produtiva com estrutura para descanso, lazer e agricultura familiar.",
   fullDescription:
-    "A Chácara Alto dos Torres é uma propriedade acolhedora na Serra de Uibaí, com 6 tarefas, casa de 5 cômodos, varanda em L, espaço caipira com fogão a lenha, pomar produtivo, cultivos, captação de água da chuva, duas cisternas e energia elétrica funcionando.",
+    "A Chácara Alto dos Torres é uma propriedade acolhedora na Serra de Uibaí, com área total de 6 tarefas, casa de 5 cômodos, varanda em L, espaço caipira com fogão a lenha, pomar produtivo, cultivos, captação de água da chuva, duas cisternas e energia elétrica funcionando.",
 
   brand: {
     logo: brandLogo,
@@ -547,7 +549,7 @@ export const property: PropertyContent = {
     eyebrow: "Chácara à venda na Serra de Uibaí",
     title: "Natureza, produção e tranquilidade na Serra de Uibaí",
     subtitle:
-      "A Chácara Alto dos Torres reúne 6 tarefas, pomar produtivo, casa com 5 cômodos, varanda em L, espaço caipira com fogão a lenha e estrutura para lazer, descanso ou produção agrícola familiar.",
+      "A Chácara Alto dos Torres possui uma área total de 6 tarefas, pomar produtivo, casa com 5 cômodos, varanda em L, espaço caipira com fogão a lenha e estrutura para lazer, descanso ou produção agrícola familiar.",
     mainImage: {
       src: "/images/property/real/vista-geral-01.webp",
       alt: "Vista aérea da Chácara Alto dos Torres com a casa, a vegetação e a estrada ao redor",
@@ -555,8 +557,9 @@ export const property: PropertyContent = {
       isPlaceholder: false,
       fit: "cover",
     },
+    videoPlayLabel: "Assista à apresentação",
     quickFacts: [
-      "6 tarefas",
+      "Área total: 6 tarefas",
       "Casa com 5 cômodos",
       "Pomar produtivo",
       "25 mil litros de armazenamento",
@@ -573,7 +576,7 @@ export const property: PropertyContent = {
     eyebrow: "A Chácara Alto dos Torres",
     title: "Um refúgio na Serra de Uibaí",
     paragraphs: [
-      "A Chácara Alto dos Torres é uma propriedade acolhedora para quem busca tranquilidade, contato com a natureza e clima de serra. Com área informada de 6 tarefas, a chácara possui estrutura para aproveitar os fins de semana, reunir a família ou dar continuidade às atividades agrícolas.",
+      "A Chácara Alto dos Torres é uma propriedade acolhedora para quem busca tranquilidade, contato com a natureza e clima de serra. A propriedade possui uma área total de 6 tarefas e estrutura para aproveitar os fins de semana, reunir a família ou dar continuidade às atividades agrícolas.",
       "O imóvel conta com casa de 5 cômodos, varanda em L, espaço caipira com fogão a lenha, energia elétrica, sistema de captação de água da chuva e um pomar com diversas culturas já implantadas.",
     ],
   },
@@ -581,8 +584,8 @@ export const property: PropertyContent = {
   highlights: {
     items: [
       {
-        title: "Área da propriedade",
-        description: "6 tarefas de área rural, com espaços cultivados e áreas para aproveitamento.",
+        title: "Área total da propriedade",
+        description: "A propriedade possui uma área total de 6 tarefas.",
         icon: "land-plot",
         visible: true,
       },
@@ -774,7 +777,7 @@ export const property: PropertyContent = {
 
   area: {
     total: {
-      label: "Área informada",
+      label: "Área total",
       value: "6",
       unit: "tarefas",
       showWhenUnknown: false,
@@ -1031,9 +1034,9 @@ export const property: PropertyContent = {
   videos: {
     id: "videos",
     eyebrow: "Vídeos",
-    title: "Conheça a Chácara Alto dos Torres em vídeo",
+    title: "Veja mais detalhes da chácara em vídeo",
     description:
-      "Assista à apresentação principal e a três registros curtos da propriedade, dos cultivos e da paisagem.",
+      "Confira outros registros da propriedade, dos cultivos e das paisagens da Chácara Alto dos Torres.",
     playLabel: "Reproduzir vídeo",
     items: [
       {
@@ -1183,6 +1186,13 @@ export const property: PropertyContent = {
     title: "Na Serra de Uibaí",
     introduction:
       "A Chácara Alto dos Torres está localizada a aproximadamente 7 km de Uibaí, em uma região marcada pela tranquilidade, pela natureza e pelo clima de serra.",
+    image: {
+      src: "/images/property/real/vista-geral-01.webp",
+      alt: "Vista aérea da Chácara Alto dos Torres e de seus arredores",
+      caption: "Vista aérea da Chácara Alto dos Torres e de seus arredores",
+      isPlaceholder: false,
+      fit: "cover",
+    },
     city: null,
     state: null,
     region: null,
@@ -1285,7 +1295,7 @@ export const property: PropertyContent = {
       {
         id: "tamanho-da-propriedade",
         question: "Qual é o tamanho da propriedade?",
-        answer: "A área informada é de 6 tarefas. A equivalência em hectares ou metros quadrados poderá ser adicionada após confirmação.",
+        answer: "A propriedade possui uma área total de 6 tarefas. Não há equivalência confirmada em hectares ou metros quadrados.",
         order: 1,
         visible: true,
       },

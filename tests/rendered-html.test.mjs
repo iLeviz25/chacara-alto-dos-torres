@@ -31,6 +31,9 @@ test("renderiza a Chácara Alto dos Torres com os dados confirmados", async () =
   assert.match(html, /<html[^>]*lang="pt-BR"/i);
   assert.match(html, /<title>Chácara Alto dos Torres \| Chácara à venda na Serra de Uibaí<\/title>/i);
   assert.match(html, /Natureza, produção e tranquilidade na Serra de Uibaí/);
+  assert.match(html, /Área total: 6 tarefas/);
+  assert.match(html, /A propriedade possui uma área total de 6 tarefas/);
+  assert.doesNotMatch(html, /Área informada|área informada de 6 tarefas/);
   assert.match(html, /25 mil litros de armazenamento/);
   assert.match(html, /Pomar, cultivos e sabores da propriedade/);
   assert.match(html, /Casa e espaços de convivência/);
@@ -45,11 +48,18 @@ test("renderiza a Chácara Alto dos Torres com os dados confirmados", async () =
   assert.match(html, /Frutífera do pomar/);
   assert.match(html, /Vista da região a partir da propriedade/);
   assert.match(html, /Estrada de acesso à região/);
-  assert.match(html, /Conheça a Chácara Alto dos Torres em vídeo/);
+  assert.match(html, /Veja mais detalhes da chácara em vídeo/);
+  assert.match(
+    html,
+    /Confira outros registros da propriedade, dos cultivos e das paisagens da Chácara Alto dos Torres\./,
+  );
   assert.match(html, /Apresentação da Chácara Alto dos Torres/);
   assert.match(html, /\/videos\/property\/apresentacao-principal\.mp4/);
   assert.match(html, /\/videos\/property\/video-curto-03\.mp4/);
-  assert.match(html, /Reproduzir vídeo: Apresentação da Chácara Alto dos Torres \(1:29\)/);
+  assert.match(html, /Assista à apresentação: Apresentação da Chácara Alto dos Torres \(1:29\)/);
+  assert.doesNotMatch(html, /Reproduzir vídeo: Apresentação da Chácara Alto dos Torres/);
+  assert.match(html, /Reproduzir vídeo: Conheça a propriedade \(0:20\)/);
+  assert.match(html, /Vista aérea da Chácara Alto dos Torres e de seus arredores/);
   assert.doesNotMatch(html, /<video\b/i);
   assert.doesNotMatch(html, /autoplay/i);
   assert.match(html, /A aproximadamente 7 km de Uibaí/);

@@ -23,7 +23,7 @@ As imagens ficam em:
 
 O nome oficial está em `propertyName`.
 
-Os textos da primeira tela ficam em `hero`. A visão geral fica em `overview`, a casa em `supportHouse`, a infraestrutura em `infrastructure`, os cultivos em `crops` e as perguntas em `faq`.
+Os textos e o rótulo do vídeo da primeira tela ficam em `hero`. A visão geral fica em `overview`, a casa em `supportHouse`, a infraestrutura em `infrastructure`, os cultivos em `crops` e as perguntas em `faq`.
 
 O bloco `sections` permite ligar ou desligar cada parte da página. A seção de vídeos também fica oculta automaticamente quando não há nenhum vídeo visível.
 
@@ -94,7 +94,7 @@ Os cards ficam em `infrastructure.items`. Altere capacidades ou descrições som
 
 ## Localização
 
-A informação confirmada fica em `location.approximateLocation`.
+A informação confirmada fica em `location.approximateLocation`. A fotografia usada nessa seção fica em `location.image`.
 
 Os campos de cidade, estado, comunidade, distâncias, estrada, coordenadas e mapa permanecem preparados no mesmo bloco. Campos vazios não aparecem na página.
 
@@ -153,7 +153,7 @@ Exemplo de vídeo principal horizontal:
 },
 ```
 
-Para um vídeo curto vertical, use `role: "short"` e `format: "vertical"`.
+O vídeo visível com `role: "main"` aparece na primeira tela. Os vídeos da seção inferior devem usar `role: "short"`; para o formato vertical, mantenha `format: "vertical"`.
 
 Para MP4 local, copie o arquivo para `public/videos/property/` e use um caminho como `/videos/property/visita.mp4`. A capa pode ficar em `public/images/property/video-covers/`.
 

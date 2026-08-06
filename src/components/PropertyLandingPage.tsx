@@ -33,7 +33,11 @@ export function PropertyLandingPage({
   const visiblePotential = content.productivePotential.items.some((item) => item.visible);
   const visibleInfrastructure = content.infrastructure.items.some((item) => item.visible);
   const visibleGallery = content.gallery.items.some((item) => item.visible);
-  const visibleVideos = content.videos.items.some((item) => item.visible);
+  const mainVideo =
+    content.videos.items.find((item) => item.visible && item.role === "main") ?? null;
+  const visibleVideos = content.videos.items.some(
+    (item) => item.visible && item.role === "short",
+  );
   const visibleFaq = content.faq.items.some((item) => item.visible);
   const visibleSectionIds = new Set<string>();
 
@@ -92,6 +96,7 @@ export function PropertyLandingPage({
       <main id="conteudo-principal">
         <HeroSection
           content={content.hero}
+          mainVideo={mainVideo}
           status={content.status}
           statusContent={statusContent}
           contactAction={contactButton(content.hero.primaryActionLabel)}
