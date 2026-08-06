@@ -38,8 +38,14 @@ test("renderiza a Chácara Alto dos Torres com os dados confirmados", async () =
   assert.match(html, /application\/ld\+json/);
   assert.match(html, /https:\/\/wa\.me\/5574988700524\?text=/);
   assert.match(html, /Logo da Chácara Alto dos Torres/);
+  assert.match(html, /\/images\/property\/real\/vista-geral-01\.webp/);
+  assert.match(html, /Vista aérea da Chácara Alto dos Torres/);
+  assert.match(html, /Cisterna da propriedade/);
 
-  assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|lorem ipsum/i);
+  assert.doesNotMatch(
+    html,
+    /codex-preview|react-loading-skeleton|lorem ipsum|imagem temporária|serão adicionadas em uma próxima etapa/i,
+  );
   assert.doesNotMatch(
     html,
     /oportunidade imperdível|retorno garantido|última chance|construção de apoio|mansão|resort|alto padrão/i,

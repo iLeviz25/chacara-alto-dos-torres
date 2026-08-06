@@ -102,7 +102,7 @@ Por segurança, não publique o endereço exato. Mantenha `showExactAddress: fal
 
 ## Galeria e fotografias reais
 
-As fotos da propriedade devem ser copiadas para `public/images/property/`, preferencialmente em WebP.
+As fotos reais da propriedade ficam em `public/images/property/real/`, preferencialmente em WebP.
 
 Cada foto é cadastrada em `gallery.items` com:
 
