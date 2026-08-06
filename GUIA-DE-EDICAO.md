@@ -147,15 +147,17 @@ Exemplo de vídeo principal horizontal:
   coverImage: null,
   role: "main",
   format: "horizontal",
+  duration: "1:29",
+  order: 1,
   visible: true,
 },
 ```
 
 Para um vídeo curto vertical, use `role: "short"` e `format: "vertical"`.
 
-Para MP4 local, copie o arquivo para `public/videos/` e use um caminho como `/videos/visita.mp4`.
+Para MP4 local, copie o arquivo para `public/videos/property/` e use um caminho como `/videos/property/visita.mp4`. A capa pode ficar em `public/images/property/video-covers/`.
 
-Depois de cadastrar ao menos um vídeo real, altere `sections.videos` para `true`. Os vídeos não iniciam automaticamente.
+Depois de cadastrar ao menos um vídeo real, altere `sections.videos` para `true`. Os vídeos não iniciam automaticamente e o arquivo só é disponibilizado ao player depois da interação do visitante.
 
 ## Preço, documentação e negociação
 
