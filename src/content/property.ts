@@ -134,6 +134,8 @@ export interface PropertyVideo {
   coverImage: ContentImage | null;
   role: VideoRole;
   format: VideoFormat;
+  duration: string;
+  order: number;
   visible: boolean;
 }
 
@@ -479,12 +481,12 @@ export const property: PropertyContent = {
     productivePotential: true,
     infrastructure: true,
     gallery: true,
-    videos: false,
+    videos: true,
     propertyDetails: true,
     supportHouse: true,
     location: true,
     documentation: false,
-    pricing: false,
+    pricing: true,
     contact: true,
     faq: true,
     finalCta: true,
@@ -502,7 +504,7 @@ export const property: PropertyContent = {
       { label: "Galeria", href: "#galeria" },
       { label: "Localização", href: "#localizacao" },
     ],
-    contactLabel: "Falar com o proprietário",
+    contactLabel: "Consultar pelo WhatsApp",
   },
 
   seo: {
@@ -560,7 +562,7 @@ export const property: PropertyContent = {
       "25 mil litros de armazenamento",
       "Energia elétrica",
     ],
-    primaryActionLabel: "Falar com o proprietário",
+    primaryActionLabel: "Consultar valor pelo WhatsApp",
     secondaryActionLabel: "Conhecer a chácara",
     secondaryActionTarget: "#visao-geral",
     detailsNotice: "",
@@ -817,9 +819,22 @@ export const property: PropertyContent = {
         visible: true,
       },
       { key: "internet", label: "Internet e sinal", value: null, showWhenUnknown: false, visible: true },
-      { key: "carAccess", label: "Acesso de carros", value: null, showWhenUnknown: false, visible: true },
+      {
+        key: "carAccess",
+        label: "Acesso de carros e motos",
+        value:
+          "Estrada de terra em boas condições, com passagem tranquila para carros e motos, inclusive em dias de chuva",
+        showWhenUnknown: false,
+        visible: true,
+      },
       { key: "truckAccess", label: "Acesso de caminhões", value: null, showWhenUnknown: false, visible: true },
-      { key: "distanceToCity", label: "Distância até a cidade", value: null, showWhenUnknown: false, visible: true },
+      {
+        key: "distanceToCity",
+        label: "Distância até Uibaí",
+        value: "Aproximadamente 7 km",
+        showWhenUnknown: false,
+        visible: true,
+      },
       { key: "distanceToPavement", label: "Distância até o asfalto", value: null, showWhenUnknown: false, visible: true },
       { key: "internalRoads", label: "Estradas internas", value: null, showWhenUnknown: false, visible: true },
       { key: "vegetation", label: "Vegetação", value: null, showWhenUnknown: false, visible: true },
@@ -1013,15 +1028,88 @@ export const property: PropertyContent = {
     },
   },
 
-  // A seção permanece oculta enquanto não houver um vídeo real visível.
   videos: {
     id: "videos",
     eyebrow: "Vídeos",
     title: "Conheça a Chácara Alto dos Torres em vídeo",
     description:
-      "Um vídeo principal e vídeos curtos poderão apresentar a casa, o pomar, a infraestrutura e a paisagem da chácara.",
-    playLabel: "Carregar vídeo",
-    items: [],
+      "Assista à apresentação principal e a três registros curtos da propriedade, dos cultivos e da paisagem.",
+    playLabel: "Reproduzir vídeo",
+    items: [
+      {
+        id: "apresentacao-principal",
+        title: "Apresentação da Chácara Alto dos Torres",
+        description:
+          "Conheça alguns dos espaços, paisagens e características da propriedade.",
+        url: "/videos/property/apresentacao-principal.mp4",
+        coverImage: {
+          src: "/images/property/video-covers/apresentacao-principal.webp",
+          alt: "Vista aérea da Chácara Alto dos Torres e da região",
+          caption: "Apresentação da Chácara Alto dos Torres",
+          isPlaceholder: false,
+          fit: "cover",
+        },
+        role: "main",
+        format: "vertical",
+        duration: "1:29",
+        order: 1,
+        visible: true,
+      },
+      {
+        id: "video-curto-01",
+        title: "Conheça a propriedade",
+        description: "Um resumo visual da casa, da infraestrutura e da região.",
+        url: "/videos/property/video-curto-01.mp4",
+        coverImage: {
+          src: "/images/property/video-covers/video-curto-01.webp",
+          alt: "Montagem vertical com cisterna, acesso, casa e paisagem da região",
+          caption: "Casa, infraestrutura e região",
+          isPlaceholder: false,
+          fit: "cover",
+        },
+        role: "short",
+        format: "vertical",
+        duration: "0:20",
+        order: 2,
+        visible: true,
+      },
+      {
+        id: "video-curto-02",
+        title: "Cultivos e infraestrutura",
+        description: "Registros dos cultivos, das frutíferas e da infraestrutura de água.",
+        url: "/videos/property/video-curto-02.mp4",
+        coverImage: {
+          src: "/images/property/video-covers/video-curto-02.webp",
+          alt: "Cisterna e identidade visual da Chácara Alto dos Torres",
+          caption: "Infraestrutura da chácara",
+          isPlaceholder: false,
+          fit: "cover",
+        },
+        role: "short",
+        format: "vertical",
+        duration: "0:20",
+        order: 3,
+        visible: true,
+      },
+      {
+        id: "video-curto-03",
+        title: "Casa, cultivos e paisagem",
+        description: "Imagens da casa, dos cultivos e da paisagem observada na região.",
+        url: "/videos/property/video-curto-03.mp4",
+        coverImage: {
+          src: "/images/property/video-covers/video-curto-03.webp",
+          alt: "Abacaxi cultivado na Chácara Alto dos Torres",
+          caption: "Cultivos da chácara",
+          isPlaceholder: false,
+          fit: "cover",
+        },
+        role: "short",
+        format: "vertical",
+        duration: "0:29",
+        order: 4,
+        visible: true,
+      },
+    ],
   },
 
   supportHouse: {
@@ -1094,17 +1182,18 @@ export const property: PropertyContent = {
     eyebrow: "Localização",
     title: "Na Serra de Uibaí",
     introduction:
-      "A Chácara Alto dos Torres está localizada na Serra de Uibaí, em um ambiente marcado pela tranquilidade, pela natureza e pelo clima de serra.",
+      "A Chácara Alto dos Torres está localizada a aproximadamente 7 km de Uibaí, em uma região marcada pela tranquilidade, pela natureza e pelo clima de serra.",
     city: null,
     state: null,
     region: null,
     community: null,
-    approximateLocation: "Serra de Uibaí",
-    distanceToCenter: null,
+    approximateLocation: "A aproximadamente 7 km de Uibaí",
+    distanceToCenter: "Aproximadamente 7 km de Uibaí",
     estimatedTravelTime: null,
     pavedRoadDistance: null,
     dirtRoadDistance: null,
-    accessCondition: null,
+    accessCondition:
+      "Estrada de terra em boas condições, com passagem tranquila para carros e motos, inclusive em períodos de chuva",
     entranceType: null,
     coordinates: {
       latitude: null,
@@ -1119,7 +1208,7 @@ export const property: PropertyContent = {
       state: "Estado",
       region: "Região",
       community: "Comunidade",
-      distanceToCenter: "Distância até o centro",
+      distanceToCenter: "Distância aproximada",
       estimatedTravelTime: "Tempo estimado de deslocamento",
       pavedRoadDistance: "Trecho asfaltado",
       dirtRoadDistance: "Trecho de terra",
@@ -1133,16 +1222,16 @@ export const property: PropertyContent = {
     eyebrow: "Negociação",
     title: "Informações para negociação",
     description:
-      "O valor, a documentação e as condições de negociação serão apresentados após a confirmação dos dados.",
+      "Consulte o valor diretamente com o proprietário. A condição de pagamento informada é à vista.",
     price: {
       amount: null,
       currency: "BRL",
       showPrice: false,
       showAsOnRequest: true,
-      onRequestLabel: "Valor sob consulta",
+      onRequestLabel: "Consulte o valor diretamente com o proprietário.",
     },
     acceptsOffer: null,
-    paymentMethods: [],
+    paymentMethods: ["À vista"],
     acceptsVehicle: null,
     acceptsOtherProperty: null,
     installmentTerms: null,
@@ -1158,7 +1247,7 @@ export const property: PropertyContent = {
     labels: {
       price: "Valor",
       acceptsOffer: "Aceita proposta",
-      paymentMethods: "Formas de pagamento",
+      paymentMethods: "Condição de pagamento",
       acceptsVehicle: "Aceita veículo",
       acceptsOtherProperty: "Aceita outro imóvel",
       installmentTerms: "Parcelamento",
@@ -1171,20 +1260,20 @@ export const property: PropertyContent = {
     eyebrow: "Contato direto",
     title: "Converse diretamente com o proprietário",
     description:
-      "Entre em contato para solicitar mais informações, conhecer as condições de venda ou combinar uma visita à Chácara Alto dos Torres.",
+      "Consulte o valor diretamente com o proprietário. As visitas podem ser realizadas em qualquer dia, mediante agendamento prévio pelo WhatsApp.",
     ownerName: "Proprietário",
     bestContactTime: null,
     directContactLabel: "Contato direto com o proprietário",
     ownerLabel: "Responsável",
     bestContactTimeLabel: "Melhor horário para contato",
-    buttonLabel: "Falar com o proprietário",
-    floatingButtonLabel: "Falar com o proprietário pelo WhatsApp",
+    buttonLabel: "Consultar valor e agendar visita",
+    floatingButtonLabel: "Consultar valor e agendar visita pelo WhatsApp",
     unavailableButtonLabel: "Contato indisponível",
     whatsapp: {
       countryCode: "55",
       number: "74988700524",
       message:
-        "Olá! Vi o site da Chácara Alto dos Torres e gostaria de receber mais informações.",
+        "Olá! Vi o site da Chácara Alto dos Torres e gostaria de consultar o valor e agendar uma visita.",
     },
   },
 
@@ -1230,16 +1319,30 @@ export const property: PropertyContent = {
       },
       {
         id: "visita",
-        question: "Posso visitar a propriedade?",
-        answer: "Entre em contato pelo WhatsApp para conversar diretamente com o responsável e verificar a disponibilidade para visita.",
+        question: "Como posso visitar a chácara?",
+        answer: "As visitas podem acontecer em qualquer dia, desde que sejam combinadas previamente com o responsável pelo WhatsApp.",
         order: 6,
         visible: true,
       },
       {
         id: "localizacao",
         question: "Onde fica a propriedade?",
-        answer: "A Chácara Alto dos Torres está localizada na Serra de Uibaí. A localização completa poderá ser compartilhada durante o atendimento.",
+        answer: "A Chácara Alto dos Torres está localizada a aproximadamente 7 km de Uibaí. A localização completa poderá ser compartilhada durante o atendimento.",
         order: 7,
+        visible: true,
+      },
+      {
+        id: "acesso",
+        question: "Como é o acesso à propriedade?",
+        answer: "A propriedade fica a aproximadamente 7 km de Uibaí. O acesso é feito por estrada de terra em boas condições, com passagem tranquila para carros e motos, inclusive em dias de chuva.",
+        order: 8,
+        visible: true,
+      },
+      {
+        id: "valor",
+        question: "Qual é o valor da chácara?",
+        answer: "O valor é informado diretamente pelo proprietário. Entre em contato pelo WhatsApp para consultar o preço e receber mais informações.",
+        order: 9,
         visible: true,
       },
     ],
@@ -1249,8 +1352,8 @@ export const property: PropertyContent = {
     id: "mais-informacoes",
     title: "Venha conhecer a Chácara Alto dos Torres",
     description:
-      "Converse diretamente com o proprietário para solicitar mais informações, conhecer as condições de venda ou combinar uma visita.",
-    buttonLabel: "Solicitar informações pelo WhatsApp",
+      "Consulte o valor diretamente com o proprietário e combine previamente sua visita em qualquer dia pelo WhatsApp.",
+    buttonLabel: "Consultar valor e agendar visita",
     directSaleLabel: "Contato direto com o proprietário.",
     backgroundImage: {
       src: "/images/property/real/vista-geral-02.webp",
@@ -1263,9 +1366,9 @@ export const property: PropertyContent = {
   footer: {
     propertyTypeLabel: "Chácara produtiva para lazer, descanso e agricultura familiar",
     whatsappLabel: "Falar pelo WhatsApp",
-    locationFallback: "Serra de Uibaí",
+    locationFallback: "A aproximadamente 7 km de Uibaí",
     updateNotice:
-      "Vídeos, valor, documentação e detalhes da localização serão atualizados quando confirmados.",
+      "A documentação e outros detalhes ainda serão atualizados quando confirmados.",
     backToTopLabel: "Voltar ao início",
   },
 };

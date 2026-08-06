@@ -45,6 +45,22 @@ test("renderiza a Chácara Alto dos Torres com os dados confirmados", async () =
   assert.match(html, /Frutífera do pomar/);
   assert.match(html, /Vista da região a partir da propriedade/);
   assert.match(html, /Estrada de acesso à região/);
+  assert.match(html, /Conheça a Chácara Alto dos Torres em vídeo/);
+  assert.match(html, /Apresentação da Chácara Alto dos Torres/);
+  assert.match(html, /\/videos\/property\/apresentacao-principal\.mp4/);
+  assert.match(html, /\/videos\/property\/video-curto-03\.mp4/);
+  assert.match(html, /Reproduzir vídeo: Apresentação da Chácara Alto dos Torres \(1:29\)/);
+  assert.doesNotMatch(html, /<video\b/i);
+  assert.doesNotMatch(html, /autoplay/i);
+  assert.match(html, /A aproximadamente 7 km de Uibaí/);
+  assert.match(html, /Estrada de terra em boas condições/);
+  assert.match(html, /Consulte o valor diretamente com o proprietário\./);
+  assert.match(html, /Condição de pagamento/);
+  assert.match(html, /À vista/);
+  assert.match(html, /Qual é o valor da chácara\?/);
+  assert.match(html, /Como é o acesso à propriedade\?/);
+  assert.match(html, /Como posso visitar a chácara\?/);
+  assert.match(html, /Consultar valor e agendar visita/);
   assert.doesNotMatch(html, /\/images\/property\/real\/cafe-01\.webp|Cultivo de café/);
 
   assert.doesNotMatch(
