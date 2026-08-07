@@ -51,6 +51,9 @@ test("renderiza a Chácara Alto dos Torres com os dados confirmados", async () =
   assert.match(html, /\/images\/property\/owner\/proprietario\.webp/);
   assert.match(html, /Proprietário da Chácara Alto dos Torres/);
   assert.match(html, /sizes="280px"/);
+  assert.match(html, /E-mail do proprietário/);
+  assert.match(html, /href="mailto:paguefeliz@gmail\.com"/);
+  assert.match(html, />paguefeliz@gmail\.com</);
   assert.doesNotMatch(html, /Informações para negociação|Converse diretamente com o proprietário/);
   assert.match(html, /application\/ld\+json/);
   assert.match(html, /https:\/\/wa\.me\/5574988700524\?text=/);

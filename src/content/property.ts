@@ -397,6 +397,8 @@ export interface PropertyContent {
     description: string;
     ownerName: string | null;
     ownerImage: ContentImage | null;
+    email: string | null;
+    emailLabel: string;
     supportItems: string[];
     bestContactTime: string | null;
     directContactLabel: string;
@@ -1297,6 +1299,8 @@ export const property: PropertyContent = {
       isPlaceholder: false,
       fit: "contain",
     },
+    email: "paguefeliz@gmail.com",
+    emailLabel: "E-mail do proprietário",
     supportItems: [
       "Valor sob consulta",
       "Pagamento à vista",

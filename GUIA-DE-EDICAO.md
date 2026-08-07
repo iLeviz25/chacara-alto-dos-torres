@@ -67,6 +67,14 @@ Use somente algarismos no código do país e no número. O endereço produzido d
 
 Teste o botão em um celular depois de qualquer alteração.
 
+## E-mail
+
+O e-mail do proprietário fica em `contact.email`:
+
+```ts
+email: "paguefeliz@gmail.com",
+```
+
 ## Pomar e cultivos
 
 Os três destaques grandes ficam em `crops.items`. Quantidade, estágio de produção e colheita devem continuar como `null` até serem confirmados.

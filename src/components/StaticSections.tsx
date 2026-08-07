@@ -14,6 +14,7 @@ import {
   Info,
   LandPlot,
   Leaf,
+  Mail,
   MapPinned,
   MessageCircle,
   Route,
@@ -748,6 +749,22 @@ export function OwnerContactSection({
                 <Clock3 aria-hidden="true" size={18} className="text-[#a96531]" />
                 {content.bestContactTimeLabel}: {content.bestContactTime}
               </p>
+            ) : null}
+            {content.email ? (
+              <a
+                className="mt-6 inline-flex max-w-full items-center gap-3 rounded-xl border border-[#173f2b]/10 bg-white px-4 py-3 text-[#0d293c] shadow-[0_8px_24px_rgba(23,63,43,0.06)] transition-colors hover:border-[#f47f20]/35 hover:text-[#8f4816]"
+                href={`mailto:${content.email}`}
+              >
+                <span className="grid size-9 shrink-0 place-items-center rounded-full bg-[#f47f20]/12 text-[#9a5227]">
+                  <Mail aria-hidden="true" size={18} strokeWidth={2.2} />
+                </span>
+                <span className="min-w-0 text-left">
+                  <span className="block text-xs font-extrabold tracking-[0.08em] text-[#60675e] uppercase">
+                    {content.emailLabel}
+                  </span>
+                  <span className="block break-all font-bold">{content.email}</span>
+                </span>
+              </a>
             ) : null}
             {statusContent.message ? (
               <p className="mt-5 text-sm font-bold text-[#7d4927]">{statusContent.message}</p>
