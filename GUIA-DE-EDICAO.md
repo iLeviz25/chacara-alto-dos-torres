@@ -25,7 +25,7 @@ O nome oficial está em `propertyName`.
 
 Os textos e o rótulo do vídeo da primeira tela ficam em `hero`. A visão geral fica em `overview`, a casa em `supportHouse`, a infraestrutura em `infrastructure`, os cultivos em `crops` e as perguntas em `faq`.
 
-O bloco `sections` permite ligar ou desligar cada parte da página. A seção de vídeos também fica oculta automaticamente quando não há nenhum vídeo visível.
+O bloco `sections` permite ligar ou desligar cada parte da página. A seção de vídeos também fica oculta automaticamente quando não há nenhum vídeo visível. Valor, pagamento, visitas e contato aparecem juntos na seção `contact`.
 
 ## Logo
 
@@ -161,14 +161,11 @@ Depois de cadastrar ao menos um vídeo real, altere `sections.videos` para `true
 
 ## Preço, documentação e negociação
 
-As seções permanecem desativadas enquanto os dados não estiverem confirmados:
+O preço numérico continua oculto enquanto não estiver confirmado. Mantenha `amount: null` e `showPrice: false`. A condição confirmada de pagamento à vista e a informação de valor sob consulta aparecem na seção unificada `contact`.
 
-```ts
-pricing: false,
-documentation: false,
-```
+Os textos de apoio dessa seção ficam em `contact.supportItems`. A foto do proprietário fica em `contact.ownerImage` e o arquivo atual está em `public/images/property/owner/proprietario.webp`.
 
-Não invente preço, documentos ou condições. Quando houver confirmação, preencha os campos em `negotiation` antes de ativar as seções.
+Não invente preço, documentos ou condições. Quando houver confirmação, preencha os campos em `negotiation` antes de exibi-los na página.
 
 ## Disponível, reservada ou vendida
 

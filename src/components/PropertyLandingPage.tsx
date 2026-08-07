@@ -9,7 +9,6 @@ import {
   HeroSection,
   InfrastructureSection,
   LocationSection,
-  NegotiationSection,
   OverviewSection,
   OwnerContactSection,
   ProductivePotentialSection,
@@ -54,9 +53,6 @@ export function PropertyLandingPage({
   if (content.sections.videos && visibleVideos) visibleSectionIds.add(content.videos.id);
   if (content.sections.supportHouse) visibleSectionIds.add(content.supportHouse.id);
   if (content.sections.location) visibleSectionIds.add(content.location.id);
-  if (content.sections.pricing || content.sections.documentation) {
-    visibleSectionIds.add(content.negotiation.id);
-  }
   if (content.sections.contact) visibleSectionIds.add(content.contact.id);
   if (content.sections.faq && visibleFaq) visibleSectionIds.add(content.faq.id);
   if (content.sections.finalCta) visibleSectionIds.add(content.finalCta.id);
@@ -140,14 +136,6 @@ export function PropertyLandingPage({
 
         {content.sections.location ? (
           <LocationSection content={content.location} />
-        ) : null}
-
-        {content.sections.pricing || content.sections.documentation ? (
-          <NegotiationSection
-            content={content.negotiation}
-            showPricing={content.sections.pricing}
-            showDocumentation={content.sections.documentation}
-          />
         ) : null}
 
         {content.sections.contact ? (

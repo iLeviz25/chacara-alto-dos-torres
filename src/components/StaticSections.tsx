@@ -3,7 +3,6 @@ import {
   Armchair,
   ArrowDown,
   ArrowUp,
-  Banknote,
   Car,
   Check,
   CircleAlert,
@@ -11,7 +10,6 @@ import {
   Clock3,
   CookingPot,
   Droplets,
-  FileText,
   House,
   Info,
   LandPlot,
@@ -680,106 +678,6 @@ export function LocationSection({ content }: LocationSectionProps) {
   );
 }
 
-interface NegotiationSectionProps {
-  content: PropertyContent["negotiation"];
-  showPricing: boolean;
-  showDocumentation: boolean;
-}
-
-export function NegotiationSection({
-  content,
-  showPricing,
-  showDocumentation,
-}: NegotiationSectionProps) {
-  const formatter = new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: content.price.currency,
-    maximumFractionDigits: 0,
-  });
-
-  const negotiationFields = [
-    content.acceptsOffer !== null
-      ? [content.labels.acceptsOffer, content.acceptsOffer ? "Sim" : "Não"]
-      : null,
-    content.paymentMethods.length > 0
-      ? [content.labels.paymentMethods, content.paymentMethods.join(", ")]
-      : null,
-    content.acceptsVehicle !== null
-      ? [content.labels.acceptsVehicle, content.acceptsVehicle ? "Sim" : "Não"]
-      : null,
-    content.acceptsOtherProperty !== null
-      ? [content.labels.acceptsOtherProperty, content.acceptsOtherProperty ? "Sim" : "Não"]
-      : null,
-    content.installmentTerms
-      ? [content.labels.installmentTerms, content.installmentTerms]
-      : null,
-  ].filter((field): field is string[] => Boolean(field));
-
-  const documentationFields = Object.entries(content.documentation).filter(
-    (field): field is [string, string] => Boolean(field[1]),
-  );
-
-  return (
-    <section id={content.id} className="section-space bg-[#f5f1e8]">
-      <div className="site-container">
-        <SectionHeading
-          eyebrow={content.eyebrow}
-          title={content.title}
-          description={content.description}
-        />
-        <div className="mt-10 grid gap-5 lg:grid-cols-2">
-          {showPricing ? (
-            <div className="card-surface bg-white p-7">
-              <Banknote aria-hidden="true" className="text-[#a96531]" size={28} />
-              <h3 className="mt-5 text-xl font-extrabold text-[#173f2b]">
-                {content.labels.price}
-              </h3>
-              <p className="mt-2 font-serif text-3xl font-semibold text-[#173f2b]">
-                {content.price.showPrice && content.price.amount !== null
-                  ? formatter.format(content.price.amount)
-                  : content.price.onRequestLabel}
-              </p>
-              {negotiationFields.length > 0 ? (
-                <dl className="mt-6 space-y-3 border-t border-[#d7d0c2] pt-5">
-                  {negotiationFields.map(([label, value]) => (
-                    <div key={label} className="flex items-start justify-between gap-4 text-sm">
-                      <dt className="font-bold text-[#60675e]">{label}</dt>
-                      <dd className="text-right font-semibold text-[#242822]">{value}</dd>
-                    </div>
-                  ))}
-                </dl>
-              ) : null}
-            </div>
-          ) : null}
-
-          {showDocumentation ? (
-            <div className="card-surface bg-white p-7">
-              <FileText aria-hidden="true" className="text-[#a96531]" size={28} />
-              <h3 className="mt-5 text-xl font-extrabold text-[#173f2b]">
-                {content.labels.documentation}
-              </h3>
-              {documentationFields.length > 0 ? (
-                <dl className="mt-5 space-y-3">
-                  {documentationFields.map(([label, value]) => (
-                    <div key={label} className="border-t border-[#d7d0c2] pt-3">
-                      <dt className="text-xs font-extrabold tracking-[0.08em] text-[#7d4927] uppercase">
-                        {label}
-                      </dt>
-                      <dd className="mt-1 text-sm text-[#60675e]">{value}</dd>
-                    </div>
-                  ))}
-                </dl>
-              ) : (
-                <p className="mt-3 text-[#60675e]">{content.description}</p>
-              )}
-            </div>
-          ) : null}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 interface OwnerContactSectionProps {
   content: PropertyContent["contact"];
   statusContent: StatusContent;
@@ -794,13 +692,25 @@ export function OwnerContactSection({
   return (
     <section id={content.id} className="section-space bg-white">
       <div className="site-container overflow-hidden rounded-[2rem] border border-[#173f2b]/10 bg-[#f5f1e8] shadow-[0_24px_70px_rgba(23,63,43,0.1)]">
-        <div className="grid lg:grid-cols-[0.72fr_1.28fr]">
-          <div className="relative flex min-h-64 items-center justify-center overflow-hidden bg-[#0d293c] p-10 text-white">
+        <div className="grid lg:grid-cols-[0.78fr_1.22fr]">
+          <div className="relative flex min-h-72 items-center justify-center overflow-hidden bg-[#0d293c] p-8 text-white md:p-10">
             <div className="absolute -bottom-24 -left-20 size-72 rounded-full border-[55px] border-white/5" />
             <div className="relative text-center">
-              <span className="mx-auto grid size-20 place-items-center rounded-full border border-white/15 bg-white/10 text-[#ff9a4d]">
-                <UserRound aria-hidden="true" size={35} strokeWidth={1.6} />
-              </span>
+              {content.ownerImage ? (
+                <div className="relative mx-auto aspect-[4/3] w-56 max-w-full overflow-hidden rounded-[1.5rem] border border-white/15 bg-white/5 shadow-[0_18px_45px_rgba(0,0,0,0.22)]">
+                  <SiteImage
+                    alt={content.ownerImage.alt}
+                    className="object-contain object-bottom"
+                    fill
+                    sizes="224px"
+                    src={content.ownerImage.src}
+                  />
+                </div>
+              ) : (
+                <span className="mx-auto grid size-20 place-items-center rounded-full border border-white/15 bg-white/10 text-[#ff9a4d]">
+                  <UserRound aria-hidden="true" size={35} strokeWidth={1.6} />
+                </span>
+              )}
               <p className="mt-5 text-sm font-extrabold tracking-[0.12em] text-white/60 uppercase">
                 {content.directContactLabel}
               </p>
@@ -812,6 +722,21 @@ export function OwnerContactSection({
           <div className="p-7 md:p-12">
             <SectionHeading eyebrow={content.eyebrow} title={content.title} />
             <p className="body-large mt-5 max-w-2xl">{content.description}</p>
+            {content.supportItems.length > 0 ? (
+              <ul className="mt-7 grid gap-3 sm:grid-cols-2">
+                {content.supportItems.map((item) => (
+                  <li
+                    className="flex min-h-14 items-center gap-3 rounded-xl border border-[#173f2b]/10 bg-white px-4 py-3 text-sm font-bold text-[#364239]"
+                    key={item}
+                  >
+                    <span className="grid size-7 shrink-0 place-items-center rounded-full bg-[#f47f20]/12 text-[#9a5227]">
+                      <Check aria-hidden="true" size={16} strokeWidth={2.5} />
+                    </span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
             {content.bestContactTime ? (
               <p className="mt-5 flex items-center gap-2 text-sm font-semibold text-[#60675e]">
                 <Clock3 aria-hidden="true" size={18} className="text-[#a96531]" />

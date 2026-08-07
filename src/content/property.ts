@@ -396,6 +396,8 @@ export interface PropertyContent {
     title: string;
     description: string;
     ownerName: string | null;
+    ownerImage: ContentImage | null;
+    supportItems: string[];
     bestContactTime: string | null;
     directContactLabel: string;
     ownerLabel: string;
@@ -887,7 +889,7 @@ export const property: PropertyContent = {
         caption: "Vista da região a partir da propriedade",
         isPlaceholder: false,
         category: "overview",
-        order: 2,
+        order: 12,
         visible: true,
       },
       {
@@ -897,7 +899,7 @@ export const property: PropertyContent = {
         caption: "Casa e paisagem ao redor",
         isPlaceholder: false,
         category: "house",
-        order: 3,
+        order: 2,
         visible: true,
       },
       {
@@ -907,7 +909,7 @@ export const property: PropertyContent = {
         caption: "Quintal arborizado da casa",
         isPlaceholder: false,
         category: "house",
-        order: 4,
+        order: 3,
         visible: true,
       },
       {
@@ -917,7 +919,7 @@ export const property: PropertyContent = {
         caption: "Varanda da casa",
         isPlaceholder: false,
         category: "veranda",
-        order: 5,
+        order: 4,
         visible: true,
       },
       {
@@ -925,6 +927,16 @@ export const property: PropertyContent = {
         src: "/images/property/real/frutifera-pomar-01.webp",
         alt: "Frutífera com frutos vermelhos no pomar da Chácara Alto dos Torres",
         caption: "Frutífera do pomar",
+        isPlaceholder: false,
+        category: "orchard-crops",
+        order: 5,
+        visible: true,
+      },
+      {
+        id: "jaca-01",
+        src: "/images/property/real/jaca-01.webp",
+        alt: "Jaca em árvore frutífera da Chácara Alto dos Torres",
+        caption: "Jaca na Chácara Alto dos Torres",
         isPlaceholder: false,
         category: "orchard-crops",
         order: 6,
@@ -937,7 +949,7 @@ export const property: PropertyContent = {
         caption: "Abacaxi na área cultivada",
         isPlaceholder: false,
         category: "orchard-crops",
-        order: 7,
+        order: 10,
         visible: true,
       },
       {
@@ -947,7 +959,7 @@ export const property: PropertyContent = {
         caption: "Detalhe do cultivo de abacaxi",
         isPlaceholder: false,
         category: "orchard-crops",
-        order: 8,
+        order: 11,
         visible: true,
       },
       {
@@ -957,7 +969,7 @@ export const property: PropertyContent = {
         caption: "Tangerinas no pomar",
         isPlaceholder: false,
         category: "orchard-crops",
-        order: 9,
+        order: 7,
         visible: true,
       },
       {
@@ -967,7 +979,7 @@ export const property: PropertyContent = {
         caption: "Mangas no pomar",
         isPlaceholder: false,
         category: "orchard-crops",
-        order: 10,
+        order: 8,
         visible: true,
       },
       {
@@ -977,7 +989,7 @@ export const property: PropertyContent = {
         caption: "Frutífera do pomar",
         isPlaceholder: false,
         category: "orchard-crops",
-        order: 11,
+        order: 9,
         visible: true,
       },
       {
@@ -987,7 +999,7 @@ export const property: PropertyContent = {
         caption: "Cisterna da propriedade",
         isPlaceholder: false,
         category: "water-infrastructure",
-        order: 12,
+        order: 15,
         visible: true,
       },
       {
@@ -1017,7 +1029,7 @@ export const property: PropertyContent = {
         caption: "Estrada de acesso à região",
         isPlaceholder: false,
         category: "access",
-        order: 15,
+        order: 16,
         visible: true,
       },
     ],
@@ -1047,7 +1059,7 @@ export const property: PropertyContent = {
         url: "/videos/property/apresentacao-principal.mp4",
         coverImage: {
           src: "/images/property/video-covers/apresentacao-principal.webp",
-          alt: "Vista aérea da Chácara Alto dos Torres e da região",
+          alt: "Vista aérea da casa da Chácara Alto dos Torres, com vegetação e paisagem da região",
           caption: "Apresentação da Chácara Alto dos Torres",
           isPlaceholder: false,
           fit: "cover",
@@ -1229,8 +1241,8 @@ export const property: PropertyContent = {
 
   negotiation: {
     id: "negociacao",
-    eyebrow: "Negociação",
-    title: "Informações para negociação",
+    eyebrow: "Valor e visitas",
+    title: "Consulte o valor e agende sua visita",
     description:
       "Consulte o valor diretamente com o proprietário. A condição de pagamento informada é à vista.",
     price: {
@@ -1267,16 +1279,29 @@ export const property: PropertyContent = {
 
   contact: {
     id: "contato",
-    eyebrow: "Contato direto",
-    title: "Converse diretamente com o proprietário",
+    eyebrow: "Valor e visitas",
+    title: "Consulte o valor e agende sua visita",
     description:
-      "Consulte o valor diretamente com o proprietário. As visitas podem ser realizadas em qualquer dia, mediante agendamento prévio pelo WhatsApp.",
+      "Entre em contato diretamente com o proprietário para consultar o valor da Chácara Alto dos Torres, tirar dúvidas e combinar uma visita.",
     ownerName: "Proprietário",
+    ownerImage: {
+      src: "/images/property/owner/proprietario.webp",
+      alt: "Proprietário da Chácara Alto dos Torres",
+      caption: "Proprietário",
+      isPlaceholder: false,
+      fit: "contain",
+    },
+    supportItems: [
+      "Valor sob consulta",
+      "Pagamento à vista",
+      "Visitas mediante agendamento prévio",
+      "Contato direto com o proprietário",
+    ],
     bestContactTime: null,
     directContactLabel: "Contato direto com o proprietário",
     ownerLabel: "Responsável",
     bestContactTimeLabel: "Melhor horário para contato",
-    buttonLabel: "Consultar valor e agendar visita",
+    buttonLabel: "Consultar valor pelo WhatsApp",
     floatingButtonLabel: "Consultar valor e agendar visita pelo WhatsApp",
     unavailableButtonLabel: "Contato indisponível",
     whatsapp: {
