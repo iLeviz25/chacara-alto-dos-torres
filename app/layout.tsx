@@ -1,54 +1,45 @@
 import type { Metadata, Viewport } from "next";
-import { property } from "@/src/content/property";
+import { hub } from "@/src/content/hub";
 import "./globals.css";
 
-const metadataBase = new URL(property.seo.canonicalUrl ?? "http://localhost:3000");
+const metadataBase = new URL(hub.seo.canonicalUrl ?? "http://localhost:3000");
 
 export const metadata: Metadata = {
   metadataBase,
-  title: property.seo.title,
-  description: property.seo.description,
-  keywords: property.seo.keywords,
-  alternates: property.seo.canonicalUrl
-    ? { canonical: property.seo.canonicalUrl }
+  title: hub.seo.title,
+  description: hub.seo.description,
+  keywords: hub.seo.keywords,
+  alternates: hub.seo.canonicalUrl
+    ? { canonical: hub.seo.canonicalUrl }
     : undefined,
   icons: {
-    icon: property.seo.favicon,
-    shortcut: property.seo.favicon,
-    apple: property.seo.favicon,
+    icon: hub.seo.favicon,
+    shortcut: hub.seo.favicon,
+    apple: hub.seo.favicon,
   },
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    title: property.seo.openGraph.title,
-    description: property.seo.openGraph.description,
-    url: property.seo.canonicalUrl ?? undefined,
-    siteName: property.propertyName,
-    images: [
-      {
-        url: property.seo.openGraph.image,
-        width: 1536,
-        height: 1024,
-        alt: property.seo.openGraph.imageAlt,
-      },
-    ],
+    title: hub.seo.title,
+    description: hub.seo.description,
+    url: hub.seo.canonicalUrl ?? undefined,
+    siteName: hub.seo.title,
   },
   twitter: {
-    card: property.seo.twitter.card,
-    title: property.seo.twitter.title,
-    description: property.seo.twitter.description,
-    images: [property.seo.twitter.image],
+    card: "summary",
+    title: hub.seo.title,
+    description: hub.seo.description,
   },
   robots: {
-    index: property.seo.robots.index,
-    follow: property.seo.robots.follow,
+    index: hub.seo.robots.index,
+    follow: hub.seo.robots.follow,
   },
 };
 
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  themeColor: "#0d293c",
+  themeColor: "#343433",
   colorScheme: "light",
 };
 

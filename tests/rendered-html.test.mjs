@@ -22,8 +22,58 @@ async function render(pathname = "/") {
   );
 }
 
-test("renderiza a Chácara Alto dos Torres com os dados confirmados", async () => {
-  const response = await render();
+test("renderiza a nova página inicial com os dois projetos", async () => {
+  const response = await render("/");
+  assert.equal(response.status, 200);
+  assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
+
+  const html = await response.text();
+  assert.match(
+    html,
+    /<title>Chácara Alto dos Torres e Espaço Fernandes<\/title>/i,
+  );
+  assert.match(html, /Escolha qual propriedade deseja conhecer/);
+  assert.match(html, /Chácara à venda na Serra de Uibaí/);
+  assert.match(html, /Conheça uma propriedade com área total de 6 tarefas/);
+  assert.match(html, /href="\/chacara-alto-dos-torres"/);
+  assert.match(html, /Espaço para locação/);
+  assert.match(html, /Um espaço pensado para receber momentos especiais\./);
+  assert.match(html, /href="\/espaco-fernandes"/);
+  assert.match(html, /\/images\/property\/real\/vista-geral-01\.webp/);
+  assert.match(html, /\/images\/brands\/espaco-fernandes-logo\.png/);
+  assert.match(html, /https:\/\/wa\.me\/5574988700524\?text=/);
+  assert.match(html, /https:\/\/www\.instagram\.com\/espaco\.fernandes1\//);
+  assert.doesNotMatch(
+    html,
+    /capacidade para|buffet|casamento|aniversário|diária|preço da locação/i,
+  );
+});
+
+test("renderiza a página provisória do Espaço Fernandes", async () => {
+  const response = await render("/espaco-fernandes");
+  assert.equal(response.status, 200);
+  assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
+
+  const html = await response.text();
+  assert.match(html, /<title>Espaço Fernandes \| Espaço para locação<\/title>/i);
+  assert.match(html, /<h1[^>]*>Espaço Fernandes<\/h1>/);
+  assert.match(html, /Espaço para locação/);
+  assert.match(
+    html,
+    /A apresentação completa do Espaço Fernandes será adicionada em breve\./,
+  );
+  assert.match(html, /\/images\/brands\/espaco-fernandes-logo\.png/);
+  assert.match(html, /href="\/"/);
+  assert.match(html, /https:\/\/wa\.me\/5574988700524\?text=/);
+  assert.match(html, /https:\/\/www\.instagram\.com\/espaco\.fernandes1\//);
+  assert.doesNotMatch(
+    html,
+    /capacidade para|buffet|casamento|aniversário|diária|preço da locação/i,
+  );
+});
+
+test("preserva a Chácara Alto dos Torres na nova rota", async () => {
+  const response = await render("/chacara-alto-dos-torres");
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 

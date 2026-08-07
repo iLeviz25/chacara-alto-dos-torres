@@ -1,5 +1,23 @@
 # Guia de edição — Chácara Alto dos Torres
 
+## Página inicial e Espaço Fernandes
+
+Os textos, imagens, links, contatos e rotas da página inicial ficam centralizados em:
+
+`src/content/hub.ts`
+
+A logo oficial do Espaço Fernandes está em:
+
+`public/images/brands/espaco-fernandes-logo.png`
+
+As rotas atuais são:
+
+- `/` — página inicial com a escolha entre os dois projetos;
+- `/chacara-alto-dos-torres` — página completa da chácara;
+- `/espaco-fernandes` — página provisória do Espaço Fernandes.
+
+Altere somente os textos e caminhos de `src/content/hub.ts`. Não inclua capacidade, estrutura, serviços, preços ou tipos de evento do Espaço Fernandes sem confirmação.
+
 Este guia explica como atualizar o anúncio sem alterar os componentes do site.
 
 Quase todo o conteúdo fica em:
