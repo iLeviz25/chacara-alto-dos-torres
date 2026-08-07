@@ -31,6 +31,7 @@ test("renderiza a Chácara Alto dos Torres com os dados confirmados", async () =
   assert.match(html, /<html[^>]*lang="pt-BR"/i);
   assert.match(html, /<title>Chácara Alto dos Torres \| Chácara à venda na Serra de Uibaí<\/title>/i);
   assert.match(html, /Natureza, produção e tranquilidade na Serra de Uibaí/);
+  assert.match(html, /<strong[^>]*>à venda<\/strong>/);
   assert.match(html, /Área total: 6 tarefas/);
   assert.match(html, /A propriedade possui uma área total de 6 tarefas/);
   assert.doesNotMatch(html, /Área informada|área informada de 6 tarefas/);
@@ -45,6 +46,7 @@ test("renderiza a Chácara Alto dos Torres com os dados confirmados", async () =
   assert.match(html, /Contato direto com o proprietário/);
   assert.match(html, /\/images\/property\/owner\/proprietario\.webp/);
   assert.match(html, /Proprietário da Chácara Alto dos Torres/);
+  assert.match(html, /sizes="280px"/);
   assert.doesNotMatch(html, /Informações para negociação|Converse diretamente com o proprietário/);
   assert.match(html, /application\/ld\+json/);
   assert.match(html, /https:\/\/wa\.me\/5574988700524\?text=/);

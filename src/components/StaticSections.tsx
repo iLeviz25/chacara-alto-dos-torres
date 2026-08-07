@@ -124,6 +124,10 @@ export function HeroSection({
   statusContent,
   contactAction,
 }: HeroSectionProps) {
+  const saleMarker = "à venda";
+  const [eyebrowBeforeSale, eyebrowAfterSale] = content.eyebrow.split(saleMarker);
+  const hasSaleMarker = eyebrowAfterSale !== undefined;
+
   return (
     <section className="grain relative overflow-hidden bg-[#f7f2e8] pb-16 pt-8 md:pb-24 md:pt-14">
       <div
@@ -133,9 +137,19 @@ export function HeroSection({
       <div className="site-container relative grid items-center gap-10 lg:grid-cols-[minmax(0,1.12fr)_minmax(18rem,0.88fr)] lg:gap-14">
         <div>
           <div className="mb-5 flex flex-wrap items-center gap-3">
-            <span className="inline-flex rounded-full border border-[#0d293c]/15 bg-white/75 px-3 py-1 text-xs font-extrabold tracking-[0.1em] text-[#0d293c] uppercase">
-              {content.eyebrow}
-            </span>
+            <p className="inline-flex flex-wrap items-center gap-x-2 gap-y-1 rounded-2xl border border-[#f47f20]/35 bg-white/90 px-4 py-2.5 text-[0.82rem] leading-none font-extrabold tracking-[0.08em] text-[#0d293c] uppercase shadow-[0_10px_28px_rgba(13,41,60,0.09)]">
+              {hasSaleMarker ? (
+                <>
+                  <span>{eyebrowBeforeSale.trim()}</span>
+                  <strong className="rounded-full bg-[#f47f20] px-2.5 py-1.5 font-black tracking-[0.11em] text-[#081f30] shadow-sm">
+                    {saleMarker}
+                  </strong>
+                  <span>{eyebrowAfterSale.trim()}</span>
+                </>
+              ) : (
+                content.eyebrow
+              )}
+            </p>
             <span
               className={`inline-flex rounded-full px-3 py-1 text-xs font-extrabold tracking-[0.08em] uppercase ${
                 status === "available"
@@ -146,7 +160,7 @@ export function HeroSection({
               {statusContent.label}
             </span>
           </div>
-          <h1 className="display-title max-w-3xl">{content.title}</h1>
+          <h1 className="display-title hero-title max-w-3xl">{content.title}</h1>
           <p className="body-large mt-6 max-w-2xl">{content.subtitle}</p>
 
           {statusContent.message ? (
@@ -693,16 +707,16 @@ export function OwnerContactSection({
     <section id={content.id} className="section-space bg-white">
       <div className="site-container overflow-hidden rounded-[2rem] border border-[#173f2b]/10 bg-[#f5f1e8] shadow-[0_24px_70px_rgba(23,63,43,0.1)]">
         <div className="grid lg:grid-cols-[0.78fr_1.22fr]">
-          <div className="relative flex min-h-72 items-center justify-center overflow-hidden bg-[#0d293c] p-8 text-white md:p-10">
+          <div className="relative flex min-h-72 items-center justify-center overflow-hidden bg-[#0d293c] p-6 text-white sm:p-8 md:p-10">
             <div className="absolute -bottom-24 -left-20 size-72 rounded-full border-[55px] border-white/5" />
             <div className="relative text-center">
               {content.ownerImage ? (
-                <div className="relative mx-auto aspect-[4/3] w-56 max-w-full overflow-hidden rounded-[1.5rem] border border-white/15 bg-white/5 shadow-[0_18px_45px_rgba(0,0,0,0.22)]">
+                <div className="relative mx-auto aspect-[4/3] w-[17.5rem] max-w-full overflow-hidden rounded-[1.5rem] border border-white/15 bg-white/5 shadow-[0_18px_45px_rgba(0,0,0,0.22)]">
                   <SiteImage
                     alt={content.ownerImage.alt}
                     className="object-contain object-bottom"
                     fill
-                    sizes="224px"
+                    sizes="280px"
                     src={content.ownerImage.src}
                   />
                 </div>

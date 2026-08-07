@@ -144,6 +144,13 @@ img {
   line-height: 0.98;
 }
 
+.hero-title {
+  font-size: clamp(2.05rem, 5vw, 4.15rem);
+  font-weight: 600;
+  letter-spacing: -0.038em;
+  line-height: 1.02;
+}
+
 .section-title {
   color: var(--forest);
   font-family: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
