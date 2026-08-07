@@ -53,6 +53,9 @@ test("renderiza a Chácara Alto dos Torres com os dados confirmados", async () =
   assert.match(html, /Vista aérea da Chácara Alto dos Torres/);
   assert.match(html, /Cisterna da propriedade/);
   assert.match(html, /Frutífera do pomar/);
+  assert.match(html, /\/images\/property\/real\/cafe-01\.webp/);
+  assert.match(html, /Cultivo de café/);
+  assert.match(html, /Cafeeiro com frutos vermelhos na Chácara Alto dos Torres/);
   assert.match(html, /\/images\/property\/real\/jaca-01\.webp/);
   assert.match(html, /Jaca na Chácara Alto dos Torres/);
   assert.match(html, /Jaca em árvore frutífera da Chácara Alto dos Torres/);
@@ -79,14 +82,13 @@ test("renderiza a Chácara Alto dos Torres com os dados confirmados", async () =
   assert.match(html, /Como é o acesso à propriedade\?/);
   assert.match(html, /Como posso visitar a chácara\?/);
   assert.match(html, /Consultar valor e agendar visita/);
-  assert.doesNotMatch(html, /\/images\/property\/real\/cafe-01\.webp|Cultivo de café/);
 
   const gallerySequence = [
     "Vista aérea da chácara",
     "Casa e paisagem ao redor",
     "Quintal arborizado da casa",
     "Varanda da casa",
-    "Frutífera do pomar",
+    "Cultivo de café",
     "Jaca na Chácara Alto dos Torres",
     "Tangerinas no pomar",
     "Mangas no pomar",

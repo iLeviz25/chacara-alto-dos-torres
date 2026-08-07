@@ -641,7 +641,12 @@ export const property: PropertyContent = {
         name: "Café",
         description:
           "A propriedade conta com cultivo de café, integrado às demais atividades e plantações da chácara.",
-        image: null,
+        image: {
+          src: "/images/property/real/cafe-01.webp",
+          alt: "Cafeeiro com frutos vermelhos na Chácara Alto dos Torres",
+          caption: "Cultivo de café",
+          isPlaceholder: false,
+        },
         quantity: null,
         unit: null,
         productionStage: null,
@@ -923,10 +928,10 @@ export const property: PropertyContent = {
         visible: true,
       },
       {
-        id: "frutifera-pomar-01",
-        src: "/images/property/real/frutifera-pomar-01.webp",
-        alt: "Frutífera com frutos vermelhos no pomar da Chácara Alto dos Torres",
-        caption: "Frutífera do pomar",
+        id: "cafe-01",
+        src: "/images/property/real/cafe-01.webp",
+        alt: "Cafeeiro com frutos vermelhos na Chácara Alto dos Torres",
+        caption: "Cultivo de café",
         isPlaceholder: false,
         category: "orchard-crops",
         order: 5,
