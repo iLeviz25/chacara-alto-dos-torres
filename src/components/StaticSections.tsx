@@ -124,10 +124,6 @@ export function HeroSection({
   statusContent,
   contactAction,
 }: HeroSectionProps) {
-  const saleMarker = "à venda";
-  const [eyebrowBeforeSale, eyebrowAfterSale] = content.eyebrow.split(saleMarker);
-  const hasSaleMarker = eyebrowAfterSale !== undefined;
-
   return (
     <section className="grain relative overflow-hidden bg-[#f7f2e8] pb-16 pt-8 md:pb-24 md:pt-14">
       <div
@@ -136,32 +132,28 @@ export function HeroSection({
       />
       <div className="site-container relative grid items-center gap-10 lg:grid-cols-[minmax(0,1.12fr)_minmax(18rem,0.88fr)] lg:gap-14">
         <div>
-          <div className="mb-5 flex flex-wrap items-center gap-3">
-            <p className="inline-flex flex-wrap items-center gap-x-2 gap-y-1 rounded-2xl border border-[#f47f20]/35 bg-white/90 px-4 py-2.5 text-[0.82rem] leading-none font-extrabold tracking-[0.08em] text-[#0d293c] uppercase shadow-[0_10px_28px_rgba(13,41,60,0.09)]">
-              {hasSaleMarker ? (
-                <>
-                  <span>{eyebrowBeforeSale.trim()}</span>
-                  <strong className="rounded-full bg-[#f47f20] px-2.5 py-1.5 font-black tracking-[0.11em] text-[#081f30] shadow-sm">
-                    {saleMarker}
-                  </strong>
-                  <span>{eyebrowAfterSale.trim()}</span>
-                </>
-              ) : (
-                content.eyebrow
-              )}
-            </p>
+          <div className="mb-4 flex flex-wrap items-center gap-3">
             <span
-              className={`inline-flex rounded-full px-3 py-1 text-xs font-extrabold tracking-[0.08em] uppercase ${
+              className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-bold tracking-[0.06em] uppercase ${
                 status === "available"
-                  ? "bg-[#dfe8d3] text-[#214d35]"
-                  : "bg-[#f8dec8] text-[#8a471d]"
+                  ? "border-[#315f40]/15 bg-white/70 text-[#315f40]"
+                  : "border-[#a96531]/15 bg-white/70 text-[#8a471d]"
               }`}
             >
+              <span
+                aria-hidden="true"
+                className={`size-1.5 rounded-full ${
+                  status === "available" ? "bg-[#5f7f49]" : "bg-[#c86d32]"
+                }`}
+              />
               {statusContent.label}
             </span>
           </div>
-          <h1 className="display-title hero-title max-w-3xl">{content.title}</h1>
-          <p className="body-large mt-6 max-w-2xl">{content.subtitle}</p>
+          <h1 className="display-title max-w-3xl">{content.title}</h1>
+          <p className="mt-5 max-w-2xl text-[clamp(1.15rem,2.2vw,1.55rem)] leading-[1.4] font-semibold text-[#315f40]">
+            {content.supportingText}
+          </p>
+          <p className="body-large mt-4 max-w-2xl">{content.subtitle}</p>
 
           {statusContent.message ? (
             <p className="mt-5 inline-flex items-start gap-2 rounded-xl border border-[#a96531]/20 bg-[#f0dfcc]/65 px-4 py-3 text-sm font-bold text-[#6b4024]">

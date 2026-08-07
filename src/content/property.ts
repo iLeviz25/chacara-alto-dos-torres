@@ -237,8 +237,8 @@ export interface PropertyContent {
     };
   };
   hero: {
-    eyebrow: string;
     title: string;
+    supportingText: string;
     subtitle: string;
     mainImage: ContentImage;
     videoPlayLabel: string;
@@ -548,8 +548,9 @@ export const property: PropertyContent = {
   },
 
   hero: {
-    eyebrow: "Chácara à venda na Serra de Uibaí",
-    title: "Natureza, produção e tranquilidade na Serra de Uibaí",
+    title: "Chácara à venda na Serra de Uibaí",
+    supportingText:
+      "Natureza, produção e tranquilidade em uma propriedade com 6 tarefas.",
     subtitle:
       "A Chácara Alto dos Torres possui uma área total de 6 tarefas, pomar produtivo, casa com 5 cômodos, varanda em L, espaço caipira com fogão a lenha e estrutura para lazer, descanso ou produção agrícola familiar.",
     mainImage: {

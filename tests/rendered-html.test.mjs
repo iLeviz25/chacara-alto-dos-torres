@@ -30,8 +30,12 @@ test("renderiza a Chácara Alto dos Torres com os dados confirmados", async () =
   const html = await response.text();
   assert.match(html, /<html[^>]*lang="pt-BR"/i);
   assert.match(html, /<title>Chácara Alto dos Torres \| Chácara à venda na Serra de Uibaí<\/title>/i);
-  assert.match(html, /Natureza, produção e tranquilidade na Serra de Uibaí/);
-  assert.match(html, /<strong[^>]*>à venda<\/strong>/);
+  assert.match(html, /<h1[^>]*>Chácara à venda na Serra de Uibaí<\/h1>/);
+  assert.match(
+    html,
+    /Natureza, produção e tranquilidade em uma propriedade com 6 tarefas\./,
+  );
+  assert.doesNotMatch(html, /<strong[^>]*>à venda<\/strong>/);
   assert.match(html, /Área total: 6 tarefas/);
   assert.match(html, /A propriedade possui uma área total de 6 tarefas/);
   assert.doesNotMatch(html, /Área informada|área informada de 6 tarefas/);
