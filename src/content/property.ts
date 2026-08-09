@@ -304,6 +304,7 @@ export interface PropertyContent {
     eyebrow: string;
     title: string;
     description: string;
+    imageNotice?: string;
     categories: GalleryCategoryOption[];
     items: GalleryItem[];
     controls: {
@@ -481,10 +482,10 @@ export const property: PropertyContent = {
   },
 
   sections: {
-    overview: true,
-    highlights: true,
+    overview: false,
+    highlights: false,
     crops: true,
-    productivePotential: true,
+    productivePotential: false,
     infrastructure: true,
     gallery: true,
     videos: true,
@@ -503,11 +504,11 @@ export const property: PropertyContent = {
     openMenuLabel: "Abrir menu",
     closeMenuLabel: "Fechar menu",
     navigation: [
-      { label: "A chácara", href: "#visao-geral" },
-      { label: "Pomar e cultivos", href: "#pomar-e-cultivos" },
+      { label: "Características", href: "#informacoes-confirmadas" },
+      { label: "Galeria", href: "#galeria" },
       { label: "Casa", href: "#casa-e-convivencia" },
       { label: "Infraestrutura", href: "#agua-e-infraestrutura" },
-      { label: "Galeria", href: "#galeria" },
+      { label: "Pomar e cultivos", href: "#pomar-e-cultivos" },
       { label: "Localização", href: "#localizacao" },
     ],
     contactLabel: "Consultar pelo WhatsApp",
@@ -524,7 +525,8 @@ export const property: PropertyContent = {
       "pomar produtivo",
       "agricultura familiar",
     ],
-    canonicalUrl: null,
+    canonicalUrl:
+      "https://chacara-alto-dos-torres.vercel.app/chacara-alto-dos-torres",
     favicon: "/favicon.png",
     openGraph: {
       title: "Chácara Alto dos Torres | Serra de Uibaí",
@@ -554,7 +556,7 @@ export const property: PropertyContent = {
     supportingText:
       "Natureza, produção e tranquilidade em uma propriedade com 6 tarefas.",
     subtitle:
-      "A Chácara Alto dos Torres possui uma área total de 6 tarefas, pomar produtivo, casa com 5 cômodos, varanda em L, espaço caipira com fogão a lenha e estrutura para lazer, descanso ou produção agrícola familiar.",
+      "Pomar produtivo, casa, varanda em L, espaço caipira com fogão a lenha, captação de água da chuva e energia elétrica.",
     mainImage: {
       src: "/images/property/real/vista-geral-01.webp",
       alt: "Vista aérea da Chácara Alto dos Torres com a casa, a vegetação e a estrada ao redor",
@@ -567,12 +569,12 @@ export const property: PropertyContent = {
       "Área total: 6 tarefas",
       "Casa com 5 cômodos",
       "Pomar produtivo",
-      "25 mil litros de armazenamento",
+      "Duas cisternas: 25 mil litros de armazenamento",
       "Energia elétrica",
     ],
     primaryActionLabel: "Consultar valor pelo WhatsApp",
-    secondaryActionLabel: "Conhecer a chácara",
-    secondaryActionTarget: "#visao-geral",
+    secondaryActionLabel: "Ver características",
+    secondaryActionTarget: "#informacoes-confirmadas",
     detailsNotice: "",
   },
 
@@ -602,7 +604,7 @@ export const property: PropertyContent = {
       },
       {
         title: "Varanda em L",
-        description: "Varanda ampla e arejada, adequada para descanso, convivência e contemplação da paisagem.",
+        description: "Varanda em L integrada à área externa da casa.",
         icon: "armchair",
         visible: true,
       },
@@ -676,7 +678,7 @@ export const property: PropertyContent = {
         id: "pomar-diversificado",
         name: "Pomar diversificado",
         description:
-          "O pomar reúne uma ampla variedade de frutas, proporcionando diversidade e diferentes períodos de produção ao longo do ano.",
+          "O pomar reúne diferentes espécies de frutíferas já implantadas na propriedade.",
         image: {
           src: "/images/property/real/tangerina-01.webp",
           alt: "Tangerineira carregada no pomar da Chácara Alto dos Torres",
@@ -758,8 +760,9 @@ export const property: PropertyContent = {
         visible: true,
       },
       {
-        title: "Cisterna de 15.000 litros",
-        description: "Reservatório com capacidade informada de 15 mil litros.",
+        title: "Duas cisternas",
+        description:
+          "As capacidades informadas são de 15 mil e 10 mil litros, totalizando 25 mil litros de armazenamento.",
         icon: "droplets",
         visible: true,
       },
@@ -767,14 +770,14 @@ export const property: PropertyContent = {
         title: "Cisterna de 10.000 litros",
         description: "Segundo reservatório com capacidade informada de 10 mil litros.",
         icon: "droplets",
-        visible: true,
+        visible: false,
       },
       {
         title: "25.000 litros de armazenamento",
         description:
           "As duas cisternas totalizam a capacidade informada de 25 mil litros de armazenamento.",
         icon: "droplets",
-        visible: true,
+        visible: false,
       },
       {
         title: "Energia elétrica",
@@ -838,7 +841,7 @@ export const property: PropertyContent = {
         value:
           "Estrada de terra em boas condições, com passagem tranquila para carros e motos, inclusive em dias de chuva",
         showWhenUnknown: false,
-        visible: true,
+        visible: false,
       },
       { key: "truckAccess", label: "Acesso de caminhões", value: null, showWhenUnknown: false, visible: true },
       {
@@ -846,11 +849,17 @@ export const property: PropertyContent = {
         label: "Distância até Uibaí",
         value: "Aproximadamente 7 km",
         showWhenUnknown: false,
-        visible: true,
+        visible: false,
       },
       { key: "distanceToPavement", label: "Distância até o asfalto", value: null, showWhenUnknown: false, visible: true },
       { key: "internalRoads", label: "Estradas internas", value: null, showWhenUnknown: false, visible: true },
-      { key: "vegetation", label: "Vegetação", value: null, showWhenUnknown: false, visible: true },
+      {
+        key: "vegetation",
+        label: "Pomar e cultivos",
+        value: "Café, abacaxi e diferentes espécies de frutíferas já implantadas",
+        showWhenUnknown: false,
+        visible: true,
+      },
       { key: "preservationAreas", label: "Áreas de preservação", value: null, showWhenUnknown: false, visible: true },
       {
         key: "other",
@@ -868,6 +877,7 @@ export const property: PropertyContent = {
     title: "Conheça os espaços da chácara",
     description:
       "Veja fotografias reais da casa, da varanda, dos cultivos, da infraestrutura, da paisagem e do acesso à Chácara Alto dos Torres.",
+    imageNotice: "Os limites da propriedade não estão demarcados na imagem.",
     categories: [
       { id: "all", label: "Todas" },
       { id: "overview", label: "Vista geral" },
@@ -1140,36 +1150,36 @@ export const property: PropertyContent = {
     eyebrow: "Casa e convivência",
     title: "Casa e espaços de convivência",
     paragraphs: [
-      "A Chácara Alto dos Torres possui uma casa com 5 cômodos bem distribuídos, oferecendo uma estrutura funcional para permanência, descanso e uso durante os fins de semana.",
+      "A estrutura construída reúne ambientes para permanência, preparo de refeições e convivência na propriedade.",
     ],
     features: [
       {
         title: "Cinco cômodos",
-        description: "Ambientes distribuídos para atender às necessidades de permanência e uso da propriedade.",
+        description: "A casa possui cinco cômodos.",
         icon: "house",
         visible: true,
       },
       {
         title: "Varanda em L",
-        description: "Uma área ampla e arejada para redes, descanso, conversas em família e contemplação da paisagem.",
+        description: "Varanda em L integrada à área externa da casa.",
         icon: "armchair",
         visible: true,
       },
       {
         title: "Espaço caipira com fogão a lenha",
-        description: "Cômodo dedicado com fogão a lenha, ideal para preparar refeições com o sabor tradicional do interior.",
+        description: "Espaço com fogão a lenha para preparo de refeições.",
         icon: "cooking-pot",
         visible: true,
       },
     ],
     details: {
       approximateSize: null,
-      rooms: "5 cômodos",
+      rooms: null,
       bedrooms: null,
       bathrooms: null,
       kitchen: null,
       livingRoom: null,
-      energy: "Instalada e funcionando",
+      energy: null,
       water: null,
       condition: null,
       furnitureIncluded: null,
@@ -1209,7 +1219,7 @@ export const property: PropertyContent = {
     image: {
       src: "/images/property/real/vista-geral-01.webp",
       alt: "Vista aérea da Chácara Alto dos Torres e de seus arredores",
-      caption: "Vista aérea da Chácara Alto dos Torres e de seus arredores",
+      caption: "Vista aérea da chácara e da região. Os limites da propriedade não estão demarcados na imagem.",
       isPlaceholder: false,
       fit: "cover",
     },
@@ -1290,7 +1300,7 @@ export const property: PropertyContent = {
     eyebrow: "Valor e visitas",
     title: "Consulte o valor e agende sua visita",
     description:
-      "Entre em contato diretamente com o proprietário para consultar o valor da Chácara Alto dos Torres, tirar dúvidas e combinar uma visita.",
+      "Entre em contato diretamente com o proprietário para consultar o valor, tirar dúvidas e agendar uma visita para o dia de sua preferência.",
     ownerName: "Proprietário",
     ownerImage: {
       src: "/images/property/owner/proprietario.webp",
@@ -1305,7 +1315,6 @@ export const property: PropertyContent = {
       "Valor sob consulta",
       "Pagamento à vista",
       "Visitas mediante agendamento prévio",
-      "Contato direto com o proprietário",
     ],
     bestContactTime: null,
     directContactLabel: "Contato direto com o proprietário",
@@ -1365,7 +1374,7 @@ export const property: PropertyContent = {
       {
         id: "visita",
         question: "Como posso visitar a chácara?",
-        answer: "As visitas podem acontecer em qualquer dia, desde que sejam combinadas previamente com o responsável pelo WhatsApp.",
+        answer: "Agende pelo WhatsApp uma visita para o dia de sua preferência.",
         order: 6,
         visible: true,
       },
@@ -1397,7 +1406,7 @@ export const property: PropertyContent = {
     id: "mais-informacoes",
     title: "Venha conhecer a Chácara Alto dos Torres",
     description:
-      "Consulte o valor diretamente com o proprietário e combine previamente sua visita em qualquer dia pelo WhatsApp.",
+      "Consulte o valor diretamente com o proprietário e agende pelo WhatsApp uma visita para o dia de sua preferência.",
     buttonLabel: "Consultar valor e agendar visita",
     directSaleLabel: "Contato direto com o proprietário.",
     backgroundImage: {
@@ -1412,8 +1421,7 @@ export const property: PropertyContent = {
     propertyTypeLabel: "Chácara produtiva para lazer, descanso e agricultura familiar",
     whatsappLabel: "Falar pelo WhatsApp",
     locationFallback: "A aproximadamente 7 km de Uibaí",
-    updateNotice:
-      "A documentação e outros detalhes ainda serão atualizados quando confirmados.",
+    updateNotice: "",
     backToTopLabel: "Voltar ao início",
   },
 };

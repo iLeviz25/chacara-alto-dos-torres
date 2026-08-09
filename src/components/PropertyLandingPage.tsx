@@ -98,16 +98,20 @@ export function PropertyLandingPage({
           contactAction={contactButton(content.hero.primaryActionLabel)}
         />
 
+        {content.sections.propertyDetails ? (
+          <PropertyDetailsSection content={content.propertyDetails} area={content.area} />
+        ) : null}
+
+        {content.sections.gallery && visibleGallery ? (
+          <GallerySection content={content.gallery} />
+        ) : null}
+
         {content.sections.overview ? (
           <OverviewSection
             overview={content.overview}
             highlights={content.highlights}
             showHighlights={content.sections.highlights}
           />
-        ) : null}
-
-        {content.sections.crops && visibleCrops ? (
-          <CropsSection content={content.crops} />
         ) : null}
 
         {content.sections.supportHouse ? (
@@ -118,16 +122,12 @@ export function PropertyLandingPage({
           <InfrastructureSection content={content.infrastructure} />
         ) : null}
 
+        {content.sections.crops && visibleCrops ? (
+          <CropsSection content={content.crops} />
+        ) : null}
+
         {content.sections.productivePotential && visiblePotential ? (
           <ProductivePotentialSection content={content.productivePotential} />
-        ) : null}
-
-        {content.sections.propertyDetails ? (
-          <PropertyDetailsSection content={content.propertyDetails} area={content.area} />
-        ) : null}
-
-        {content.sections.gallery && visibleGallery ? (
-          <GallerySection content={content.gallery} />
         ) : null}
 
         {content.sections.videos && visibleVideos ? (

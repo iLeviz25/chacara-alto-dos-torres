@@ -76,7 +76,7 @@ export const hub: HubContent = {
       "Espaço Fernandes",
       "espaço para locação",
     ],
-    canonicalUrl: null,
+    canonicalUrl: "https://chacara-alto-dos-torres.vercel.app",
     favicon: "/favicon.png",
     robots: {
       index: true,

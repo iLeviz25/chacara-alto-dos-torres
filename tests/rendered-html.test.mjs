@@ -43,6 +43,14 @@ test("renderiza a nova página inicial com os dois projetos", async () => {
   assert.match(html, /\/images\/brands\/espaco-fernandes-logo\.png/);
   assert.match(html, /https:\/\/wa\.me\/5574988700524\?text=/);
   assert.match(html, /https:\/\/www\.instagram\.com\/espaco\.fernandes1\//);
+  assert.match(
+    html,
+    /<link rel="canonical" href="https:\/\/chacara-alto-dos-torres\.vercel\.app"\/>/,
+  );
+  assert.match(
+    html,
+    /<meta property="og:image" content="https:\/\/chacara-alto-dos-torres\.vercel\.app\/og\.png"\/>/,
+  );
   assert.doesNotMatch(
     html,
     /capacidade para|buffet|casamento|aniversário|diária|preço da locação/i,
@@ -66,6 +74,10 @@ test("renderiza a página provisória do Espaço Fernandes", async () => {
   assert.match(html, /href="\/"/);
   assert.match(html, /https:\/\/wa\.me\/5574988700524\?text=/);
   assert.match(html, /https:\/\/www\.instagram\.com\/espaco\.fernandes1\//);
+  assert.match(
+    html,
+    /<link rel="canonical" href="https:\/\/chacara-alto-dos-torres\.vercel\.app\/espaco-fernandes"\/>/,
+  );
   assert.doesNotMatch(
     html,
     /capacidade para|buffet|casamento|aniversário|diária|preço da locação/i,
@@ -106,6 +118,14 @@ test("preserva a Chácara Alto dos Torres na nova rota", async () => {
   assert.match(html, />paguefeliz@gmail\.com</);
   assert.doesNotMatch(html, /Informações para negociação|Converse diretamente com o proprietário/);
   assert.match(html, /application\/ld\+json/);
+  assert.match(
+    html,
+    /<link rel="canonical" href="https:\/\/chacara-alto-dos-torres\.vercel\.app\/chacara-alto-dos-torres"\/>/,
+  );
+  assert.match(
+    html,
+    /"url":"https:\/\/chacara-alto-dos-torres\.vercel\.app\/chacara-alto-dos-torres"/,
+  );
   assert.match(html, /https:\/\/wa\.me\/5574988700524\?text=/);
   assert.match(html, /Logo da Chácara Alto dos Torres/);
   assert.match(html, /\/images\/property\/real\/vista-geral-01\.webp/);
@@ -141,6 +161,42 @@ test("preserva a Chácara Alto dos Torres na nova rota", async () => {
   assert.match(html, /Como é o acesso à propriedade\?/);
   assert.match(html, /Como posso visitar a chácara\?/);
   assert.match(html, /Consultar valor e agendar visita/);
+  assert.match(html, /Agende pelo WhatsApp uma visita para o dia de sua preferência./);
+  assert.match(
+    html,
+    /Os limites da propriedade não estão demarcados na imagem./,
+  );
+  assert.doesNotMatch(html, />Espaço caipira<\/button>/);
+  assert.doesNotMatch(html, /Um espaço para aproveitar de diferentes maneiras/);
+  assert.doesNotMatch(html, /Um refúgio na Serra de Uibaí/);
+  assert.doesNotMatch(
+    html,
+    /bem distribuídos|ampla e arejada|diferentes períodos de produção ao longo do ano/i,
+  );
+  assert.doesNotMatch(html, /Serra Azul de Uibaí/i);
+  assert.doesNotMatch(
+    html,
+    /A documentação e outros detalhes ainda serão atualizados quando confirmados\./,
+  );
+
+  const sectionSequence = [
+    'id="informacoes-confirmadas"',
+    'id="galeria"',
+    'id="casa-e-convivencia"',
+    'id="agua-e-infraestrutura"',
+    'id="pomar-e-cultivos"',
+    'id="videos"',
+    'id="localizacao"',
+    'id="contato"',
+    'id="perguntas-frequentes"',
+    'id="mais-informacoes"',
+  ].map((text) => html.indexOf(text));
+  assert.ok(sectionSequence.every((position) => position >= 0));
+  assert.ok(
+    sectionSequence.every(
+      (position, index) => index === 0 || position > sectionSequence[index - 1],
+    ),
+  );
 
   const gallerySequence = [
     "Vista aérea da chácara",

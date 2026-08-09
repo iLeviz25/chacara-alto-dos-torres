@@ -37,8 +37,13 @@ export function GallerySection({
   );
 
   const availableCategories = useMemo(
-    () => content.categories,
-    [content.categories],
+    () =>
+      content.categories.filter(
+        (category) =>
+          category.id === "all" ||
+          sortedItems.some((item) => item.category === category.id),
+      ),
+    [content.categories, sortedItems],
   );
 
   const defaultCategory =
@@ -203,6 +208,12 @@ export function GallerySection({
           eyebrow={content.eyebrow}
           title={content.title}
         />
+
+        {content.imageNotice ? (
+          <p className="mt-5 max-w-3xl text-sm leading-6 text-[#6a6f68]">
+            {content.imageNotice}
+          </p>
+        ) : null}
 
         {availableCategories.length > 1 ? (
           <div
