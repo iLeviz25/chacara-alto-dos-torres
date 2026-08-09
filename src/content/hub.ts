@@ -92,7 +92,7 @@ export const hub: HubContent = {
       name: "Chácara Alto dos Torres",
       purpose: "Chácara à venda na Serra de Uibaí",
       description:
-        "Conheça uma propriedade com área total de 6 tarefas, pomar, casa, estrutura de apoio ao lazer e produção agrícola familiar.",
+        "Conheça uma propriedade com área total de 6 tarefas, pomar, casa, estrutura de apoio ao lazer e produção agrícola.",
       buttonLabel: "Conhecer a chácara",
       route: routes.chacara,
       image: {

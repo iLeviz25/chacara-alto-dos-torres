@@ -634,7 +634,7 @@ export const property: PropertyContent = {
     eyebrow: "Pomar e cultivos",
     title: "Pomar, cultivos e sabores da propriedade",
     introduction:
-      "A chácara possui diversas frutíferas e culturas já implantadas, ampliando as possibilidades de consumo próprio, continuidade dos cuidados e produção agrícola familiar.",
+      "A chácara possui diversas frutíferas e culturas já implantadas, ampliando as possibilidades de consumo próprio, continuidade dos cuidados e produção agrícola.",
     fieldLabels: {
       quantity: "Quantidade",
       productionStage: "Estágio da produção",
@@ -735,7 +735,7 @@ export const property: PropertyContent = {
         visible: true,
       },
       {
-        title: "Produção agrícola familiar",
+        title: "Produção agrícola",
         description:
           "O pomar, o café, o abacaxi e as demais culturas permitem dar continuidade aos cuidados e às atividades existentes.",
         icon: "sprout",
