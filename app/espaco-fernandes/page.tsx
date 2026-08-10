@@ -1,38 +1,69 @@
 import type { Metadata } from "next";
-import { EspacoFernandesPlaceholder } from "@/src/components/EspacoFernandesPlaceholder";
-import { hub } from "@/src/content/hub";
-
-const canonicalUrl = hub.seo.canonicalUrl
-  ? `${hub.seo.canonicalUrl.replace(/\/$/, "")}${hub.routes.espacoFernandes}`
-  : undefined;
+import { EspacoFernandesLandingPage } from "@/src/components/EspacoFernandesLandingPage";
+import { espacoFernandes } from "@/src/content/espacoFernandes";
 
 export const metadata: Metadata = {
-  title: hub.espacoFernandes.seoTitle,
-  description: hub.espacoFernandes.seoDescription,
-  alternates: canonicalUrl ? { canonical: canonicalUrl } : undefined,
+  title: espacoFernandes.seo.title,
+  description: espacoFernandes.seo.description,
+  alternates: { canonical: espacoFernandes.seo.canonicalUrl },
   openGraph: {
     type: "website",
     locale: "pt_BR",
-    title: hub.espacoFernandes.seoTitle,
-    description: hub.espacoFernandes.seoDescription,
-    url: canonicalUrl,
+    title: espacoFernandes.seo.title,
+    description: espacoFernandes.seo.description,
+    url: espacoFernandes.seo.canonicalUrl,
+    siteName: espacoFernandes.brand.name,
     images: [
       {
-        url: hub.projects[1].logo?.src ?? hub.seo.favicon,
-        width: 500,
-        height: 500,
-        alt: hub.projects[1].logo?.alt ?? "Espaço Fernandes",
+        url: espacoFernandes.seo.openGraphImage.src,
+        width: espacoFernandes.seo.openGraphImage.width,
+        height: espacoFernandes.seo.openGraphImage.height,
+        alt: espacoFernandes.seo.openGraphImage.alt,
       },
     ],
   },
   twitter: {
-    card: "summary",
-    title: hub.espacoFernandes.seoTitle,
-    description: hub.espacoFernandes.seoDescription,
-    images: [hub.projects[1].logo?.src ?? hub.seo.favicon],
+    card: "summary_large_image",
+    title: espacoFernandes.seo.title,
+    description: espacoFernandes.seo.description,
+    images: [espacoFernandes.seo.openGraphImage.src],
   },
 };
 
 export default function EspacoFernandesPage() {
-  return <EspacoFernandesPlaceholder content={hub} />;
+  const siteBase = new URL(espacoFernandes.seo.canonicalUrl).origin;
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name: espacoFernandes.brand.name,
+    description: espacoFernandes.seo.description,
+    url: espacoFernandes.seo.canonicalUrl,
+    image: `${siteBase}${espacoFernandes.seo.openGraphImage.src}`,
+    telephone: "+5574988700524",
+    email: espacoFernandes.contact.email.address,
+    sameAs: [espacoFernandes.contact.instagram.url],
+    address: {
+      "@type": "PostalAddress",
+      name: espacoFernandes.location.addressLines[0],
+      streetAddress: espacoFernandes.location.addressLines[1],
+      addressLocality: "Formosa, Uibaí",
+      addressRegion: "BA",
+      addressCountry: "BR",
+    },
+    amenityFeature: espacoFernandes.structure.amenities.map((amenity) => ({
+      "@type": "LocationFeatureSpecification",
+      name: amenity.title,
+      value: true,
+    })),
+  };
+
+  return (
+    <>
+      <EspacoFernandesLandingPage content={espacoFernandes} />
+      <script
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+        type="application/ld+json"
+      />
+    </>
+  );
 }

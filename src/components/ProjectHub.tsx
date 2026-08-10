@@ -53,9 +53,19 @@ function ChacaraPanel({ project }: { project: HubProject }) {
 function EspacoFernandesPanel({ project }: { project: HubProject }) {
   return (
     <article className="group relative isolate flex min-h-[44rem] overflow-hidden border-white/10 bg-[#343433] text-white lg:min-h-screen lg:border-l">
+      {project.image ? (
+        <SiteImage
+          alt={project.image.alt}
+          className="object-cover opacity-65 transition duration-700 ease-out group-hover:scale-[1.025] group-hover:opacity-75 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+          fill
+          priority
+          sizes="(max-width: 1023px) 100vw, 50vw"
+          src={project.image.src}
+        />
+      ) : null}
       <div
         aria-hidden="true"
-        className="absolute inset-0 bg-[radial-gradient(circle_at_72%_20%,rgba(243,144,79,0.22),transparent_32%),linear-gradient(145deg,#3b3b3a_0%,#2f2f2e_55%,#20201f_100%)] transition duration-700 group-hover:brightness-110 motion-reduce:transition-none"
+        className="absolute inset-0 bg-[radial-gradient(circle_at_72%_20%,rgba(243,144,79,0.2),transparent_32%),linear-gradient(180deg,rgba(35,35,34,0.36)_0%,rgba(35,35,34,0.72)_42%,rgba(26,26,25,0.97)_100%)] transition duration-700 group-hover:brightness-110 motion-reduce:transition-none"
       />
       <div
         aria-hidden="true"

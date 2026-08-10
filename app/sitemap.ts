@@ -25,7 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${canonicalUrl}${hub.routes.espacoFernandes}`,
       lastModified: new Date(),
       changeFrequency: "monthly",
-      priority: 0.7,
+      priority: 0.9,
     },
   ];
 }

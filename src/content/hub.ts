@@ -45,18 +45,6 @@ export interface HubContent {
     instagramLabel: string;
     instagramUrl: string;
   };
-  espacoFernandes: {
-    pageTitle: string;
-    purpose: string;
-    eyebrow: string;
-    message: string;
-    whatsappLabel: string;
-    whatsappMessage: string;
-    instagramLabel: string;
-    homeLabel: string;
-    seoTitle: string;
-    seoDescription: string;
-  };
 }
 
 const routes = {
@@ -69,12 +57,12 @@ export const hub: HubContent = {
   seo: {
     title: "Chácara Alto dos Torres e Espaço Fernandes",
     description:
-      "Conheça a Chácara Alto dos Torres, propriedade à venda na Serra de Uibaí, e o Espaço Fernandes, espaço para locação.",
+      "Conheça a Chácara Alto dos Torres, propriedade à venda na Serra de Uibaí, e o Espaço Fernandes, espaço para locação por diária em Formosa, Uibaí.",
     keywords: [
       "Chácara Alto dos Torres",
       "chácara à venda na Serra de Uibaí",
       "Espaço Fernandes",
-      "espaço para locação",
+      "locação por diária",
     ],
     canonicalUrl: "https://chacara-alto-dos-torres.vercel.app",
     favicon: "/favicon.png",
@@ -104,13 +92,17 @@ export const hub: HubContent = {
     {
       id: "espaco-fernandes",
       name: "Espaço Fernandes",
-      purpose: "Espaço para locação",
-      description: "Um espaço pensado para receber momentos especiais.",
+      purpose: "Locação por diária",
+      description:
+        "Espaço privado para aniversários, confraternizações e momentos de lazer em Formosa, Uibaí.",
       buttonLabel: "Conhecer o Espaço Fernandes",
       route: routes.espacoFernandes,
-      image: null,
+      image: {
+        src: "/images/espaco-fernandes/real/vista-geral-piscina-01.webp",
+        alt: "Piscina e painel artístico do Espaço Fernandes ao entardecer",
+      },
       logo: {
-        src: "/images/brands/espaco-fernandes-logo.png",
+        src: "/images/espaco-fernandes/logo.webp",
         alt: "Logo oficial do Espaço Fernandes",
       },
     },
@@ -126,20 +118,6 @@ export const hub: HubContent = {
     },
     instagramLabel: "Instagram do Espaço Fernandes",
     instagramUrl: "https://www.instagram.com/espaco.fernandes1/",
-  },
-  espacoFernandes: {
-    pageTitle: "Espaço Fernandes",
-    purpose: "Espaço para locação",
-    eyebrow: "Apresentação em preparação",
-    message: "A apresentação completa do Espaço Fernandes será adicionada em breve.",
-    whatsappLabel: "Falar pelo WhatsApp",
-    whatsappMessage:
-      "Olá! Gostaria de receber mais informações sobre o Espaço Fernandes.",
-    instagramLabel: "Visitar o Instagram",
-    homeLabel: "Voltar à página inicial",
-    seoTitle: "Espaço Fernandes | Espaço para locação",
-    seoDescription:
-      "Página provisória do Espaço Fernandes, espaço para locação. A apresentação completa será adicionada em breve.",
   },
 };
 

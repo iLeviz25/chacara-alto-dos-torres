@@ -36,11 +36,18 @@ test("renderiza a nova página inicial com os dois projetos", async () => {
   assert.match(html, /Chácara à venda na Serra de Uibaí/);
   assert.match(html, /Conheça uma propriedade com área total de 6 tarefas/);
   assert.match(html, /href="\/chacara-alto-dos-torres"/);
-  assert.match(html, /Espaço para locação/);
-  assert.match(html, /Um espaço pensado para receber momentos especiais\./);
+  assert.match(html, /Locação por diária/);
+  assert.match(
+    html,
+    /Espaço privado para aniversários, confraternizações e momentos de lazer em Formosa, Uibaí\./,
+  );
   assert.match(html, /href="\/espaco-fernandes"/);
   assert.match(html, /\/images\/property\/real\/vista-geral-01\.webp/);
-  assert.match(html, /\/images\/brands\/espaco-fernandes-logo\.png/);
+  assert.match(html, /\/images\/espaco-fernandes\/logo\.webp/);
+  assert.match(
+    html,
+    /\/images\/espaco-fernandes\/real\/vista-geral-piscina-01\.webp/,
+  );
   assert.match(html, /https:\/\/wa\.me\/5574988700524\?text=/);
   assert.match(html, /https:\/\/www\.instagram\.com\/espaco\.fernandes1\//);
   assert.match(
@@ -53,35 +60,99 @@ test("renderiza a nova página inicial com os dois projetos", async () => {
   );
   assert.doesNotMatch(
     html,
-    /capacidade para|buffet|casamento|aniversário|diária|preço da locação/i,
+    /capacidade para|buffet|casamento|preço da locação/i,
   );
 });
 
-test("renderiza a página provisória do Espaço Fernandes", async () => {
+test("renderiza a landing page definitiva do Espaço Fernandes", async () => {
   const response = await render("/espaco-fernandes");
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>Espaço Fernandes \| Espaço para locação<\/title>/i);
-  assert.match(html, /<h1[^>]*>Espaço Fernandes<\/h1>/);
-  assert.match(html, /Espaço para locação/);
   assert.match(
     html,
-    /A apresentação completa do Espaço Fernandes será adicionada em breve\./,
+    /<title>Espaço Fernandes \| Locação por diária em Formosa, Uibaí<\/title>/i,
   );
-  assert.match(html, /\/images\/brands\/espaco-fernandes-logo\.png/);
+  assert.match(
+    html,
+    /<h1[^>]*>Seu espaço para celebrar, reunir e aproveitar<\/h1>/,
+  );
+  assert.match(html, /Locação por diária em Formosa, Uibaí/);
+  assert.match(
+    html,
+    /Um ambiente privado para aniversários, confraternizações, encontros em família e momentos de lazer com amigos\./,
+  );
+  assert.match(html, /\/images\/espaco-fernandes\/logo\.webp/);
+  assert.match(
+    html,
+    /\/images\/espaco-fernandes\/video-covers\/apresentacao-principal\.webp/,
+  );
+  assert.match(
+    html,
+    /\/videos\/espaco-fernandes\/apresentacao-principal\.mp4/,
+  );
+  assert.match(
+    html,
+    /Reproduzir vídeo: Conheça o Espaço Fernandes \(1:09\)/,
+  );
+  assert.doesNotMatch(html, /<video\b/i);
+  assert.doesNotMatch(html, /autoplay/i);
+  assert.match(html, /Um espaço para aproveitar bons momentos/);
+  assert.match(html, /Tudo reunido para aproveitar a diária/);
+  assert.match(html, /Piscina/);
+  assert.match(html, /Área gourmet/);
+  assert.match(html, /Churrasqueira/);
+  assert.match(html, /Freezer/);
+  assert.match(html, /Mesa de sinuca/);
+  assert.match(html, /Baralho e dominó disponíveis\./);
+  assert.match(html, /TV na área de convivência\./);
+  assert.match(html, /Conexão disponível no espaço\./);
+  assert.match(html, /Ocasiões que combinam com o espaço/);
+  assert.match(html, /Aniversários/);
+  assert.match(html, /Confraternizações/);
+  assert.match(html, /Reuniões familiares/);
+  assert.match(html, /Encontros entre amigos/);
+  assert.match(html, /Dia de lazer/);
+  assert.match(html, /Conheça os ambientes/);
+  assert.match(html, />Vista geral<\/button>/);
+  assert.match(html, />Piscina<\/button>/);
+  assert.match(html, />Área gourmet<\/button>/);
+  assert.match(html, />Chalé<\/button>/);
+  assert.match(html, />Lazer<\/button>/);
+  assert.match(html, />Estrutura<\/button>/);
+  assert.match(html, /\/images\/espaco-fernandes\/real\/vista-geral-piscina-01\.webp/);
+  assert.match(html, /\/images\/espaco-fernandes\/real\/area-gourmet-noturna-01\.webp/);
+  assert.match(html, /\/images\/espaco-fernandes\/real\/chale-entrada-01\.webp/);
+  assert.match(html, /Um espaço para descansar/);
+  assert.match(html, /Em 2025, o Espaço Fernandes ganhou um chalé/);
+  assert.match(html, /Em Formosa, Uibaí/);
+  assert.match(html, /Rua Fonte Grande, 8898/);
+  assert.match(html, /Formosa, Uibaí - BA/);
+  assert.match(html, /Consulte disponibilidade para sua diária/);
+  assert.match(html, /Consultar disponibilidade pelo WhatsApp/);
   assert.match(html, /href="\/"/);
   assert.match(html, /https:\/\/wa\.me\/5574988700524\?text=/);
   assert.match(html, /https:\/\/www\.instagram\.com\/espaco\.fernandes1\//);
+  assert.match(html, /href="mailto:paguefeliz@gmail\.com"/);
+  assert.match(html, /Como funciona a locação\?/);
+  assert.match(html, /O espaço possui piscina\?/);
+  assert.match(html, /Como consultar uma data\?/);
+  assert.match(html, /application\/ld\+json/);
+  assert.match(html, /"@type":"LocalBusiness"/);
   assert.match(
     html,
     /<link rel="canonical" href="https:\/\/chacara-alto-dos-torres\.vercel\.app\/espaco-fernandes"\/>/,
   );
+  assert.match(
+    html,
+    /<meta property="og:image" content="https:\/\/chacara-alto-dos-torres\.vercel\.app\/images\/espaco-fernandes\/og-espaco-fernandes\.webp"\/>/,
+  );
   assert.doesNotMatch(
     html,
-    /capacidade para|buffet|casamento|aniversário|diária|preço da locação/i,
+    /hotel|pousada|resort|salão de festas de luxo|capacidade máxima|caução|check-in|check-out|preço da locação/i,
   );
+  assert.doesNotMatch(html, /apresentação completa.*será adicionada em breve/i);
 });
 
 test("preserva a Chácara Alto dos Torres na nova rota", async () => {
