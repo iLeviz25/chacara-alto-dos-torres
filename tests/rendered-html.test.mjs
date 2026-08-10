@@ -134,6 +134,12 @@ test("renderiza a landing page definitiva do Espaço Fernandes", async () => {
   assert.match(html, /Em Formosa, Uibaí/);
   assert.match(html, /Rua Fonte Grande, 8898/);
   assert.match(html, /Formosa, Uibaí - BA/);
+  assert.match(html, /Abrir no Google Maps/);
+  assert.match(
+    html,
+    /<iframe[^>]*title="Mapa com a localização do Espaço Fernandes em Formosa, Uibaí"/,
+  );
+  assert.match(html, /google\.com\/maps\?q=Rua%20Fonte%20Grande/);
   assert.match(html, /Consulte disponibilidade para sua diária/);
   assert.match(html, /Consultar disponibilidade pelo WhatsApp/);
   assert.match(html, /href="\/"/);

@@ -112,6 +112,8 @@ export interface EspacoFernandesContent {
     copiedLabel: string;
     mapUrl: string | null;
     mapLabel: string;
+    mapEmbedUrl: string | null;
+    mapTitle: string;
   };
   contact: {
     id: string;
@@ -547,8 +549,12 @@ export const espacoFernandes: EspacoFernandesContent = {
     ],
     copyLabel: "Copiar endereço",
     copiedLabel: "Endereço copiado",
-    mapUrl: null,
-    mapLabel: "Ver no mapa",
+    mapUrl:
+      "https://www.google.com/maps/search/?api=1&query=Rua%20Fonte%20Grande%2C%208898%2C%20Formosa%2C%20Uiba%C3%AD%20-%20BA",
+    mapLabel: "Abrir no Google Maps",
+    mapEmbedUrl:
+      "https://www.google.com/maps?q=Rua%20Fonte%20Grande%2C%208898%2C%20Formosa%2C%20Uiba%C3%AD%20-%20BA&output=embed",
+    mapTitle: "Mapa com a localização do Espaço Fernandes em Formosa, Uibaí",
   },
   contact: {
     id: "contato-espaco",

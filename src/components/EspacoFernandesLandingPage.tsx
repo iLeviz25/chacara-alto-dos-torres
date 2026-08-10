@@ -308,47 +308,62 @@ export function EspacoFernandesLandingPage({
         </section>
 
         <section className="bg-[#292928] py-20 text-white sm:py-24" id={content.location.id}>
-          <div className="mx-auto grid max-w-7xl gap-10 px-4 sm:px-6 lg:grid-cols-[1fr_0.86fr] lg:items-center lg:gap-16 lg:px-8">
-            <SectionIntro
-              eyebrow={content.location.eyebrow}
-              light
-              title={content.location.title}
-            />
-            <div className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-[0_24px_70px_rgba(0,0,0,0.2)] sm:p-8">
-              <MapPin aria-hidden="true" className="text-[#f3904f]" size={30} />
-              <address className="mt-5 not-italic">
-                {content.location.addressLines.map((line, index) => (
-                  <span
-                    className={[
-                      "block",
-                      index === 0
-                        ? "font-serif text-2xl font-semibold text-white"
-                        : "mt-1 text-base text-white/68 sm:text-lg",
-                    ].join(" ")}
-                    key={line}
-                  >
-                    {line}
-                  </span>
-                ))}
-              </address>
-              <div className="mt-7 flex flex-wrap gap-3">
-                <CopyAddressButton
-                  address={address}
-                  copiedLabel={content.location.copiedLabel}
-                  label={content.location.copyLabel}
-                />
-                {content.location.mapUrl ? (
-                  <a
-                    className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/15 px-5 py-3 text-sm font-extrabold text-white"
-                    href={content.location.mapUrl}
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    {content.location.mapLabel}
-                  </a>
-                ) : null}
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="grid gap-10 lg:grid-cols-[1fr_0.86fr] lg:items-center lg:gap-16">
+              <SectionIntro
+                eyebrow={content.location.eyebrow}
+                light
+                title={content.location.title}
+              />
+              <div className="rounded-[2rem] border border-white/10 bg-white/5 p-6 shadow-[0_24px_70px_rgba(0,0,0,0.2)] sm:p-8">
+                <MapPin aria-hidden="true" className="text-[#f3904f]" size={30} />
+                <address className="mt-5 not-italic">
+                  {content.location.addressLines.map((line, index) => (
+                    <span
+                      className={[
+                        "block",
+                        index === 0
+                          ? "font-serif text-2xl font-semibold text-white"
+                          : "mt-1 text-base text-white/68 sm:text-lg",
+                      ].join(" ")}
+                      key={line}
+                    >
+                      {line}
+                    </span>
+                  ))}
+                </address>
+                <div className="mt-7 flex flex-wrap gap-3">
+                  <CopyAddressButton
+                    address={address}
+                    copiedLabel={content.location.copiedLabel}
+                    label={content.location.copyLabel}
+                  />
+                  {content.location.mapUrl ? (
+                    <a
+                      className="inline-flex min-h-12 items-center justify-center rounded-full border border-white/15 px-5 py-3 text-sm font-extrabold text-white transition hover:border-[#f3904f] hover:text-[#f4a06b]"
+                      href={content.location.mapUrl}
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      {content.location.mapLabel}
+                    </a>
+                  ) : null}
+                </div>
               </div>
             </div>
+
+            {content.location.mapEmbedUrl ? (
+              <div className="mt-10 overflow-hidden rounded-[2rem] border border-white/10 bg-white/5 shadow-[0_28px_80px_rgba(0,0,0,0.28)] sm:mt-12">
+                <iframe
+                  allowFullScreen
+                  className="h-[22rem] w-full border-0 sm:h-[28rem]"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  src={content.location.mapEmbedUrl}
+                  title={content.location.mapTitle}
+                />
+              </div>
+            ) : null}
           </div>
         </section>
 
