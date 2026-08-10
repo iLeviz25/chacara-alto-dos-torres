@@ -438,7 +438,7 @@ export interface PropertyContent {
 }
 
 const seoDescription =
-  "Conheça a Chácara Alto dos Torres, na Serra de Uibaí: área total de 6 tarefas, pomar produtivo, casa com 5 cômodos, varanda em L, espaço caipira, energia elétrica e duas cisternas com capacidade total de 25 mil litros de armazenamento.";
+  "Conheça a Chácara Alto dos Torres, na Serra de Uibaí: área total de 6 tarefas, casa com 5 cômodos, varanda em L, espaço caipira, pomar e cultivos já implantados, energia elétrica e duas cisternas com capacidade total de 25 mil litros de armazenamento.";
 
 const brandLogo: ContentImage = {
   src: "/images/brand/logo-chacara-alto-dos-torres.png",
@@ -473,9 +473,9 @@ export const property: PropertyContent = {
     },
   },
   shortDescription:
-    "Chácara produtiva com estrutura para descanso, lazer e agricultura familiar.",
+    "Chácara com casa, pomar e cultivos já implantados, estrutura para lazer, descanso e produção agrícola.",
   fullDescription:
-    "A Chácara Alto dos Torres é uma propriedade acolhedora na Serra de Uibaí, com área total de 6 tarefas, casa de 5 cômodos, varanda em L, espaço caipira com fogão a lenha, pomar produtivo, cultivos, captação de água da chuva, duas cisternas e energia elétrica funcionando.",
+    "A Chácara Alto dos Torres fica na Serra de Uibaí e possui área total de 6 tarefas. Conta com casa de 5 cômodos, varanda em L, espaço caipira com fogão a lenha, pomar e cultivos já implantados, captação de água da chuva, duas cisternas e energia elétrica funcionando.",
 
   brand: {
     logo: brandLogo,
@@ -521,9 +521,9 @@ export const property: PropertyContent = {
       "Chácara Alto dos Torres",
       "chácara à venda na Serra de Uibaí",
       "chácara em Uibaí",
-      "chácara produtiva",
-      "pomar produtivo",
-      "agricultura familiar",
+      "chácara rural",
+      "pomar e cultivos",
+      "produção agrícola",
     ],
     canonicalUrl:
       "https://chacara-alto-dos-torres.vercel.app/chacara-alto-dos-torres",
@@ -546,7 +546,7 @@ export const property: PropertyContent = {
     },
     structuredData: {
       enabled: true,
-      propertyType: "Chácara produtiva",
+      propertyType: "Chácara",
       includeExactAddress: false,
     },
   },
@@ -556,7 +556,7 @@ export const property: PropertyContent = {
     supportingText:
       "Natureza, produção e tranquilidade em uma propriedade com 6 tarefas.",
     subtitle:
-      "Pomar produtivo, casa, varanda em L, espaço caipira com fogão a lenha, captação de água da chuva e energia elétrica.",
+      "Casa com varanda em L e espaço caipira, pomar e cultivos já implantados, duas cisternas e energia elétrica.",
     mainImage: {
       src: "/images/property/real/vista-geral-01.webp",
       alt: "Vista aérea da Chácara Alto dos Torres com a casa, a vegetação e a estrada ao redor",
@@ -568,7 +568,7 @@ export const property: PropertyContent = {
     quickFacts: [
       "Área total: 6 tarefas",
       "Casa com 5 cômodos",
-      "Pomar produtivo",
+      "Pomar e cultivos já implantados",
       "Duas cisternas: 25 mil litros de armazenamento",
       "Energia elétrica",
     ],
@@ -583,7 +583,7 @@ export const property: PropertyContent = {
     eyebrow: "A Chácara Alto dos Torres",
     title: "Um refúgio na Serra de Uibaí",
     paragraphs: [
-      "A Chácara Alto dos Torres é uma propriedade acolhedora para quem busca tranquilidade, contato com a natureza e clima de serra. A propriedade possui uma área total de 6 tarefas e estrutura para aproveitar os fins de semana, reunir a família ou dar continuidade às atividades agrícolas.",
+      "A Chácara Alto dos Torres fica na Serra de Uibaí e possui uma área total de 6 tarefas. A estrutura permite aproveitar fins de semana, reunir a família ou dar continuidade às atividades agrícolas.",
       "O imóvel conta com casa de 5 cômodos, varanda em L, espaço caipira com fogão a lenha, energia elétrica, sistema de captação de água da chuva e um pomar com diversas culturas já implantadas.",
     ],
   },
@@ -610,7 +610,7 @@ export const property: PropertyContent = {
       },
       {
         title: "Espaço caipira",
-        description: "Ambiente dedicado com fogão a lenha, ideal para refeições e momentos de convivência.",
+        description: "Ambiente com fogão a lenha para refeições e momentos de convivência.",
         icon: "cooking-pot",
         visible: true,
       },
@@ -632,9 +632,9 @@ export const property: PropertyContent = {
   crops: {
     id: "pomar-e-cultivos",
     eyebrow: "Pomar e cultivos",
-    title: "Pomar, cultivos e sabores da propriedade",
+    title: "Pomar e cultivos já implantados",
     introduction:
-      "A chácara possui diversas frutíferas e culturas já implantadas, ampliando as possibilidades de consumo próprio, continuidade dos cuidados e produção agrícola.",
+      "A propriedade conta com diferentes frutíferas e cultivos já implantados, incluindo café e abacaxi.",
     fieldLabels: {
       quantity: "Quantidade",
       productionStage: "Estágio da produção",
@@ -645,7 +645,7 @@ export const property: PropertyContent = {
         id: "cafe",
         name: "Café",
         description:
-          "A propriedade conta com cultivo de café, integrado às demais atividades e plantações da chácara.",
+          "A propriedade conta com cultivo de café junto às demais frutíferas e cultivos.",
         image: {
           src: "/images/property/real/cafe-01.webp",
           alt: "Cafeeiro com frutos vermelhos na Chácara Alto dos Torres",
@@ -661,7 +661,7 @@ export const property: PropertyContent = {
       {
         id: "abacaxi",
         name: "Abacaxi",
-        description: "O cultivo de abacaxi também faz parte da área produtiva da propriedade.",
+        description: "O cultivo de abacaxi também está implantado na propriedade.",
         image: {
           src: "/images/property/real/abacaxi-02.webp",
           alt: "Abacaxi em desenvolvimento na área cultivada da Chácara Alto dos Torres",
@@ -1215,7 +1215,7 @@ export const property: PropertyContent = {
     eyebrow: "Localização",
     title: "Na Serra de Uibaí",
     introduction:
-      "A Chácara Alto dos Torres está localizada a aproximadamente 7 km de Uibaí, em uma região marcada pela tranquilidade, pela natureza e pelo clima de serra.",
+      "A Chácara Alto dos Torres fica a aproximadamente 7 km de Uibaí, com acesso por estrada de terra em boas condições para carros e motos, inclusive em dias de chuva.",
     image: {
       src: "/images/property/real/vista-geral-01.webp",
       alt: "Vista aérea da Chácara Alto dos Torres e de seus arredores",
@@ -1418,7 +1418,7 @@ export const property: PropertyContent = {
   },
 
   footer: {
-    propertyTypeLabel: "Chácara produtiva para lazer, descanso e agricultura familiar",
+    propertyTypeLabel: "Chácara para lazer, descanso e produção agrícola",
     whatsappLabel: "Falar pelo WhatsApp",
     locationFallback: "A aproximadamente 7 km de Uibaí",
     updateNotice: "",

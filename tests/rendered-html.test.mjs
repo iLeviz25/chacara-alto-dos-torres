@@ -76,12 +76,12 @@ test("renderiza a landing page definitiva do Espaço Fernandes", async () => {
   );
   assert.match(
     html,
-    /<h1[^>]*>Seu espaço para celebrar, reunir e aproveitar<\/h1>/,
+    /<h1[^>]*>Piscina, lazer e privacidade para celebrar em Formosa<\/h1>/,
   );
   assert.match(html, /Locação por diária em Formosa, Uibaí/);
   assert.match(
     html,
-    /Um ambiente privado para aniversários, confraternizações, encontros em família e momentos de lazer com amigos\./,
+    /Espaço privativo para aniversários, confraternizações, encontros em família e dias de lazer com amigos\./,
   );
   assert.match(html, /\/images\/espaco-fernandes\/logo\.webp/);
   assert.match(
@@ -98,8 +98,8 @@ test("renderiza a landing page definitiva do Espaço Fernandes", async () => {
   );
   assert.doesNotMatch(html, /<video\b/i);
   assert.doesNotMatch(html, /autoplay/i);
-  assert.match(html, /Um espaço para aproveitar bons momentos/);
-  assert.match(html, /Tudo reunido para aproveitar a diária/);
+  assert.match(html, /Privacidade para reunir quem importa/);
+  assert.match(html, /Piscina, área gourmet e lazer no mesmo ambiente/);
   assert.match(html, /Piscina/);
   assert.match(html, /Área gourmet/);
   assert.match(html, /Churrasqueira/);
@@ -115,6 +115,8 @@ test("renderiza a landing page definitiva do Espaço Fernandes", async () => {
   assert.match(html, /Encontros entre amigos/);
   assert.match(html, /Dia de lazer/);
   assert.match(html, /Conheça os ambientes/);
+  assert.match(html, />Ver todas<\/button>/);
+  assert.match(html, /12 de 18 fotos exibidas/);
   assert.match(html, />Vista geral<\/button>/);
   assert.match(html, />Piscina<\/button>/);
   assert.match(html, />Área gourmet<\/button>/);
@@ -125,7 +127,10 @@ test("renderiza a landing page definitiva do Espaço Fernandes", async () => {
   assert.match(html, /\/images\/espaco-fernandes\/real\/area-gourmet-noturna-01\.webp/);
   assert.match(html, /\/images\/espaco-fernandes\/real\/chale-entrada-01\.webp/);
   assert.match(html, /Um espaço para descansar/);
-  assert.match(html, /Em 2025, o Espaço Fernandes ganhou um chalé/);
+  assert.match(
+    html,
+    /O chalé oferece um ambiente reservado para pausas e descanso durante a diária\./,
+  );
   assert.match(html, /Em Formosa, Uibaí/);
   assert.match(html, /Rua Fonte Grande, 8898/);
   assert.match(html, /Formosa, Uibaí - BA/);
@@ -173,7 +178,7 @@ test("preserva a Chácara Alto dos Torres na nova rota", async () => {
   assert.match(html, /A propriedade possui uma área total de 6 tarefas/);
   assert.doesNotMatch(html, /Área informada|área informada de 6 tarefas/);
   assert.match(html, /25 mil litros de armazenamento/);
-  assert.match(html, /Pomar, cultivos e sabores da propriedade/);
+  assert.match(html, /Pomar e cultivos já implantados/);
   assert.match(html, /Casa e espaços de convivência/);
   assert.match(html, /25\.000 litros de armazenamento/);
   assert.match(html, /Consulte o valor e agende sua visita/);

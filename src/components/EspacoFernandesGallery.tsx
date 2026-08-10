@@ -15,6 +15,7 @@ interface EspacoFernandesGalleryProps {
 
 const focusableSelector =
   'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
+const INITIAL_VISIBLE_COUNT = 12;
 
 export function EspacoFernandesGallery({
   content,
@@ -37,6 +38,7 @@ export function EspacoFernandesGallery({
   );
   const [activeCategory, setActiveCategory] =
     useState<EspacoGalleryCategory>("all");
+  const [showAll, setShowAll] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
@@ -49,10 +51,17 @@ export function EspacoFernandesGallery({
         : items.filter((item) => item.category === activeCategory),
     [activeCategory, items],
   );
+  const displayedItems = useMemo(
+    () =>
+      activeCategory === "all" && !showAll
+        ? filteredItems.slice(0, INITIAL_VISIBLE_COUNT)
+        : filteredItems,
+    [activeCategory, filteredItems, showAll],
+  );
   const selectedItem =
-    filteredItems.find((item) => item.id === selectedId) ?? null;
+    displayedItems.find((item) => item.id === selectedId) ?? null;
   const selectedIndex = selectedItem
-    ? filteredItems.findIndex((item) => item.id === selectedItem.id)
+    ? displayedItems.findIndex((item) => item.id === selectedItem.id)
     : -1;
 
   const closeModal = useCallback(() => {
@@ -62,16 +71,16 @@ export function EspacoFernandesGallery({
 
   const move = useCallback(
     (offset: number) => {
-      if (filteredItems.length < 2) return;
+      if (displayedItems.length < 2) return;
       setSelectedId((current) => {
-        const currentIndex = filteredItems.findIndex((item) => item.id === current);
+        const currentIndex = displayedItems.findIndex((item) => item.id === current);
         const index = currentIndex < 0 ? 0 : currentIndex;
-        return filteredItems[
-          (index + offset + filteredItems.length) % filteredItems.length
+        return displayedItems[
+          (index + offset + displayedItems.length) % displayedItems.length
         ].id;
       });
     },
-    [filteredItems],
+    [displayedItems],
   );
 
   useEffect(() => {
@@ -162,6 +171,7 @@ export function EspacoFernandesGallery({
                 key={category.id}
                 onClick={() => {
                   setActiveCategory(category.id);
+                  setShowAll(false);
                   setSelectedId(null);
                 }}
                 type="button"
@@ -172,8 +182,11 @@ export function EspacoFernandesGallery({
           })}
         </div>
 
-        <div className="mt-8 grid auto-rows-[17rem] gap-4 sm:grid-cols-2 sm:auto-rows-[20rem] lg:grid-cols-3">
-          {filteredItems.map((item, index) => (
+        <div
+          className="mt-8 grid auto-rows-[17rem] gap-4 sm:grid-cols-2 sm:auto-rows-[20rem] lg:grid-cols-3"
+          id="espaco-gallery-grid"
+        >
+          {displayedItems.map((item, index) => (
             <button
               aria-label={`Ampliar foto: ${item.title}`}
               className={[
@@ -208,6 +221,28 @@ export function EspacoFernandesGallery({
             </button>
           ))}
         </div>
+
+        {activeCategory === "all" && filteredItems.length > INITIAL_VISIBLE_COUNT ? (
+          <div className="mt-9 flex flex-col items-center gap-3">
+            <button
+              aria-controls="espaco-gallery-grid"
+              aria-expanded={showAll}
+              className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#f3904f] bg-[#f3904f] px-6 py-3 text-sm font-extrabold text-[#242423] outline-none transition hover:bg-[#ffab74] focus-visible:ring-3 focus-visible:ring-[#f3904f] focus-visible:ring-offset-3 focus-visible:ring-offset-[#272726]"
+              onClick={() => {
+                setShowAll((current) => !current);
+                setSelectedId(null);
+              }}
+              type="button"
+            >
+              {showAll ? "Mostrar apenas as principais" : "Ver todas"}
+            </button>
+            <p className="text-sm text-white/58">
+              {showAll
+                ? `${filteredItems.length} fotos exibidas`
+                : `${displayedItems.length} de ${filteredItems.length} fotos exibidas`}
+            </p>
+          </div>
+        ) : null}
       </div>
 
       {selectedItem ? (
@@ -248,7 +283,7 @@ export function EspacoFernandesGallery({
                 {selectedItem.caption}
               </figcaption>
             </figure>
-            {filteredItems.length > 1 ? (
+            {displayedItems.length > 1 ? (
               <>
                 <button
                   aria-label={content.controls.previousLabel}
@@ -269,7 +304,7 @@ export function EspacoFernandesGallery({
               </>
             ) : null}
             <span aria-live="polite" className="sr-only">
-              {selectedIndex + 1} de {filteredItems.length}
+              {selectedIndex + 1} de {displayedItems.length}
             </span>
           </div>
         </div>
