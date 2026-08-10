@@ -95,7 +95,7 @@ function EspacoFernandesPanel({ project }: { project: HubProject }) {
             {project.description}
           </p>
           <a
-            className="mt-8 inline-flex min-h-13 w-fit items-center justify-center gap-2 rounded-full border border-[#f3904f]/65 bg-[#f3904f]/10 px-6 py-3 text-sm font-extrabold text-white transition hover:-translate-y-0.5 hover:bg-[#f3904f] hover:text-[#272726] focus-visible:outline-white motion-reduce:transform-none motion-reduce:transition-none"
+            className="mt-8 inline-flex min-h-13 w-fit items-center justify-center gap-2 rounded-full bg-[#f47f20] px-6 py-3 text-sm font-extrabold text-[#081f30] shadow-[0_16px_34px_rgba(0,0,0,0.22)] transition hover:-translate-y-0.5 hover:bg-[#ff9a4d] focus-visible:outline-white motion-reduce:transform-none motion-reduce:transition-none"
             href={project.route}
           >
             {project.buttonLabel}
