@@ -165,6 +165,7 @@ export function Header({
 
         <div className="hidden xl:block">
           <WhatsAppButton
+            analyticsOrigin="cabecalho"
             href={whatsappHref}
             label={content.contactLabel}
             status={status}
@@ -216,6 +217,7 @@ export function Header({
           </nav>
           <div className="mx-auto mt-4 max-w-7xl border-t border-white/10 pt-4">
             <WhatsAppButton
+              analyticsOrigin="cabecalho"
               className="w-full"
               href={whatsappHref}
               label={content.contactLabel}

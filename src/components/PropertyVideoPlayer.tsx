@@ -1,9 +1,10 @@
 "use client";
 
 import { Play } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { SiteImage } from "@/src/components/SiteImage";
 import type { PropertyVideo } from "@/src/content/property";
+import { trackAnalyticsEvent } from "@/src/lib/analytics/client";
 import { getSafeVideoSource } from "@/src/lib/media";
 
 interface PropertyVideoPlayerProps {
@@ -15,6 +16,7 @@ interface PropertyVideoPlayerProps {
   priority?: boolean;
   loaded?: boolean;
   onLoadRequest?: () => void;
+  analyticsOrigin: string;
 }
 
 export function PropertyVideoPlayer({
@@ -26,8 +28,10 @@ export function PropertyVideoPlayer({
   priority = false,
   loaded,
   onLoadRequest,
+  analyticsOrigin,
 }: PropertyVideoPlayerProps) {
   const [isInternallyLoaded, setIsInternallyLoaded] = useState(false);
+  const hasTrackedPlay = useRef(false);
   const isLoaded = loaded ?? isInternallyLoaded;
   const source = getSafeVideoSource(video.url, video.title);
 
@@ -41,6 +45,16 @@ export function PropertyVideoPlayer({
   };
 
   if (!source) return null;
+
+  const trackPlay = () => {
+    if (hasTrackedPlay.current) return;
+    hasTrackedPlay.current = true;
+    trackAnalyticsEvent({
+      site: "chacara-alto-dos-torres",
+      eventName: "video_play",
+      origin: analyticsOrigin,
+    });
+  };
 
   return (
     <div
@@ -65,6 +79,7 @@ export function PropertyVideoPlayer({
             poster={video.coverImage?.src}
             preload="none"
             src={source.sourceUrl}
+            onPlay={trackPlay}
           />
         ) : (
           <iframe
@@ -81,7 +96,10 @@ export function PropertyVideoPlayer({
           aria-describedby={describedBy}
           aria-label={`${playLabel}: ${video.title} (${video.duration})`}
           className="group absolute inset-0 size-full text-white outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-[#ff9a4d]"
-          onClick={requestLoad}
+          onClick={() => {
+            requestLoad();
+            trackPlay();
+          }}
           type="button"
         >
           {video.coverImage ? (

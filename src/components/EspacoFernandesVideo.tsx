@@ -1,9 +1,10 @@
 "use client";
 
 import { Play } from "lucide-react";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { SiteImage } from "@/src/components/SiteImage";
 import type { EspacoFernandesContent } from "@/src/content/espacoFernandes";
+import { trackAnalyticsEvent } from "@/src/lib/analytics/client";
 
 interface EspacoFernandesVideoProps {
   video: EspacoFernandesContent["hero"]["video"];
@@ -11,6 +12,17 @@ interface EspacoFernandesVideoProps {
 
 export function EspacoFernandesVideo({ video }: EspacoFernandesVideoProps) {
   const [isLoaded, setIsLoaded] = useState(false);
+  const hasTrackedPlay = useRef(false);
+
+  const trackPlay = () => {
+    if (hasTrackedPlay.current) return;
+    hasTrackedPlay.current = true;
+    trackAnalyticsEvent({
+      site: "espaco-fernandes",
+      eventName: "video_play",
+      origin: "hero-video",
+    });
+  };
 
   if (!video.visible) return null;
 
@@ -26,12 +38,16 @@ export function EspacoFernandesVideo({ video }: EspacoFernandesVideoProps) {
             poster={video.poster.src}
             preload="none"
             src={video.src}
+            onPlay={trackPlay}
           />
         ) : (
           <button
             aria-label={`Reproduzir vídeo: ${video.title} (${video.duration})`}
             className="group absolute inset-0 size-full text-white outline-none focus-visible:ring-4 focus-visible:ring-inset focus-visible:ring-[#f3904f]"
-            onClick={() => setIsLoaded(true)}
+            onClick={() => {
+              setIsLoaded(true);
+              trackPlay();
+            }}
             type="button"
           >
             <SiteImage

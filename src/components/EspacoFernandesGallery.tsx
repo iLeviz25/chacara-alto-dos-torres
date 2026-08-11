@@ -3,6 +3,7 @@
 import { ChevronLeft, ChevronRight, Expand, X } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { SiteImage } from "@/src/components/SiteImage";
+import { trackAnalyticsEvent } from "@/src/lib/analytics/client";
 import type {
   EspacoFernandesContent,
   EspacoGalleryCategory,
@@ -139,6 +140,11 @@ export function EspacoFernandesGallery({
         ? document.activeElement
         : null;
     setSelectedId(item.id);
+    trackAnalyticsEvent({
+      site: "espaco-fernandes",
+      eventName: "gallery_open",
+      origin: "galeria-espaco",
+    });
   }
 
   return (

@@ -70,6 +70,8 @@ export function EspacoFernandesHeader({
         {whatsappHref ? (
           <a
             className="ml-auto hidden min-h-11 items-center justify-center gap-2 rounded-full bg-[#f3904f] px-4 py-2 text-sm font-extrabold text-[#242423] transition hover:bg-[#ffa56d] xl:ml-3 xl:inline-flex"
+            data-analytics-event="whatsapp_click"
+            data-analytics-origin="cabecalho"
             href={whatsappHref}
             rel="noreferrer"
             target="_blank"
@@ -114,6 +116,8 @@ export function EspacoFernandesHeader({
           {whatsappHref ? (
             <a
               className="mt-3 inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#f3904f] px-5 py-3 font-extrabold text-[#242423] sm:w-auto"
+              data-analytics-event="whatsapp_click"
+              data-analytics-origin="cabecalho"
               href={whatsappHref}
               rel="noreferrer"
               target="_blank"

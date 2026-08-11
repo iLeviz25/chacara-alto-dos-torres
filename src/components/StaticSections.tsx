@@ -181,6 +181,7 @@ export function HeroSection({
         <div className="flex flex-col items-center lg:justify-self-center">
           {mainVideo ? (
             <PropertyVideoPlayer
+              analyticsOrigin="hero-video"
               className="w-full max-w-[19rem] border border-[#0d293c]/10 shadow-[0_24px_70px_rgba(13,41,60,0.2)] sm:max-w-[21rem] lg:max-w-[22rem]"
               playLabel={content.videoPlayLabel}
               priority
@@ -867,7 +868,7 @@ export function Footer({
           </div>
           <div className="flex flex-col gap-3 md:items-end">
             {canContact && whatsappHref ? (
-              <a className="inline-flex items-center gap-2 font-bold text-[#e2c09e] underline-offset-4 hover:underline" href={whatsappHref} target="_blank" rel="noreferrer">
+              <a className="inline-flex items-center gap-2 font-bold text-[#e2c09e] underline-offset-4 hover:underline" data-analytics-event="whatsapp_click" data-analytics-origin="rodape" href={whatsappHref} target="_blank" rel="noreferrer">
                 <MessageCircle aria-hidden="true" size={18} />
                 {content.whatsappLabel}
               </a>

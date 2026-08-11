@@ -17,6 +17,7 @@ import {
 } from "@/src/components/StaticSections";
 import { VideoSection } from "@/src/components/VideoSection";
 import { WhatsAppButton } from "@/src/components/WhatsAppButton";
+import { AnalyticsTracker } from "@/src/components/AnalyticsTracker";
 
 interface PropertyLandingPageProps {
   content: PropertyContent;
@@ -64,8 +65,13 @@ export function PropertyLandingPage({
     ),
   };
 
-  const contactButton = (label: string, variant: "primary" | "secondary" = "primary") => (
+  const contactButton = (
+    label: string,
+    origin: string,
+    variant: "primary" | "secondary" = "primary",
+  ) => (
     <WhatsAppButton
+      analyticsOrigin={origin}
       href={whatsappHref}
       label={label}
       status={content.status}
@@ -77,6 +83,7 @@ export function PropertyLandingPage({
 
   return (
     <div id="inicio">
+      <AnalyticsTracker site="chacara-alto-dos-torres" />
       <a className="skip-link" href="#conteudo-principal">
         Ir para o conteúdo principal
       </a>
@@ -95,7 +102,7 @@ export function PropertyLandingPage({
           mainVideo={mainVideo}
           status={content.status}
           statusContent={statusContent}
-          contactAction={contactButton(content.hero.primaryActionLabel)}
+          contactAction={contactButton(content.hero.primaryActionLabel, "hero")}
         />
 
         {content.sections.propertyDetails ? (
@@ -142,7 +149,7 @@ export function PropertyLandingPage({
           <OwnerContactSection
             content={content.contact}
             statusContent={statusContent}
-            contactAction={contactButton(content.contact.buttonLabel)}
+            contactAction={contactButton(content.contact.buttonLabel, "contato")}
           />
         ) : null}
 
@@ -152,7 +159,11 @@ export function PropertyLandingPage({
           <FinalCTASection
             content={content.finalCta}
             statusContent={statusContent}
-            contactAction={contactButton(content.finalCta.buttonLabel, "secondary")}
+            contactAction={contactButton(
+              content.finalCta.buttonLabel,
+              "cta-final",
+              "secondary",
+            )}
           />
         ) : null}
       </main>
@@ -168,6 +179,7 @@ export function PropertyLandingPage({
       />
 
       <WhatsAppButton
+        analyticsOrigin="botao-flutuante"
         href={whatsappHref}
         label={content.contact.floatingButtonLabel}
         status={content.status}

@@ -24,6 +24,7 @@ import { EspacoFernandesFaq } from "@/src/components/EspacoFernandesFaq";
 import { EspacoFernandesGallery } from "@/src/components/EspacoFernandesGallery";
 import { EspacoFernandesHeader } from "@/src/components/EspacoFernandesHeader";
 import { EspacoFernandesVideo } from "@/src/components/EspacoFernandesVideo";
+import { AnalyticsTracker } from "@/src/components/AnalyticsTracker";
 import { SiteImage } from "@/src/components/SiteImage";
 import type { EspacoFernandesContent } from "@/src/content/espacoFernandes";
 import { buildWhatsAppLink } from "@/src/lib/whatsapp";
@@ -105,6 +106,7 @@ export function EspacoFernandesLandingPage({
 
   return (
     <div className="min-h-screen bg-[#f5f1ea] text-[#292928]">
+      <AnalyticsTracker site="espaco-fernandes" />
       <a className="skip-link" href="#conteudo-espaco">
         Ir para o conteúdo
       </a>
@@ -162,6 +164,8 @@ export function EspacoFernandesLandingPage({
                 {whatsappHref ? (
                   <a
                     className="inline-flex min-h-13 items-center justify-center gap-2 rounded-full bg-[#f3904f] px-6 py-3 text-sm font-extrabold text-[#242423] shadow-[0_16px_38px_rgba(0,0,0,0.25)] transition hover:-translate-y-0.5 hover:bg-[#ffa56d] motion-reduce:transform-none"
+                    data-analytics-event="whatsapp_click"
+                    data-analytics-origin="hero"
                     href={whatsappHref}
                     rel="noreferrer"
                     target="_blank"
@@ -389,6 +393,8 @@ export function EspacoFernandesLandingPage({
               {whatsappHref ? (
                 <a
                   className="inline-flex min-h-14 w-full items-center justify-center gap-2 rounded-full bg-[#f3904f] px-6 py-3 text-center text-sm font-extrabold text-[#242423] transition hover:bg-[#ffa56d]"
+                  data-analytics-event="whatsapp_click"
+                  data-analytics-origin="contato"
                   href={whatsappHref}
                   rel="noreferrer"
                   target="_blank"
@@ -400,6 +406,8 @@ export function EspacoFernandesLandingPage({
               <div className="mt-4 grid gap-3 sm:grid-cols-2">
                 <a
                   className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-3 text-sm font-extrabold text-white hover:bg-white/9"
+                  data-analytics-event="instagram_click"
+                  data-analytics-origin="contato"
                   href={content.contact.instagram.url}
                   rel="noreferrer"
                   target="_blank"

@@ -38,6 +38,7 @@ export function VideoSection({ content }: VideoSectionProps) {
                 key={video.id}
               >
                 <PropertyVideoPlayer
+                  analyticsOrigin={video.id}
                   className="mx-auto w-full max-w-sm rounded-none"
                   describedBy={descriptionId}
                   loaded={loadedVideoId === video.id}

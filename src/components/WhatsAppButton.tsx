@@ -18,6 +18,7 @@ export interface WhatsAppButtonProps {
   statusContent: StatusContent;
   variant?: WhatsAppButtonVariant;
   className?: string;
+  analyticsOrigin?: string;
   onClick?: MouseEventHandler<HTMLAnchorElement>;
 }
 
@@ -53,6 +54,7 @@ export function WhatsAppButton({
   statusContent,
   variant = "primary",
   className = "",
+  analyticsOrigin,
   onClick,
 }: WhatsAppButtonProps) {
   const isContactAvailable = status === "available" && Boolean(href);
@@ -98,6 +100,8 @@ export function WhatsAppButton({
         .filter(Boolean)
         .join(" ")}
       href={href ?? undefined}
+      data-analytics-event="whatsapp_click"
+      data-analytics-origin={analyticsOrigin}
       onClick={onClick}
       rel="noopener noreferrer"
       target="_blank"

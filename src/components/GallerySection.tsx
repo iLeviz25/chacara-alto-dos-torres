@@ -15,6 +15,7 @@ import type {
 } from "@/src/content/property";
 import { SectionHeading } from "@/src/components/SectionHeading";
 import { SiteImage } from "@/src/components/SiteImage";
+import { trackAnalyticsEvent } from "@/src/lib/analytics/client";
 
 export interface GallerySectionProps {
   content: PropertyContent["gallery"];
@@ -193,6 +194,11 @@ export function GallerySection({
         ? document.activeElement
         : null;
     setSelectedItemId(item.id);
+    trackAnalyticsEvent({
+      site: "chacara-alto-dos-torres",
+      eventName: "gallery_open",
+      origin: "galeria",
+    });
   }
 
   return (

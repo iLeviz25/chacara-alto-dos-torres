@@ -2,6 +2,7 @@ import { ArrowRight, Instagram, MessageCircle } from "lucide-react";
 import type { HubContent, HubProject } from "@/src/content/hub";
 import { SiteImage } from "@/src/components/SiteImage";
 import { buildWhatsAppLink } from "@/src/lib/whatsapp";
+import { AnalyticsTracker } from "@/src/components/AnalyticsTracker";
 
 interface ProjectHubProps {
   content: HubContent;
@@ -113,6 +114,7 @@ export function ProjectHub({ content }: ProjectHubProps) {
 
   return (
     <div className="min-h-screen bg-[#20201f] text-white">
+      <AnalyticsTracker site="hub" />
       <a className="skip-link" href="#projetos">
         Ir para os projetos
       </a>
@@ -135,6 +137,8 @@ export function ProjectHub({ content }: ProjectHubProps) {
             {whatsappHref ? (
               <a
                 className="inline-flex items-center gap-2 underline-offset-4 hover:text-white hover:underline"
+                data-analytics-event="whatsapp_click"
+                data-analytics-origin="rodape"
                 href={whatsappHref}
                 rel="noreferrer"
                 target="_blank"
@@ -145,6 +149,8 @@ export function ProjectHub({ content }: ProjectHubProps) {
             ) : null}
             <a
               className="inline-flex items-center gap-2 underline-offset-4 hover:text-[#f5a36e] hover:underline"
+              data-analytics-event="instagram_click"
+              data-analytics-origin="rodape"
               href={content.contact.instagramUrl}
               rel="noreferrer"
               target="_blank"
