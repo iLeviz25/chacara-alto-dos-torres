@@ -1,13 +1,15 @@
-import { PartyPopper } from "lucide-react";
-import { AdminPlaceholder } from "@/src/components/admin/AdminPlaceholder";
+import { EspacoContentEditor } from "@/src/components/admin/EspacoContentEditor";
+import { getSiteEditorState } from "@/src/lib/content/admin-site-content";
 
-export default function VenueAdminPage() {
+export default async function VenueAdminPage() {
+  const state = await getSiteEditorState("espaco-fernandes");
+
   return (
-    <AdminPlaceholder
-      eyebrow="Projeto"
-      title="Espaço Fernandes"
-      description="Estrutura futura para administrar as informações do espaço."
-      icon={PartyPopper}
+    <EspacoContentEditor
+      draftUpdatedAt={state.draftUpdatedAt}
+      hasDraft={state.hasDraft}
+      initialContent={state.content}
+      publishedAt={state.publishedAt}
     />
   );
 }

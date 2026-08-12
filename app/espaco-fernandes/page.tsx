@@ -1,36 +1,41 @@
 import type { Metadata } from "next";
 import { EspacoFernandesLandingPage } from "@/src/components/EspacoFernandesLandingPage";
-import { espacoFernandes } from "@/src/content/espacoFernandes";
+import { getPublishedSiteContent } from "@/src/lib/content/site-content";
 
-export const metadata: Metadata = {
-  title: espacoFernandes.seo.title,
-  description: espacoFernandes.seo.description,
-  alternates: { canonical: espacoFernandes.seo.canonicalUrl },
-  openGraph: {
-    type: "website",
-    locale: "pt_BR",
+export async function generateMetadata(): Promise<Metadata> {
+  const espacoFernandes = await getPublishedSiteContent("espaco-fernandes");
+
+  return {
     title: espacoFernandes.seo.title,
     description: espacoFernandes.seo.description,
-    url: espacoFernandes.seo.canonicalUrl,
-    siteName: espacoFernandes.brand.name,
-    images: [
-      {
-        url: espacoFernandes.seo.openGraphImage.src,
-        width: espacoFernandes.seo.openGraphImage.width,
-        height: espacoFernandes.seo.openGraphImage.height,
-        alt: espacoFernandes.seo.openGraphImage.alt,
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: espacoFernandes.seo.title,
-    description: espacoFernandes.seo.description,
-    images: [espacoFernandes.seo.openGraphImage.src],
-  },
-};
+    alternates: { canonical: espacoFernandes.seo.canonicalUrl },
+    openGraph: {
+      type: "website",
+      locale: "pt_BR",
+      title: espacoFernandes.seo.title,
+      description: espacoFernandes.seo.description,
+      url: espacoFernandes.seo.canonicalUrl,
+      siteName: espacoFernandes.brand.name,
+      images: [
+        {
+          url: espacoFernandes.seo.openGraphImage.src,
+          width: espacoFernandes.seo.openGraphImage.width,
+          height: espacoFernandes.seo.openGraphImage.height,
+          alt: espacoFernandes.seo.openGraphImage.alt,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: espacoFernandes.seo.title,
+      description: espacoFernandes.seo.description,
+      images: [espacoFernandes.seo.openGraphImage.src],
+    },
+  };
+}
 
-export default function EspacoFernandesPage() {
+export default async function EspacoFernandesPage() {
+  const espacoFernandes = await getPublishedSiteContent("espaco-fernandes");
   const siteBase = new URL(espacoFernandes.seo.canonicalUrl).origin;
   const structuredData = {
     "@context": "https://schema.org",
@@ -50,11 +55,13 @@ export default function EspacoFernandesPage() {
       addressRegion: "BA",
       addressCountry: "BR",
     },
-    amenityFeature: espacoFernandes.structure.amenities.map((amenity) => ({
-      "@type": "LocationFeatureSpecification",
-      name: amenity.title,
-      value: true,
-    })),
+    amenityFeature: espacoFernandes.structure.amenities
+      .filter((amenity) => amenity.visible !== false)
+      .map((amenity) => ({
+        "@type": "LocationFeatureSpecification",
+        name: amenity.title,
+        value: true,
+      })),
   };
 
   return (

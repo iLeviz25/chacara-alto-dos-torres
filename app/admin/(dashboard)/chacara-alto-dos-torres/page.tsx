@@ -1,13 +1,15 @@
-import { Trees } from "lucide-react";
-import { AdminPlaceholder } from "@/src/components/admin/AdminPlaceholder";
+import { ChacaraContentEditor } from "@/src/components/admin/ChacaraContentEditor";
+import { getSiteEditorState } from "@/src/lib/content/admin-site-content";
 
-export default function PropertyAdminPage() {
+export default async function PropertyAdminPage() {
+  const state = await getSiteEditorState("chacara-alto-dos-torres");
+
   return (
-    <AdminPlaceholder
-      eyebrow="Projeto"
-      title="Chácara Alto dos Torres"
-      description="Estrutura futura para administrar as informações da propriedade."
-      icon={Trees}
+    <ChacaraContentEditor
+      draftUpdatedAt={state.draftUpdatedAt}
+      hasDraft={state.hasDraft}
+      initialContent={state.content}
+      publishedAt={state.publishedAt}
     />
   );
 }

@@ -241,7 +241,10 @@ export function EspacoFernandesLandingPage({
               </figure>
 
               <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
-                {content.structure.amenities.map((amenity) => {
+                {content.structure.amenities
+                  .filter((amenity) => amenity.visible !== false)
+                  .sort((first, second) => (first.order ?? 0) - (second.order ?? 0))
+                  .map((amenity) => {
                   const Icon = amenityIcons[amenity.id];
                   return (
                     <article
@@ -259,7 +262,7 @@ export function EspacoFernandesLandingPage({
                       </p>
                     </article>
                   );
-                })}
+                  })}
               </div>
             </div>
           </div>

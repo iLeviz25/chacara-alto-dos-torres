@@ -148,6 +148,7 @@ export function PropertyLandingPage({
         {content.sections.contact ? (
           <OwnerContactSection
             content={content.contact}
+            negotiation={content.negotiation}
             statusContent={statusContent}
             contactAction={contactButton(content.contact.buttonLabel, "contato")}
           />

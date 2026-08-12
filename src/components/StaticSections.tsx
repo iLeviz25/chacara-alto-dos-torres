@@ -688,15 +688,26 @@ export function LocationSection({ content }: LocationSectionProps) {
 
 interface OwnerContactSectionProps {
   content: PropertyContent["contact"];
+  negotiation: PropertyContent["negotiation"];
   statusContent: StatusContent;
   contactAction: ReactNode;
 }
 
 export function OwnerContactSection({
   content,
+  negotiation,
   statusContent,
   contactAction,
 }: OwnerContactSectionProps) {
+  const visiblePrice =
+    negotiation.price.showPrice && negotiation.price.amount
+      ? new Intl.NumberFormat("pt-BR", {
+          style: "currency",
+          currency: negotiation.price.currency,
+          maximumFractionDigits: 0,
+        }).format(negotiation.price.amount)
+      : null;
+
   return (
     <section id={content.id} className="section-space bg-white">
       <div className="site-container overflow-hidden rounded-[2rem] border border-[#173f2b]/10 bg-[#f5f1e8] shadow-[0_24px_70px_rgba(23,63,43,0.1)]">
@@ -730,6 +741,11 @@ export function OwnerContactSection({
           <div className="p-7 md:p-12">
             <SectionHeading eyebrow={content.eyebrow} title={content.title} />
             <p className="body-large mt-5 max-w-2xl">{content.description}</p>
+            {visiblePrice ? (
+              <p className="mt-6 font-serif text-3xl font-semibold text-[#173f2b]">
+                {negotiation.labels.price}: {visiblePrice}
+              </p>
+            ) : null}
             {content.supportItems.length > 0 ? (
               <ul className="mt-7 grid gap-3 sm:grid-cols-2">
                 {content.supportItems.map((item) => (

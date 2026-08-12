@@ -75,6 +75,8 @@ export interface EspacoFernandesContent {
         | "wifi";
       title: string;
       description: string;
+      visible?: boolean;
+      order?: number;
     }>;
   };
   occasions: {
@@ -237,41 +239,57 @@ export const espacoFernandes: EspacoFernandesContent = {
         id: "piscina",
         title: "Piscina",
         description: "Um dos principais espaços de lazer do local.",
+        visible: true,
+        order: 1,
       },
       {
         id: "area-gourmet",
         title: "Área gourmet",
         description: "Ambiente para refeições e convivência.",
+        visible: true,
+        order: 2,
       },
       {
         id: "churrasqueira",
         title: "Churrasqueira",
         description: "Estrutura disponível na área gourmet.",
+        visible: true,
+        order: 3,
       },
       {
         id: "freezer",
         title: "Freezer",
         description: "Disponível como apoio durante a diária.",
+        visible: true,
+        order: 4,
       },
       {
         id: "sinuca",
         title: "Mesa de sinuca",
         description: "Opção de lazer na área coberta.",
+        visible: true,
+        order: 5,
       },
       {
         id: "jogos",
         title: "Jogos",
         description: "Baralho e dominó disponíveis.",
+        visible: true,
+        order: 6,
       },
       {
         id: "tv",
         title: "TV",
         description: "TV na área de convivência.",
+        visible: true,
+        order: 7,
       },
       {
         id: "wifi",
         title: "Wi-Fi",
         description: "Conexão disponível no espaço.",
+        visible: true,
+        order: 8,
       },
     ],
   },
