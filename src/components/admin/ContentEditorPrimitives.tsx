@@ -3,11 +3,14 @@
 import { ArrowDown, ArrowUp, ExternalLink, Plus, Trash2 } from "lucide-react";
 import { useActionState, useEffect, useId } from "react";
 import { useRouter } from "next/navigation";
-import {
-  initialContentActionState,
-  updateSiteContent,
-} from "@/app/admin/content-actions";
+import { updateSiteContent } from "@/app/admin/content-actions";
+import type { ContentActionState } from "@/app/admin/content-actions";
 import type { EditableSiteSlug } from "@/src/lib/content/site-content";
+
+const initialContentActionState: ContentActionState = {
+  status: "idle",
+  message: "",
+};
 
 export function EditorField({
   label,

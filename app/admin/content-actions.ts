@@ -18,11 +18,6 @@ export type ContentActionState = {
   completedIntent?: "save" | "publish" | "discard";
 };
 
-export const initialContentActionState: ContentActionState = {
-  status: "idle",
-  message: "",
-};
-
 function validSiteSlug(value: FormDataEntryValue | null): value is EditableSiteSlug {
   return typeof value === "string" && EDITABLE_SITE_SLUGS.includes(value as EditableSiteSlug);
 }
