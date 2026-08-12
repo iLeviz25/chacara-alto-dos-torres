@@ -46,6 +46,7 @@ export interface SectionVisibility {
 
 export interface ContentImage {
   src: string;
+  fallbackSrc?: string;
   alt: string;
   caption?: string;
   isPlaceholder: boolean;
@@ -131,6 +132,7 @@ export interface PropertyVideo {
   title: string;
   description: string;
   url: string;
+  fallbackUrl?: string;
   coverImage: ContentImage | null;
   role: VideoRole;
   format: VideoFormat;

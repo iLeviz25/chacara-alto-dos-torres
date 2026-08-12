@@ -73,6 +73,13 @@ function getLocalMp4(value: string): string | null {
   return /\.mp4(?:[?#].*)?$/i.test(normalized) ? normalized : null;
 }
 
+function getRemoteMp4(value: string): string | null {
+  const url = parseUrl(value);
+  if (!url || url.protocol !== "https:") return null;
+  if (!/\.mp4(?:[?#].*)?$/i.test(url.pathname + url.search)) return null;
+  return url.toString();
+}
+
 /**
  * Aceita somente fontes conhecidas e recria URLs externas sem parâmetros
  * fornecidos pelo usuário. Arquivos MP4 devem estar na pasta `public`.
@@ -81,6 +88,11 @@ export function getSafeVideoSource(value: string, title: string): SafeVideoSourc
   const localMp4 = getLocalMp4(value);
   if (localMp4) {
     return { provider: "mp4", sourceUrl: localMp4, title };
+  }
+
+  const remoteMp4 = getRemoteMp4(value);
+  if (remoteMp4) {
+    return { provider: "mp4", sourceUrl: remoteMp4, title };
   }
 
   const url = parseUrl(value);

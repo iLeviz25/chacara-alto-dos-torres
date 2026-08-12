@@ -1,5 +1,7 @@
 import { espacoFernandes, type EspacoFernandesContent } from "@/src/content/espacoFernandes";
 import { property, type PropertyContent } from "@/src/content/property";
+import { applyPublishedMedia } from "@/src/lib/media/library";
+import { getPublishedMediaLibrary } from "@/src/lib/media/published-media";
 
 export const EDITABLE_SITE_SLUGS = [
   "chacara-alto-dos-torres",
@@ -80,9 +82,11 @@ export async function getPublishedSiteContent<S extends EditableSiteSlug>(
     const rows = (await response.json()) as Array<{ published_content?: unknown }>;
     const published = rows[0]?.published_content;
 
-    return looksLikePublishedContent(siteSlug, published)
+    const content = looksLikePublishedContent(siteSlug, published)
       ? (published as SiteContentMap[S])
       : fallback;
+    const media = await getPublishedMediaLibrary(siteSlug);
+    return applyPublishedMedia(siteSlug, content, media);
   } catch {
     return fallback;
   }

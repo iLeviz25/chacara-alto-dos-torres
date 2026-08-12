@@ -16,11 +16,10 @@ interface EspacoFernandesGalleryProps {
 
 const focusableSelector =
   'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])';
-const INITIAL_VISIBLE_COUNT = 12;
-
 export function EspacoFernandesGallery({
   content,
 }: EspacoFernandesGalleryProps) {
+  const initialVisibleCount = content.initialVisibleCount ?? 12;
   const items = useMemo(
     () =>
       content.items
@@ -55,9 +54,9 @@ export function EspacoFernandesGallery({
   const displayedItems = useMemo(
     () =>
       activeCategory === "all" && !showAll
-        ? filteredItems.slice(0, INITIAL_VISIBLE_COUNT)
+        ? filteredItems.slice(0, initialVisibleCount)
         : filteredItems,
-    [activeCategory, filteredItems, showAll],
+    [activeCategory, filteredItems, initialVisibleCount, showAll],
   );
   const selectedItem =
     displayedItems.find((item) => item.id === selectedId) ?? null;
@@ -209,6 +208,7 @@ export function EspacoFernandesGallery({
                 alt={item.alt}
                 className="object-cover transition-transform duration-500 group-hover:scale-[1.025] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                 fill
+                fallbackSrc={item.fallbackSrc}
                 sizes={
                   activeCategory === "all" && index === 0
                     ? "(max-width: 639px) 100vw, (max-width: 1023px) 100vw, 66vw"
@@ -228,7 +228,7 @@ export function EspacoFernandesGallery({
           ))}
         </div>
 
-        {activeCategory === "all" && filteredItems.length > INITIAL_VISIBLE_COUNT ? (
+        {activeCategory === "all" && filteredItems.length > initialVisibleCount ? (
           <div className="mt-9 flex flex-col items-center gap-3">
             <button
               aria-controls="espaco-gallery-grid"
@@ -240,7 +240,7 @@ export function EspacoFernandesGallery({
               }}
               type="button"
             >
-              {showAll ? "Mostrar apenas as principais" : "Ver todas"}
+              {showAll ? "Mostrar apenas as principais" : "Ver todas as fotos"}
             </button>
             <p className="text-sm text-white/58">
               {showAll
@@ -280,6 +280,7 @@ export function EspacoFernandesGallery({
                   alt={selectedItem.alt}
                   className="object-contain"
                   fill
+                  fallbackSrc={selectedItem.fallbackSrc}
                   priority
                   sizes="100vw"
                   src={selectedItem.src}

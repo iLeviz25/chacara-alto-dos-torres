@@ -9,6 +9,7 @@ export type EspacoGalleryCategory =
 
 export interface EspacoImage {
   src: string;
+  fallbackSrc?: string;
   alt: string;
   width: number;
   height: number;
@@ -45,6 +46,7 @@ export interface EspacoFernandesContent {
       title: string;
       description: string;
       src: string;
+      fallbackSrc?: string;
       poster: EspacoImage;
       duration: string;
       format: "vertical";
@@ -89,6 +91,7 @@ export interface EspacoFernandesContent {
     eyebrow: string;
     title: string;
     description: string;
+    initialVisibleCount?: number;
     categories: Array<{ id: EspacoGalleryCategory; label: string }>;
     items: EspacoGalleryItem[];
     controls: {
@@ -310,6 +313,7 @@ export const espacoFernandes: EspacoFernandesContent = {
     title: "Conheça os ambientes",
     description:
       "Veja a piscina, os espaços de convivência, a estrutura de lazer e outros detalhes do Espaço Fernandes.",
+    initialVisibleCount: 12,
     categories: [
       { id: "all", label: "Todas" },
       { id: "vista-geral", label: "Vista geral" },

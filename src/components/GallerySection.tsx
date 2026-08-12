@@ -272,6 +272,7 @@ export function GallerySection({
                   alt={item.alt}
                   className="object-cover motion-safe:transition-transform motion-safe:duration-500 group-hover:scale-[1.025]"
                   fill
+                  fallbackSrc={item.fallbackSrc}
                   sizes={
                     index === 0
                       ? "(max-width: 639px) 100vw, (max-width: 1023px) 100vw, 66vw"
@@ -335,6 +336,7 @@ export function GallerySection({
                   alt={selectedItem.alt}
                   className="object-contain"
                   fill
+                  fallbackSrc={selectedItem.fallbackSrc}
                   priority
                   sizes="100vw"
                   src={selectedItem.src}

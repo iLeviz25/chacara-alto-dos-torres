@@ -198,6 +198,7 @@ export function HeroSection({
                     : "object-cover"
                 }
                 fill
+                fallbackSrc={content.mainImage.fallbackSrc}
                 priority
                 sizes="(max-width: 1023px) 100vw, 40vw"
                 src={content.mainImage.src}
@@ -317,6 +318,7 @@ export function CropsSection({ content }: CropsSectionProps) {
                       src={crop.image.src}
                       alt={crop.image.alt}
                       fill
+                      fallbackSrc={crop.image.fallbackSrc}
                       sizes="(max-width: 1023px) 100vw, 33vw"
                       className="object-cover transition-transform duration-500 hover:scale-[1.02]"
                     />
@@ -544,6 +546,7 @@ export function SupportHouseSection({ content }: SupportHouseSectionProps) {
               src={photo.src}
               alt={photo.alt}
               fill
+              fallbackSrc={photo.fallbackSrc}
               sizes="(max-width: 1023px) 100vw, 50vw"
               className="object-cover"
             />
@@ -634,6 +637,7 @@ export function LocationSection({ content }: LocationSectionProps) {
               alt={content.image.alt}
               className={content.image.fit === "contain" ? "object-contain" : "object-cover"}
               fill
+              fallbackSrc={content.image.fallbackSrc}
               sizes="(max-width: 1023px) 100vw, 56vw"
               src={content.image.src}
             />
@@ -721,6 +725,7 @@ export function OwnerContactSection({
                     alt={content.ownerImage.alt}
                     className="object-contain object-bottom"
                     fill
+                    fallbackSrc={content.ownerImage.fallbackSrc}
                     sizes="280px"
                     src={content.ownerImage.src}
                   />
@@ -811,6 +816,7 @@ export function FinalCTASection({
         src={content.backgroundImage.src}
         alt=""
         fill
+        fallbackSrc={content.backgroundImage.fallbackSrc}
         sizes="100vw"
         className="-z-20 object-cover opacity-35"
       />

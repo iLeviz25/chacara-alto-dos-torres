@@ -226,6 +226,7 @@ export function EspacoFernandesLandingPage({
                   alt={content.structure.featuredImage.alt}
                   className="object-cover transition-transform duration-700 group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
                   fill
+                  fallbackSrc={content.structure.featuredImage.fallbackSrc}
                   sizes="(max-width: 1023px) 100vw, 60vw"
                   src={content.structure.featuredImage.src}
                 />
@@ -302,6 +303,7 @@ export function EspacoFernandesLandingPage({
                 alt={content.chalet.image.alt}
                 className="object-cover"
                 fill
+                fallbackSrc={content.chalet.image.fallbackSrc}
                 sizes="(max-width: 1023px) min(100vw, 528px), 42vw"
                 src={content.chalet.image.src}
               />

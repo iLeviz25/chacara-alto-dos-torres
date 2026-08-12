@@ -80,6 +80,12 @@ export function PropertyVideoPlayer({
             preload="none"
             src={source.sourceUrl}
             onPlay={trackPlay}
+            onError={(event) => {
+              if (video.fallbackUrl && event.currentTarget.src !== new URL(video.fallbackUrl, window.location.origin).href) {
+                event.currentTarget.src = video.fallbackUrl;
+                event.currentTarget.load();
+              }
+            }}
           />
         ) : (
           <iframe
@@ -107,6 +113,7 @@ export function PropertyVideoPlayer({
               alt={video.coverImage.alt}
               className={`${video.coverImage.fit === "contain" ? "object-contain" : "object-cover"} opacity-72 transition-transform duration-500 group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100`}
               fill
+              fallbackSrc={video.coverImage.fallbackSrc}
               priority={priority}
               sizes={sizes}
               src={video.coverImage.src}

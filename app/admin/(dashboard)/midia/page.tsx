@@ -1,13 +1,10 @@
-import { ImageIcon } from "lucide-react";
-import { AdminPlaceholder } from "@/src/components/admin/AdminPlaceholder";
+import { MediaManager } from "@/src/components/admin/MediaManager";
+import { getMediaEditorState } from "@/src/lib/media/admin-media";
 
-export default function MediaAdminPage() {
-  return (
-    <AdminPlaceholder
-      eyebrow="Mídia"
-      title="Fotos e vídeos"
-      description="Área reservada para a futura biblioteca de mídia."
-      icon={ImageIcon}
-    />
-  );
+export default async function MediaAdminPage() {
+  const states = await Promise.all([
+    getMediaEditorState("chacara-alto-dos-torres"),
+    getMediaEditorState("espaco-fernandes"),
+  ]);
+  return <MediaManager states={states} />;
 }

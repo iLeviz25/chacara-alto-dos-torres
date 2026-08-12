@@ -115,7 +115,7 @@ test("renderiza a landing page definitiva do Espaço Fernandes", async () => {
   assert.match(html, /Encontros entre amigos/);
   assert.match(html, /Dia de lazer/);
   assert.match(html, /Conheça os ambientes/);
-  assert.match(html, />Ver todas<\/button>/);
+  assert.match(html, />Ver todas as fotos<\/button>/);
   assert.match(html, /12 de 18 fotos exibidas/);
   assert.match(html, />Vista geral<\/button>/);
   assert.match(html, />Piscina<\/button>/);

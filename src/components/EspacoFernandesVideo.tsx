@@ -39,6 +39,12 @@ export function EspacoFernandesVideo({ video }: EspacoFernandesVideoProps) {
             preload="none"
             src={video.src}
             onPlay={trackPlay}
+            onError={(event) => {
+              if (video.fallbackSrc && event.currentTarget.src !== new URL(video.fallbackSrc, window.location.origin).href) {
+                event.currentTarget.src = video.fallbackSrc;
+                event.currentTarget.load();
+              }
+            }}
           />
         ) : (
           <button
@@ -54,6 +60,7 @@ export function EspacoFernandesVideo({ video }: EspacoFernandesVideoProps) {
               alt={video.poster.alt}
               className="object-cover transition-transform duration-500 group-hover:scale-[1.018] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
               fill
+              fallbackSrc={video.poster.fallbackSrc}
               priority
               sizes="(max-width: 1023px) min(88vw, 400px), 400px"
               src={video.poster.src}
