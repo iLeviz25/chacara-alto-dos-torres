@@ -1253,7 +1253,8 @@
   cursor: pointer;
 }
 
-.admin-editor-toggle input {
+.admin-editor-toggle input,
+.admin-media-card-body .admin-editor-toggle input {
   position: absolute;
   width: 1px;
   height: 1px;
