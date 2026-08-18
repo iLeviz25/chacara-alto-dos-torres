@@ -281,3 +281,149 @@ img {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Temas publicados pelo painel. O tema padrão não recebe sobrescritas de cor,
+   raio ou sombra, preservando exatamente o acabamento original. */
+.site-theme {
+  min-height: 100vh;
+  background: var(--site-background);
+  color: var(--site-text);
+  font-family: var(--site-body-font);
+}
+
+.site-theme .font-serif,
+.site-theme .display-title,
+.site-theme .section-title {
+  font-family: var(--site-heading-font) !important;
+}
+
+.site-theme[data-theme-animations="off"] *,
+.site-theme[data-theme-animations="off"] *::before,
+.site-theme[data-theme-animations="off"] *::after {
+  scroll-behavior: auto !important;
+  animation: none !important;
+  transition: none !important;
+}
+
+.site-theme[data-theme-button-radius="custom"] :is(a, button)[class*="rounded-full"],
+.site-theme[data-theme-button-radius="custom"] .button-primary,
+.site-theme[data-theme-button-radius="custom"] .button-secondary {
+  border-radius: var(--site-button-radius) !important;
+}
+
+.site-theme[data-theme-card-radius="custom"] .card-surface,
+.site-theme[data-theme-card-radius="custom"] .image-frame,
+.site-theme[data-theme-card-radius="custom"] [class~="rounded-2xl"],
+.site-theme[data-theme-card-radius="custom"] [class~="rounded-3xl"],
+.site-theme[data-theme-card-radius="custom"] [class*="rounded-[1.5rem]"],
+.site-theme[data-theme-card-radius="custom"] [class*="rounded-[1.75rem]"],
+.site-theme[data-theme-card-radius="custom"] [class*="rounded-[2rem]"] {
+  border-radius: var(--site-card-radius) !important;
+}
+
+.site-theme[data-theme-shadow="custom"] .card-surface,
+.site-theme[data-theme-shadow="custom"] .image-frame,
+.site-theme[data-theme-shadow="custom"] [class*="shadow-["],
+.site-theme[data-theme-shadow="custom"] [class~="shadow-sm"],
+.site-theme[data-theme-shadow="custom"] [class~="shadow-lg"],
+.site-theme[data-theme-shadow="custom"] [class~="shadow-xl"] {
+  box-shadow: var(--site-card-shadow) !important;
+}
+
+.site-theme-chacara[data-theme-colors="custom"] {
+  --forest: var(--site-primary);
+  --forest-strong: var(--site-primary);
+  --earth: var(--site-accent);
+  --earth-dark: var(--site-accent);
+  --cream: var(--site-background);
+  --cream-deep: var(--site-background);
+  --ink: var(--site-text);
+  --white: var(--site-surface);
+}
+
+.site-theme-chacara[data-theme-colors="custom"] [class*="bg-[#0d293c]"],
+.site-theme-chacara[data-theme-colors="custom"] [class*="bg-[#081f30]"],
+.site-theme-chacara[data-theme-colors="custom"] [class*="bg-[#10301f]"] {
+  background-color: var(--site-primary) !important;
+}
+
+.site-theme-chacara[data-theme-colors="custom"] [class*="text-[#0d293c]"],
+.site-theme-chacara[data-theme-colors="custom"] [class*="text-[#173f2b]"],
+.site-theme-chacara[data-theme-colors="custom"] [class*="text-[#284b37]"] {
+  color: var(--site-primary) !important;
+}
+
+.site-theme-chacara[data-theme-colors="custom"] [class*="bg-[#f47f20]"],
+.site-theme-chacara[data-theme-colors="custom"] [class*="bg-[#fff0e4]"],
+.site-theme-chacara[data-theme-colors="custom"] [class*="bg-[#f0dfcc]"] {
+  background-color: var(--site-accent) !important;
+}
+
+.site-theme-chacara[data-theme-colors="custom"] [class*="text-[#f47f20]"],
+.site-theme-chacara[data-theme-colors="custom"] [class*="text-[#e66f12]"],
+.site-theme-chacara[data-theme-colors="custom"] [class*="text-[#ff9a4d]"],
+.site-theme-chacara[data-theme-colors="custom"] [class*="text-[#a96531]"],
+.site-theme-chacara[data-theme-colors="custom"] [class*="text-[#7d4927]"] {
+  color: var(--site-accent) !important;
+}
+
+.site-theme-chacara[data-theme-colors="custom"] [class*="bg-[#f7f2e8]"],
+.site-theme-chacara[data-theme-colors="custom"] [class*="bg-[#f5f1e8]"],
+.site-theme-chacara[data-theme-colors="custom"] [class*="bg-[#f8f6f0]"] {
+  background-color: var(--site-background) !important;
+}
+
+.site-theme-chacara[data-theme-colors="custom"] [class*="text-[#1d2930]"],
+.site-theme-chacara[data-theme-colors="custom"] [class*="text-[#242822]"],
+.site-theme-chacara[data-theme-colors="custom"] [class*="text-[#364239]"],
+.site-theme-chacara[data-theme-colors="custom"] [class*="text-[#59645c]"],
+.site-theme-chacara[data-theme-colors="custom"] [class*="text-[#60675e]"],
+.site-theme-chacara[data-theme-colors="custom"] [class*="text-[#4f584e]"] {
+  color: var(--site-text) !important;
+}
+
+.site-theme-chacara[data-theme-colors="custom"] [class*="bg-white"] {
+  background-color: var(--site-surface) !important;
+}
+
+.site-theme-espaco[data-theme-colors="custom"] [class*="bg-[#242423]"],
+.site-theme-espaco[data-theme-colors="custom"] [class*="bg-[#272726]"],
+.site-theme-espaco[data-theme-colors="custom"] [class*="bg-[#292928]"],
+.site-theme-espaco[data-theme-colors="custom"] [class*="bg-[#20201f]"],
+.site-theme-espaco[data-theme-colors="custom"] [class*="bg-[#1d1d1c]"] {
+  background-color: var(--site-primary) !important;
+}
+
+.site-theme-espaco[data-theme-colors="custom"] [class*="text-[#242423]"],
+.site-theme-espaco[data-theme-colors="custom"] [class*="text-[#292928]"],
+.site-theme-espaco[data-theme-colors="custom"] [class*="text-[#30302f]"] {
+  color: var(--site-text) !important;
+}
+
+.site-theme-espaco[data-theme-colors="custom"] [class*="bg-[#f3904f]"] {
+  background-color: var(--site-accent) !important;
+}
+
+.site-theme-espaco[data-theme-colors="custom"] [class*="text-[#f3904f]"],
+.site-theme-espaco[data-theme-colors="custom"] [class*="text-[#f4a06b]"],
+.site-theme-espaco[data-theme-colors="custom"] [class*="text-[#bd5717]"],
+.site-theme-espaco[data-theme-colors="custom"] [class*="text-[#c95e1c]"],
+.site-theme-espaco[data-theme-colors="custom"] [class*="text-[#d96824]"] {
+  color: var(--site-accent) !important;
+}
+
+.site-theme-espaco[data-theme-colors="custom"] [class*="bg-[#f5f1ea]"],
+.site-theme-espaco[data-theme-colors="custom"] [class*="bg-[#eee9e0]"],
+.site-theme-espaco[data-theme-colors="custom"] [class*="bg-[#f2eee7]"] {
+  background-color: var(--site-background) !important;
+}
+
+.site-theme-espaco[data-theme-colors="custom"] [class*="text-[#646461]"],
+.site-theme-espaco[data-theme-colors="custom"] [class*="text-[#60605e]"],
+.site-theme-espaco[data-theme-colors="custom"] [class*="text-[#6b6b68]"] {
+  color: var(--site-text) !important;
+}
+
+.site-theme-espaco[data-theme-colors="custom"] [class*="bg-white"] {
+  background-color: var(--site-surface) !important;
+}

@@ -5,6 +5,7 @@ export type AdminIdentity = {
   userId: string;
   email: string;
   displayName: string;
+  lastSignInAt: string | null;
 };
 
 export async function getAdminIdentity(): Promise<AdminIdentity | null> {
@@ -35,6 +36,7 @@ export async function getAdminIdentity(): Promise<AdminIdentity | null> {
     userId: user.id,
     email,
     displayName: admin.display_name || email.split("@")[0],
+    lastSignInAt: user.last_sign_in_at ?? null,
   };
 }
 

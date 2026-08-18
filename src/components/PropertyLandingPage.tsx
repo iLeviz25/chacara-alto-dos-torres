@@ -18,16 +18,25 @@ import {
 import { VideoSection } from "@/src/components/VideoSection";
 import { WhatsAppButton } from "@/src/components/WhatsAppButton";
 import { AnalyticsTracker } from "@/src/components/AnalyticsTracker";
+import {
+  DEFAULT_SITE_THEMES,
+  themeCssProperties,
+  themesAreEqual,
+  type SiteTheme,
+} from "@/src/lib/theme/site-theme";
 
 interface PropertyLandingPageProps {
   content: PropertyContent;
+  theme: SiteTheme;
   whatsappHref: string | null;
 }
 
 export function PropertyLandingPage({
   content,
+  theme,
   whatsappHref,
 }: PropertyLandingPageProps) {
+  const defaultTheme = DEFAULT_SITE_THEMES["chacara-alto-dos-torres"];
   const statusContent = content.statusContent[content.status];
   const visibleCrops = content.crops.items.some((item) => item.visible);
   const visiblePotential = content.productivePotential.items.some((item) => item.visible);
@@ -82,7 +91,16 @@ export function PropertyLandingPage({
   );
 
   return (
-    <div id="inicio">
+    <div
+      className="site-theme site-theme-chacara"
+      data-theme-animations={theme.animations ? "on" : "off"}
+      data-theme-card-radius={theme.radius.cards === defaultTheme.radius.cards ? "default" : "custom"}
+      data-theme-colors={themesAreEqual({ ...theme, fonts: defaultTheme.fonts, radius: defaultTheme.radius, shadows: defaultTheme.shadows, animations: defaultTheme.animations }, defaultTheme) ? "default" : "custom"}
+      data-theme-button-radius={theme.radius.buttons === defaultTheme.radius.buttons ? "default" : "custom"}
+      data-theme-shadow={theme.shadows === defaultTheme.shadows ? "default" : "custom"}
+      id="inicio"
+      style={themeCssProperties(theme)}
+    >
       <AnalyticsTracker site="chacara-alto-dos-torres" />
       <a className="skip-link" href="#conteudo-principal">
         Ir para o conteúdo principal

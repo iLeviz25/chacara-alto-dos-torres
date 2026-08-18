@@ -1,13 +1,11 @@
-import { Palette } from "lucide-react";
-import { AdminPlaceholder } from "@/src/components/admin/AdminPlaceholder";
+import { AppearanceEditor } from "@/src/components/admin/AppearanceEditor";
+import { getSiteThemeEditorState } from "@/src/lib/theme/admin-theme";
 
-export default function AppearanceAdminPage() {
-  return (
-    <AdminPlaceholder
-      eyebrow="Aparência"
-      title="Identidade visual"
-      description="Área reservada para futuras opções visuais dos projetos."
-      icon={Palette}
-    />
-  );
+export default async function AppearanceAdminPage() {
+  const states = await Promise.all([
+    getSiteThemeEditorState("chacara-alto-dos-torres"),
+    getSiteThemeEditorState("espaco-fernandes"),
+  ]);
+
+  return <AppearanceEditor states={states} />;
 }

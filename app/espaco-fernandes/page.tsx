@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { EspacoFernandesLandingPage } from "@/src/components/EspacoFernandesLandingPage";
 import { getPublishedSiteContent } from "@/src/lib/content/site-content";
+import { getPublishedSiteTheme } from "@/src/lib/theme/published-theme";
 
 export async function generateMetadata(): Promise<Metadata> {
   const espacoFernandes = await getPublishedSiteContent("espaco-fernandes");
@@ -35,7 +36,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function EspacoFernandesPage() {
-  const espacoFernandes = await getPublishedSiteContent("espaco-fernandes");
+  const [espacoFernandes, theme] = await Promise.all([
+    getPublishedSiteContent("espaco-fernandes"),
+    getPublishedSiteTheme("espaco-fernandes"),
+  ]);
   const siteBase = new URL(espacoFernandes.seo.canonicalUrl).origin;
   const structuredData = {
     "@context": "https://schema.org",
@@ -66,7 +70,7 @@ export default async function EspacoFernandesPage() {
 
   return (
     <>
-      <EspacoFernandesLandingPage content={espacoFernandes} />
+      <EspacoFernandesLandingPage content={espacoFernandes} theme={theme} />
       <script
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
         type="application/ld+json"

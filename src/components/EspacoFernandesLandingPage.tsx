@@ -28,9 +28,16 @@ import { AnalyticsTracker } from "@/src/components/AnalyticsTracker";
 import { SiteImage } from "@/src/components/SiteImage";
 import type { EspacoFernandesContent } from "@/src/content/espacoFernandes";
 import { buildWhatsAppLink } from "@/src/lib/whatsapp";
+import {
+  DEFAULT_SITE_THEMES,
+  themeCssProperties,
+  themesAreEqual,
+  type SiteTheme,
+} from "@/src/lib/theme/site-theme";
 
 interface EspacoFernandesLandingPageProps {
   content: EspacoFernandesContent;
+  theme: SiteTheme;
 }
 
 const amenityIcons: Record<
@@ -100,12 +107,22 @@ function SectionIntro({
 
 export function EspacoFernandesLandingPage({
   content,
+  theme,
 }: EspacoFernandesLandingPageProps) {
   const whatsappHref = buildWhatsAppLink(content.contact.whatsapp);
   const address = content.location.addressLines.join("\n");
+  const defaultTheme = DEFAULT_SITE_THEMES["espaco-fernandes"];
 
   return (
-    <div className="min-h-screen bg-[#f5f1ea] text-[#292928]">
+    <div
+      className="site-theme site-theme-espaco min-h-screen bg-[#f5f1ea] text-[#292928]"
+      data-theme-animations={theme.animations ? "on" : "off"}
+      data-theme-card-radius={theme.radius.cards === defaultTheme.radius.cards ? "default" : "custom"}
+      data-theme-colors={themesAreEqual({ ...theme, fonts: defaultTheme.fonts, radius: defaultTheme.radius, shadows: defaultTheme.shadows, animations: defaultTheme.animations }, defaultTheme) ? "default" : "custom"}
+      data-theme-button-radius={theme.radius.buttons === defaultTheme.radius.buttons ? "default" : "custom"}
+      data-theme-shadow={theme.shadows === defaultTheme.shadows ? "default" : "custom"}
+      style={themeCssProperties(theme)}
+    >
       <AnalyticsTracker site="espaco-fernandes" />
       <a className="skip-link" href="#conteudo-espaco">
         Ir para o conteúdo

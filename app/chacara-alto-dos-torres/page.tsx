@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { PropertyLandingPage } from "@/src/components/PropertyLandingPage";
 import { getPublishedSiteContent } from "@/src/lib/content/site-content";
+import { getPublishedSiteTheme } from "@/src/lib/theme/published-theme";
 import { buildWhatsAppLink } from "@/src/lib/whatsapp";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -43,7 +44,10 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function ChacaraAltoDosTorresPage() {
-  const property = await getPublishedSiteContent("chacara-alto-dos-torres");
+  const [property, theme] = await Promise.all([
+    getPublishedSiteContent("chacara-alto-dos-torres"),
+    getPublishedSiteTheme("chacara-alto-dos-torres"),
+  ]);
   const whatsappHref = buildWhatsAppLink(property.contact.whatsapp);
   const structuredData = property.seo.structuredData.enabled
     ? {
@@ -70,7 +74,7 @@ export default async function ChacaraAltoDosTorresPage() {
           }}
         />
       ) : null}
-      <PropertyLandingPage content={property} whatsappHref={whatsappHref} />
+      <PropertyLandingPage content={property} theme={theme} whatsappHref={whatsappHref} />
     </>
   );
 }
